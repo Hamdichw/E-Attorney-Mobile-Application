@@ -1,4 +1,6 @@
 import 'package:e_attorney_hub/utils/const.dart';
+import 'package:e_attorney_hub/utils/widgets/text_field.dart';
+import 'package:e_attorney_hub/utils/widgets/text_field_secure.dart';
 
 import 'signup.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +15,18 @@ class login extends StatefulWidget {
 
 class _loginState extends State<login> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
   String Test_email = "dalizaydi48@gmail.com";
   String Test_password = "dali";
   bool isSecure = true;
+
   @override
+  void setState(VoidCallback fn) {
+    // TODO: implement setState
+    print(isSecure);
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Align(
@@ -49,65 +57,17 @@ class _loginState extends State<login> {
               SizedBox(
                 height: 50,
               ),
-              Padding(
-                padding: EdgeInsets.all(20.0),
-                child: TextFormField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    hintText: 'Email Address',
-                    labelText: 'Email Address',
-                    fillColor: Color.fromARGB(0, 216, 216, 221),
-                    filled: true,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your email';
-                    }
-                    // You can add more email validation logic here if needed
-                    return null;
-                  },
-                ),
+              Field(
+                controller: email,
+                hint: "email",
+                label: "email",
+                msg: "enter your email",
               ),
-              Padding(
-                padding: EdgeInsets.all(20.0),
-                child: TextFormField(
-                  controller: _passwordController,
-                  obscureText: isSecure,
-                  decoration: InputDecoration(
-                    hintText: 'Password',
-                    labelText: 'Password',
-                    suffixIcon: isSecure
-                        ? IconButton(
-                            onPressed: () {
-                              setState(() {
-                                isSecure = !isSecure;
-                              });
-                            },
-                            icon: Icon(Icons.visibility_off),
-                          )
-                        : IconButton(
-                            onPressed: () {
-                              setState(() {
-                                isSecure = !isSecure;
-                              });
-                            },
-                            icon: Icon(Icons.visibility),
-                          ),
-                    fillColor: Color.fromARGB(0, 216, 216, 221),
-                    filled: true,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your password';
-                    }
-                    // You can add more password validation logic here if needed
-                    return null;
-                  },
-                ),
+              Field_secure(
+                controller: password,
+                hint: "password",
+                label: "password",
+                msg: "enter your password",
               ),
               Padding(
                 padding: EdgeInsets.only(left: 19, top: 8, right: 19),
@@ -145,9 +105,9 @@ class _loginState extends State<login> {
                   // Validate the form
                   if (_formKey.currentState!.validate()) {
                     // Form is valid, perform login logic here
-                    String email = _emailController.text;
-                    String password = _passwordController.text;
-                    if (email == Test_email && password == Test_password) {
+                    String Email = email.text;
+                    String Password = password.text;
+                    if (Email == Test_email && Password == Test_password) {
                       /* Navigator.push(
                           context,
                           MaterialPageRoute(

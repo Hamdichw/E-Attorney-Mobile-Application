@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:e_attorney_hub/view/page_controller.dart';
 import 'package:flutter/material.dart';
-import '../view/Login.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const login()),
+        MaterialPageRoute(builder: (context) => const Controller()),
       );
     });
   }
@@ -30,14 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
               fit: BoxFit.cover,
               height: double.infinity,
               width: double.infinity,
-              image: AssetImage('images/peakpx.jpg')),
-
-          Align(
-              alignment: Alignment.center,
-              child: Image(
-                  height: 300,
-                  width: 300,
-                  image: AssetImage('images/peakpx.jpg'))),
+              image: AssetImage('images/splash1.png')),
 
           ///thankyou
         ],
