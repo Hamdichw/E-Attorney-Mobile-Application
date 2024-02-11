@@ -20,29 +20,19 @@ class Screen2 extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            height: 450,
-            width: 450,
+            width: MediaQuery.of(context).size.width * 0.9,
+            height: MediaQuery.of(context).size.height * 0.5,
             decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage('images/toph2.png'),
                     fit: BoxFit.scaleDown)),
           ),
-          /* Padding(
-            padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-            child: Image(
-                height: 400, width: 300, image: AssetImage('images/toph2.png')),
-          ), */
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-            child: Text(
-              "Easy To hire",
-              style: TextStyle(
-                  color: btncolor, fontSize: 30, fontWeight: FontWeight.bold),
-            ),
+          Text(
+            "Easy To hire",
+            style: TextStyle(
+                color: btncolor, fontSize: 30, fontWeight: FontWeight.bold),
           ),
-          SizedBox(
-            height: 250,
-          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.275),
           DotsIndicator(
             dotsCount: pageCount,
             position: currentIndex,
@@ -56,7 +46,7 @@ class Screen2 extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 20,
+            height: MediaQuery.of(context).size.height * 0.023,
           ),
           Next(onNext: onNext),
         ],

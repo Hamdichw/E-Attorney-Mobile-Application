@@ -83,7 +83,7 @@ class Screen4 extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Already have a account?"),
+              Text("Already have an account?"),
               TextButton(
                   onPressed: () {
                     Navigator.push(
