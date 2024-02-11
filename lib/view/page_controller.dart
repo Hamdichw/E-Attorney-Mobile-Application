@@ -1,3 +1,5 @@
+import 'package:e_attorney_hub/view/login.dart';
+import 'package:e_attorney_hub/view/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:e_attorney_hub/view/screen1.dart';
 import 'package:e_attorney_hub/view/screen2.dart';
@@ -70,7 +72,7 @@ class _ControllerState extends State<Controller> {
               currentIndex: _currentPageIndex,
               pageCount: 4,
             ),
-            Screen4(),
+            const Screen4(),
           ],
         ),
       ),

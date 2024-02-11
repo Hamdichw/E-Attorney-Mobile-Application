@@ -19,11 +19,19 @@ class Screen2 extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Padding(
+          Container(
+            height: 450,
+            width: 450,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('images/toph2.png'),
+                    fit: BoxFit.scaleDown)),
+          ),
+          /* Padding(
             padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
             child: Image(
-                height: 450, width: 500, image: AssetImage('images/toph3.png')),
-          ),
+                height: 400, width: 300, image: AssetImage('images/toph2.png')),
+          ), */
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
             child: Text(
@@ -32,20 +40,23 @@ class Screen2 extends StatelessWidget {
                   color: btncolor, fontSize: 30, fontWeight: FontWeight.bold),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 200, 0, 0),
-            child: DotsIndicator(
-              dotsCount: pageCount,
-              position: currentIndex,
-              decorator: DotsDecorator(
-                activeColor: btncolor,
-                size: const Size.square(9.0),
-                activeSize: const Size(18.0, 9.0),
-                activeShape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
+          SizedBox(
+            height: 250,
+          ),
+          DotsIndicator(
+            dotsCount: pageCount,
+            position: currentIndex,
+            decorator: DotsDecorator(
+              activeColor: btncolor,
+              size: const Size.square(9.0),
+              activeSize: const Size(18.0, 9.0),
+              activeShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0),
               ),
             ),
+          ),
+          SizedBox(
+            height: 20,
           ),
           Next(onNext: onNext),
         ],

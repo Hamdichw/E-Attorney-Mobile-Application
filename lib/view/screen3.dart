@@ -19,33 +19,36 @@ class Screen3 extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-            child: Image(
-                height: 450, width: 500, image: AssetImage('images/toph4.png')),
+          Container(
+            height: 450,
+            width: 450,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('images/toph4.png'),
+                    fit: BoxFit.scaleDown)),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-            child: Text(
-              "Online Payments",
-              style: TextStyle(
-                  color: btncolor, fontSize: 30, fontWeight: FontWeight.bold),
-            ),
+          Text(
+            "Online Payments",
+            style: TextStyle(
+                color: btncolor, fontSize: 30, fontWeight: FontWeight.bold),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 200, 0, 0),
-            child: DotsIndicator(
-              dotsCount: pageCount,
-              position: currentIndex,
-              decorator: DotsDecorator(
-                activeColor: btncolor,
-                size: const Size.square(9.0),
-                activeSize: const Size(18.0, 9.0),
-                activeShape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
+          SizedBox(
+            height: 250,
+          ),
+          DotsIndicator(
+            dotsCount: pageCount,
+            position: currentIndex,
+            decorator: DotsDecorator(
+              activeColor: btncolor,
+              size: const Size.square(9.0),
+              activeSize: const Size(18.0, 9.0),
+              activeShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0),
               ),
             ),
+          ),
+          SizedBox(
+            height: 20,
           ),
           Next(onNext: onNext)
         ],

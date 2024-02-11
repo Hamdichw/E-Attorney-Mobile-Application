@@ -36,7 +36,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   animated_switch: ^0.0.3
-  onboarding_animation: ^0.0.3
+  onboarding_animation: any
   page_view_indicators: ^2.0.0
   dots_indicator: ^3.0.0
 

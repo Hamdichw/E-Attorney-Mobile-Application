@@ -50,7 +50,7 @@ class _signupState extends State<signup> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                   child: Text(
-                    'Please Signup before get started',
+                    'Please Signup before get started.',
                     style: TextStyle(fontSize: 14),
                   ),
                 ),
