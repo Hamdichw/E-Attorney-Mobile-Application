@@ -1,6 +1,6 @@
 import 'package:e_attorney_hub/utils/const.dart';
-import 'package:e_attorney_hub/utils/widgets/text_field.dart';
-import 'package:e_attorney_hub/utils/widgets/text_field_secure.dart';
+import 'package:e_attorney_hub/utils/widgets/text_field/text_field.dart';
+import 'package:e_attorney_hub/utils/widgets/text_field/text_field_secure.dart';
 
 import 'signup.dart';
 import 'package:flutter/material.dart';

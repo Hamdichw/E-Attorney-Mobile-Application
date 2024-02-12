@@ -1,19 +1,20 @@
 import 'package:e_attorney_hub/utils/const.dart';
-import 'package:e_attorney_hub/utils/widgets/btn_next.dart';
+import 'package:e_attorney_hub/utils/widgets/buttons/btn_next.dart';
 import 'package:flutter/material.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
-class Screen3 extends StatelessWidget {
+class Screen1 extends StatelessWidget {
   final VoidCallback onNext;
   final int currentIndex;
   final int pageCount;
 
-  const Screen3({
+  const Screen1({
     Key? key,
     required this.onNext,
     required this.currentIndex,
     required this.pageCount,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,11 +26,11 @@ class Screen3 extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.5,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('images/toph4.png'),
+                      image: AssetImage('images/toph1.png'),
                       fit: BoxFit.scaleDown)),
             ),
             Text(
-              "Online Payments",
+              "Find The Best lawyer",
               style: TextStyle(
                   color: btncolor, fontSize: 30, fontWeight: FontWeight.bold),
             ),
@@ -49,7 +50,7 @@ class Screen3 extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.023,
             ),
-            Next(onNext: onNext)
+            Next(onNext: onNext),
           ],
         ),
       ),

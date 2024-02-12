@@ -1,14 +1,14 @@
 import 'package:e_attorney_hub/utils/const.dart';
-import 'package:e_attorney_hub/utils/widgets/btn_next.dart';
+import 'package:e_attorney_hub/utils/widgets/buttons/btn_next.dart';
 import 'package:flutter/material.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
-class Screen2 extends StatelessWidget {
+class Screen3 extends StatelessWidget {
   final VoidCallback onNext;
   final int currentIndex;
   final int pageCount;
 
-  const Screen2({
+  const Screen3({
     Key? key,
     required this.onNext,
     required this.currentIndex,
@@ -25,11 +25,11 @@ class Screen2 extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.5,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('images/toph2.png'),
+                      image: AssetImage('images/toph4.png'),
                       fit: BoxFit.scaleDown)),
             ),
             Text(
-              "Easy To hire",
+              "Online Payments",
               style: TextStyle(
                   color: btncolor, fontSize: 30, fontWeight: FontWeight.bold),
             ),
@@ -49,7 +49,7 @@ class Screen2 extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.023,
             ),
-            Next(onNext: onNext),
+            Next(onNext: onNext)
           ],
         ),
       ),

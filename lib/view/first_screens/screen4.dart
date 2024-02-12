@@ -1,8 +1,8 @@
 import 'package:e_attorney_hub/utils/const.dart';
-import 'package:e_attorney_hub/view/login.dart';
+import 'package:e_attorney_hub/view/authentification/login.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/widgets/btn_screen4.dart';
+import '../../utils/widgets/buttons/btn_screen4.dart';
 
 class Screen4 extends StatelessWidget {
   const Screen4({

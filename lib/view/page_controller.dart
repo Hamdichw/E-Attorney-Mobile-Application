@@ -1,10 +1,8 @@
-import 'package:e_attorney_hub/view/login.dart';
-import 'package:e_attorney_hub/view/signup.dart';
 import 'package:flutter/material.dart';
-import 'package:e_attorney_hub/view/screen1.dart';
-import 'package:e_attorney_hub/view/screen2.dart';
-import 'package:e_attorney_hub/view/screen3.dart';
-import 'package:e_attorney_hub/view/screen4.dart';
+import 'package:e_attorney_hub/view/first_screens/screen1.dart';
+import 'package:e_attorney_hub/view/first_screens/screen2.dart';
+import 'package:e_attorney_hub/view/first_screens/screen3.dart';
+import 'package:e_attorney_hub/view/first_screens/screen4.dart';
 
 class Controller extends StatefulWidget {
   const Controller({Key? key}) : super(key: key);
@@ -32,7 +30,7 @@ class _ControllerState extends State<Controller> {
   void _nextPage() {
     if (_currentPageIndex < 3) {
       _pageController.nextPage(
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
       setState(() {
@@ -55,6 +53,8 @@ class _ControllerState extends State<Controller> {
               _currentPageIndex = index;
             });
           },
+
+          ///**********les pages***************** */
           children: [
             Screen1(
               onNext: _nextPage,
@@ -78,3 +78,4 @@ class _ControllerState extends State<Controller> {
     );
   }
 }
+//************page controlle les 4 premiers page utilise pageview***************** */

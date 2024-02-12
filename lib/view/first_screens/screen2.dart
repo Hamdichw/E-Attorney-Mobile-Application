@@ -1,20 +1,19 @@
 import 'package:e_attorney_hub/utils/const.dart';
-import 'package:e_attorney_hub/utils/widgets/btn_next.dart';
+import 'package:e_attorney_hub/utils/widgets/buttons/btn_next.dart';
 import 'package:flutter/material.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
-class Screen1 extends StatelessWidget {
+class Screen2 extends StatelessWidget {
   final VoidCallback onNext;
   final int currentIndex;
   final int pageCount;
 
-  const Screen1({
+  const Screen2({
     Key? key,
     required this.onNext,
     required this.currentIndex,
     required this.pageCount,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,11 +25,11 @@ class Screen1 extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.5,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage('images/toph1.png'),
+                      image: AssetImage('images/toph2.png'),
                       fit: BoxFit.scaleDown)),
             ),
             Text(
-              "Find The Best lawyer",
+              "Easy To hire",
               style: TextStyle(
                   color: btncolor, fontSize: 30, fontWeight: FontWeight.bold),
             ),

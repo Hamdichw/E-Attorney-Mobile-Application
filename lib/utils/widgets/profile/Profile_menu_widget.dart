@@ -1,6 +1,5 @@
 import 'package:e_attorney_hub/utils/const.dart';
 import 'package:flutter/material.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class ProfileMenuWidget extends StatelessWidget {
   const ProfileMenuWidget({
@@ -20,11 +19,9 @@ class ProfileMenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
-    var iconColor = isDark ? btncolor : Colors.white;
-
+    var iconColor = btncolor;
     return ListTile(
-      onTap: onPress,
+      onTap: onPress, //****************function here *********** */
       leading: Container(
         width: 40,
         height: 40,
@@ -34,19 +31,19 @@ class ProfileMenuWidget extends StatelessWidget {
         ),
         child: Icon(icon, color: iconColor),
       ),
-      title: Text(title,
-          style:
-              Theme.of(context).textTheme.bodyText1?.apply(color: textColor)),
+      //************* text here *********/
+      title: Text(title),
       trailing: endIcon
           ? Container(
               width: 30,
               height: 30,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
-                color: Colors.grey.withOpacity(0.1),
+                color:
+                    const Color.fromARGB(255, 158, 158, 158).withOpacity(0.1),
               ),
-              child: const Icon(LineAwesomeIcons.angle_right,
-                  size: 18.0, color: Colors.grey))
+              child: const Icon(Icons.arrow_forward_ios_sharp,
+                  size: 18.0, color: btncolor))
           : null,
     );
   }

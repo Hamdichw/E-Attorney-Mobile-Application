@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:e_attorney_hub/utils/const.dart';
-import 'package:e_attorney_hub/view/login.dart';
-import 'package:e_attorney_hub/view/screen4.dart';
-import 'package:e_attorney_hub/view/signup.dart';
+import 'package:e_attorney_hub/view/authentification/login.dart';
+import 'package:e_attorney_hub/view/first_screens/screen4.dart';
+import 'package:e_attorney_hub/view/authentification/signup.dart';
 
 import 'profile_screen.dart';
 
@@ -14,6 +14,7 @@ class NavBar extends StatefulWidget {
   _NavBarState createState() => _NavBarState();
 }
 
+/// ******* index de page a le demarrage ******///
 class _NavBarState extends State<NavBar> {
   int _pageIndex = 2;
   late PageController _pageController;
@@ -44,6 +45,8 @@ class _NavBarState extends State<NavBar> {
             ),
           ],
         ),
+
+        ///*******************navigation et element ************************ */
         child: CurvedNavigationBar(
           buttonBackgroundColor: Colors.white,
           backgroundColor: Color.fromARGB(0, 255, 255, 255),
@@ -76,6 +79,8 @@ class _NavBarState extends State<NavBar> {
               color: btncolor,
             ),
           ],
+
+          ///************animation de scroll*************** */
           onTap: (index) {
             setState(() {
               _pageIndex = index;
@@ -95,6 +100,8 @@ class _NavBarState extends State<NavBar> {
             _pageIndex = index;
           });
         },
+
+        ///********les pages de navbar******** */
         children: const <Widget>[
           login(),
           signup(),
