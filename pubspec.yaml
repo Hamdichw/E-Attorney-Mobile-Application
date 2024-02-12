@@ -39,6 +39,10 @@ dependencies:
   onboarding_animation: any
   page_view_indicators: ^2.0.0
   dots_indicator: ^3.0.0
+  circle_nav_bar: ^2.0.1+1
+  curved_navigation_bar: ^1.0.3
+  my_line_awesome_icons: ^1.1.0
+  line_awesome_flutter: ^2.0.0
 
 
 dev_dependencies:

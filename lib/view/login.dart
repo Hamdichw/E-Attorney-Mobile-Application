@@ -31,9 +31,11 @@ class _loginState extends State<login> {
     return Scaffold(
       body: Align(
         alignment: Alignment.center,
-        child: Form(
-          key: _formKey,
-          child: Login(context),
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Login(context),
+          ),
         ),
       ),
     );
@@ -136,35 +138,33 @@ class _loginState extends State<login> {
             primary: btncolor,
           ),
         )),
-        Padding(
-          padding: EdgeInsets.only(left: 100.0, top: 0),
-          child: Row(
-            children: [
-              Text(
-                "Don't have an account?",
-                style: TextStyle(
-                  color: Colors.grey,
-                ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Don't have an account?",
+              style: TextStyle(
+                color: Colors.grey,
               ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => signup(),
-                    ),
-                  );
-                },
-                child: Text(
-                  "Signup Now",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 16),
-                ),
-              )
-            ],
-          ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => signup(),
+                  ),
+                );
+              },
+              child: Text(
+                "Signup Now",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 16),
+              ),
+            )
+          ],
         ),
       ],
     );

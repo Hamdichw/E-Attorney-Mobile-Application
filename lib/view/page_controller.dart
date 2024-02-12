@@ -45,11 +45,10 @@ class _ControllerState extends State<Controller> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white.withOpacity(.9),
-      body: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: PageView(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white.withOpacity(.9),
+        body: PageView(
           controller: _pageController,
           onPageChanged: (int index) {
             setState(() {

@@ -1,4 +1,6 @@
+import 'package:e_attorney_hub/view/nav_bar.dart';
 import 'package:e_attorney_hub/view/page_controller.dart';
+import 'package:e_attorney_hub/view/profile_screen.dart';
 import 'package:e_attorney_hub/view/screen1.dart';
 import 'package:e_attorney_hub/view/screen2.dart';
 import 'package:e_attorney_hub/view/screen3.dart';
@@ -9,6 +11,6 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: Controller(),
+    home: NavBar(),
   ));
 }

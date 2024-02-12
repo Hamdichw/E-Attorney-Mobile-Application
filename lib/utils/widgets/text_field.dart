@@ -29,7 +29,7 @@ class _FieldState extends State<Field> {
           labelText: widget.label,
           fillColor: Color.fromARGB(0, 216, 216, 221),
           filled: true,
-          border: OutlineInputBorder(
+          border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(5))),
         ),
         validator: (value) {

@@ -32,6 +32,7 @@ class _signupState extends State<signup> {
         alignment: Alignment.center,
         child: SingleChildScrollView(
           child: Form(
+            key: formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -109,7 +110,9 @@ class _signupState extends State<signup> {
                 ),
                 Center(
                     child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {}
+                  },
                   style: ElevatedButton.styleFrom(
                     // Set height and width
                     fixedSize: Size(200, 50),
@@ -122,38 +125,36 @@ class _signupState extends State<signup> {
                         color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                 )),
-                Padding(
-                  padding: EdgeInsets.only(left: 100.0, top: 0),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Alredy have an accont?",
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Alredy have an accont?",
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => login(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "Login now",
                         style: TextStyle(
-                          color: Colors.grey,
-                        ),
+                            color: Colors.black,
+                            fontWeight: FontWeight.normal,
+                            fontSize: 16),
                       ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => login(),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          "Login now",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 16),
-                        ),
-                      )
-                    ],
-                  ),
+                    )
+                  ],
                 ),
               ],
             ),
