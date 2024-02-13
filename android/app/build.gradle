@@ -22,6 +22,7 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+
 android {
     namespace "com.example.e_attorney_hub"
     compileSdkVersion flutter.compileSdkVersion
@@ -64,4 +65,5 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+}

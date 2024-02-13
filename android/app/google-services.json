@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "802948740295",
+    "project_id": "e-attorney-hub",
+    "storage_bucket": "e-attorney-hub.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:802948740295:android:de7a4d8bf2c22890247ae2",
+        "android_client_info": {
+          "package_name": "com.example.e_attorney_hub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlC9MK8h5tL3mqMSuIlxmk58ZDRSK6tHM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

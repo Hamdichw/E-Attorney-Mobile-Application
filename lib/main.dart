@@ -8,6 +8,8 @@ import 'package:e_attorney_hub/view/first_screens/screen4.dart';
 import 'package:e_attorney_hub/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 
+import 'view/notification_page.dart';
+
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,

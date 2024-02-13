@@ -5,6 +5,7 @@ import 'package:e_attorney_hub/view/authentification/login.dart';
 import 'package:e_attorney_hub/view/first_screens/screen4.dart';
 import 'package:e_attorney_hub/view/authentification/signup.dart';
 
+import 'notification_page.dart';
 import 'profile_screen.dart';
 
 class NavBar extends StatefulWidget {
@@ -102,11 +103,11 @@ class _NavBarState extends State<NavBar> {
         },
 
         ///********les pages de navbar******** */
-        children: const <Widget>[
+        children: <Widget>[
           login(),
           signup(),
           Screen4(),
-          Screen4(),
+          NotitcationTap(),
           ProfileScreen()
         ],
       ),

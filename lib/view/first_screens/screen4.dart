@@ -1,5 +1,6 @@
 import 'package:e_attorney_hub/utils/const.dart';
 import 'package:e_attorney_hub/view/authentification/login.dart';
+import 'package:e_attorney_hub/view/authentification/signup.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/widgets/buttons/btn_screen4.dart';
@@ -20,7 +21,7 @@ class Screen4 extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Padding(
+                  const Padding(
                       padding: EdgeInsets.fromLTRB(20, 40, 0, 0),
                       child: Text(
                         "Welcome!",
@@ -29,13 +30,13 @@ class Screen4 extends StatelessWidget {
                             fontSize: 30,
                             fontWeight: FontWeight.bold),
                       )),
-                  Padding(
+                  const Padding(
                       padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                       child: Text("We're happy to see you here.")),
                   Image(
                       height: MediaQuery.of(context).size.height * 0.4,
                       width: MediaQuery.of(context).size.height * 0.05,
-                      image: AssetImage('images/mobile_login.png')),
+                      image: const AssetImage('images/mobile_login.png')),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.08,
                   ),
@@ -63,37 +64,43 @@ class Screen4 extends StatelessWidget {
               ),
             ),
             ElevatedButton(
-              onPressed: null,
-              child: Text(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context) => const signup(),
+                    ));
+              },
+              style: ButtonStyle(
+                fixedSize: MaterialStatePropertyAll(Size(
+                    MediaQuery.of(context).size.width * 0.55,
+                    MediaQuery.of(context).size.height * 0.06)),
+                backgroundColor: const MaterialStatePropertyAll(btncolor),
+              ),
+              child: const Text(
                 'Signup With Email',
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 14),
               ),
-              style: ButtonStyle(
-                fixedSize: MaterialStatePropertyAll(Size(
-                    MediaQuery.of(context).size.width * 0.55,
-                    MediaQuery.of(context).size.height * 0.06)),
-                backgroundColor: MaterialStatePropertyAll(btncolor),
-              ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Already have an account?"),
+                const Text("Already have an account?"),
                 TextButton(
                     onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => login(),
+                            builder: (context) => const login(),
                           ));
                     },
-                    child: Text(
+                    child: const Text(
                       "Login now",
                       style: TextStyle(color: btncolor),
                     ))
