@@ -1,7 +1,8 @@
+import 'package:e_attorney_hub/view/authentification/login.dart';
 import 'package:flutter/material.dart';
 import 'package:e_attorney_hub/utils/const.dart';
 import 'package:e_attorney_hub/utils/widgets/profile/Profile_menu_widget.dart';
-import '../utils/widgets/profile/profile_update_screen.dart';
+import 'profile_update_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -24,8 +25,8 @@ class ProfileScreen extends StatelessWidget {
                   height: 120,
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(100),
-                      child:
-                          const Image(image: AssetImage("images/images.jpg"))),
+                      child: const Image(
+                          image: AssetImage("images/Berserk.webp"))),
                 ),
                 Positioned(
                   bottom: 0,
@@ -91,7 +92,13 @@ class ProfileScreen extends StatelessWidget {
                 icon: Icons.logout,
                 textColor: Colors.red,
                 endIcon: false,
-                onPress: () {}),
+                onPress: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => const login(),
+                      ));
+                }),
           ],
         ),
       ),

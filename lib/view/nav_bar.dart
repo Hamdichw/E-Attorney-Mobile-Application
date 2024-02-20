@@ -1,10 +1,9 @@
+import 'package:animated/animated.dart';
+import 'package:e_attorney_hub/view/chat_page.dart';
+import 'package:e_attorney_hub/view/find_page.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:e_attorney_hub/utils/const.dart';
-import 'package:e_attorney_hub/view/authentification/login.dart';
-import 'package:e_attorney_hub/view/first_screens/screen4.dart';
-import 'package:e_attorney_hub/view/authentification/signup.dart';
-
 import 'notification_page.dart';
 import 'profile_screen.dart';
 
@@ -42,7 +41,7 @@ class _NavBarState extends State<NavBar> {
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: 2,
               blurRadius: 7,
-              offset: Offset(0, 3),
+              offset: const Offset(0, 3),
             ),
           ],
         ),
@@ -50,22 +49,22 @@ class _NavBarState extends State<NavBar> {
         ///*******************navigation et element ************************ */
         child: CurvedNavigationBar(
           buttonBackgroundColor: Colors.white,
-          backgroundColor: Color.fromARGB(0, 255, 255, 255),
+          backgroundColor: const Color.fromARGB(0, 255, 255, 255),
           index: _pageIndex,
           height: 50.0,
           items: const <Widget>[
             Icon(
-              Icons.add,
+              Icons.note_add_outlined,
               size: 30,
               color: btncolor,
             ),
             Icon(
-              Icons.wechat_outlined,
+              Icons.chat_bubble_outline,
               size: 30,
               color: btncolor,
             ),
             Icon(
-              Icons.home_filled,
+              Icons.home_outlined,
               size: 30,
               color: btncolor,
             ),
@@ -87,7 +86,7 @@ class _NavBarState extends State<NavBar> {
               _pageIndex = index;
               _pageController.animateToPage(
                 _pageIndex,
-                duration: Duration(milliseconds: 300),
+                duration: const Duration(milliseconds: 30),
                 curve: Curves.ease,
               );
             });
@@ -104,11 +103,17 @@ class _NavBarState extends State<NavBar> {
 
         ///********les pages de navbar******** */
         children: <Widget>[
-          login(),
-          signup(),
-          Screen4(),
+          const Center(
+            child: Text(
+              "Add Documents",
+              style: TextStyle(
+                  color: btncolor, fontSize: 30, fontWeight: FontWeight.bold),
+            ),
+          ),
+          const Chat_Page(),
+          const FindPage(),
           NotitcationTap(),
-          ProfileScreen()
+          const ProfileScreen()
         ],
       ),
     );

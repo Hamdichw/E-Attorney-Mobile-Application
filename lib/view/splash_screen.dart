@@ -1,4 +1,4 @@
-import 'package:e_attorney_hub/view/page_controller.dart';
+import 'package:e_attorney_hub/view/first_screens/page_controller.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {

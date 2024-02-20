@@ -1,6 +1,7 @@
 import 'package:e_attorney_hub/utils/const.dart';
 import 'package:e_attorney_hub/utils/widgets/text_field/text_field.dart';
 import 'package:e_attorney_hub/utils/widgets/text_field/text_field_secure.dart';
+import 'package:e_attorney_hub/view/nav_bar.dart';
 
 import 'signup.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +18,8 @@ class _loginState extends State<login> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-  String Test_email = "dalizaydi48@gmail.com";
-  String Test_password = "dali";
+  String Test_email = "123";
+  String Test_password = "123";
   bool isSecure = true;
 
   @override
@@ -117,11 +118,11 @@ class _loginState extends State<login> {
               String Email = email.text;
               String Password = password.text;
               if (Email == Test_email && Password == Test_password) {
-                /* Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Recherche(),
-                        )); */
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NavBar(),
+                    ));
                 print('Email: $email, Password: $password');
               }
             }

@@ -1,9 +1,15 @@
 import 'package:e_attorney_hub/utils/const.dart';
 import 'package:flutter/material.dart';
 
-class UpdateProfileScreen extends StatelessWidget {
+class UpdateProfileScreen extends StatefulWidget {
   const UpdateProfileScreen({Key? key}) : super(key: key);
 
+  @override
+  State<UpdateProfileScreen> createState() => _UpdateProfileScreenState();
+}
+
+class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
+  bool obscure = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,13 +72,19 @@ class UpdateProfileScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     TextFormField(
-                      obscureText: true,
+                      obscureText: obscure,
                       decoration: InputDecoration(
                         label: const Text("Password"),
                         prefixIcon: const Icon(Icons.fingerprint),
                         suffixIcon: IconButton(
-                            icon: const Icon(Icons.visibility),
-                            onPressed: () {}),
+                            icon: obscure
+                                ? Icon(Icons.visibility)
+                                : Icon(Icons.visibility_off),
+                            onPressed: () {
+                              setState(() {
+                                obscure = !obscure;
+                              });
+                            }),
                       ),
                     ),
                     const SizedBox(height: 20),
