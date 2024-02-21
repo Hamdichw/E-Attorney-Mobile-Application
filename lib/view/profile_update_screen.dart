@@ -1,4 +1,6 @@
 import 'package:e_attorney_hub/utils/const.dart';
+import 'package:e_attorney_hub/utils/function.dart';
+import 'package:e_attorney_hub/utils/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
@@ -9,19 +11,28 @@ class UpdateProfileScreen extends StatefulWidget {
 }
 
 class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  TextEditingController name = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController phone = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController vfpassword = TextEditingController();
   bool obscure = true;
+  bool visible = true;
+  bool visible1 = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: const Text("Edit Profile"),
+        centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Align(
-          alignment: Alignment.center,
+      body: Center(
+        child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // ********************************************* IMAGE with ICON *************************************** //
               Stack(
@@ -53,45 +64,82 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
 
               // ****************************************************** Form Fields ************************************ //
               Form(
+                key: formKey,
                 child: Column(
                   children: [
-                    TextFormField(
-                      decoration: const InputDecoration(
-                          label: Text("Full name"),
-                          prefixIcon: Icon(Icons.account_circle_outlined)),
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                          label: Text("Email"), prefixIcon: Icon(Icons.email)),
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                          label: Text("Phone"), prefixIcon: Icon(Icons.phone)),
-                    ),
-                    const SizedBox(height: 20),
-                    TextFormField(
-                      obscureText: obscure,
-                      decoration: InputDecoration(
-                        label: const Text("Password"),
-                        prefixIcon: const Icon(Icons.fingerprint),
-                        suffixIcon: IconButton(
-                            icon: obscure
-                                ? Icon(Icons.visibility)
-                                : Icon(Icons.visibility_off),
-                            onPressed: () {
-                              setState(() {
-                                obscure = !obscure;
-                              });
-                            }),
+                    InputField(
+                      hintText: "Full name",
+                      controller: name,
+                      validator: Validators.validateName,
+                      prefixIcon: Icon(
+                        Icons.account_circle_outlined,
                       ),
                     ),
+                    InputField(
+                      hintText: "Email",
+                      controller: email,
+                      validator: Validators.validateEmail,
+                      prefixIcon: Icon(Icons.email),
+                    ),
+                    InputField(
+                      hintText: "phone",
+                      controller: phone,
+                      validator: Validators.validatePhone,
+                      prefixIcon: Icon(Icons.phone),
+                    ),
+                    InputField(
+                      hintText: "password",
+                      controller: password,
+                      obscure: visible,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            visible = !visible;
+                          });
+                        },
+                        icon: visible == true
+                            ? const Icon(
+                                Icons.visibility,
+                                color: Colors.black,
+                              )
+                            : const Icon(
+                                Icons.visibility_off,
+                                color: Colors.black,
+                              ),
+                      ),
+                      icon: Icons.lock,
+                      validator: Validators.validatePassword,
+                      prefixIcon: Icon(Icons.fingerprint),
+                    ),
+                    InputField(
+                      hintText: "Conform Password",
+                      controller: vfpassword,
+                      obscure: visible1,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            visible1 = !visible1;
+                          });
+                        },
+                        icon: visible1 == true
+                            ? const Icon(
+                                Icons.visibility,
+                                color: Colors.black,
+                              )
+                            : const Icon(
+                                Icons.visibility_off,
+                                color: Colors.black,
+                              ),
+                      ),
+                      icon: Icons.lock,
+                      validator: Validators.validatePassword,
+                      prefixIcon: Icon(Icons.fingerprint),
+                    ),
                     const SizedBox(height: 20),
-
                     // ************************************ Form Submit Button **************************************** //
                     const SizedBox(
                       width: 200,
+                      height: 50,
                       child: ElevatedButton(
                         onPressed: null,
                         style: ButtonStyle(
@@ -102,38 +150,6 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                             style: TextStyle(color: Colors.white)),
                       ),
                     ),
-                    const SizedBox(height: 20),
-
-                    // ************************** Created Date and Delete Button ***************************************//
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text.rich(
-                          TextSpan(
-                            text: "joined",
-                            style: TextStyle(fontSize: 12),
-                            children: [
-                              TextSpan(
-                                  text: "Joined At",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12))
-                            ],
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  Colors.redAccent.withOpacity(0.1),
-                              elevation: 0,
-                              foregroundColor: Colors.red,
-                              shape: const StadiumBorder(),
-                              side: BorderSide.none),
-                          child: const Text("Delete"),
-                        ),
-                      ],
-                    )
                   ],
                 ),
               ),

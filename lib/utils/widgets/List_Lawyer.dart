@@ -3,6 +3,7 @@ import 'package:e_attorney_hub/view/chat_page.dart';
 import 'package:flutter/material.dart';
 
 import '../const.dart';
+import 'Card.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -34,20 +35,19 @@ class _HomePageState extends State<HomePage> {
               height: 15,
             ),
             Padding(
-              padding: EdgeInsets.only(top: 16, left: 5, right: 5),
+              padding: const EdgeInsets.only(top: 16, left: 5, right: 5),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: "Search...",
-                  hintStyle:
-                      TextStyle(color: Color.fromARGB(255, 117, 117, 117)),
-                  prefixIcon: Icon(
+                  hintStyle: const TextStyle(color: Colors.black),
+                  prefixIcon: const Icon(
                     Icons.search,
-                    color: Colors.grey.shade400,
+                    color: Colors.black,
                     size: 20,
                   ),
                   filled: true,
-                  fillColor: Colors.grey.shade100,
-                  contentPadding: EdgeInsets.all(8),
+                  fillColor: const Color.fromARGB(255, 216, 216, 216),
+                  contentPadding: const EdgeInsets.all(8),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30),
                       borderSide: BorderSide(color: Colors.grey.shade100)),
@@ -62,46 +62,21 @@ class _HomePageState extends State<HomePage> {
                 itemCount: data.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
-                    onTap: () {
-                      /*  Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                const Chat_Page(),
-                          )); */
-                    },
-                    child: Card(
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      elevation: 5, // Add elevation for a shadow effect
-                      shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(10), // Add border radius
-                        side:
-                            BorderSide(color: Colors.grey), // Add border color
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: ListTile(
-                          leading: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child: const Image(
-                                  image: AssetImage("images/Berserk.webp")),
-                            ),
-                          ),
-                          title: Text(
-                            '${data?[index].lastName}  ${data[index].name} ',
-                            style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                                color: Color.fromARGB(255, 0, 0, 0)),
-                          ),
-                          trailing: const Icon(Icons.arrow_forward_outlined,
-                              size: 18.0, color: btncolor),
+                    onTap: () {},
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 15,
                         ),
-                      ),
+                        card(
+                          name: data?[index].name,
+                          Lastname: data?[index].lastName,
+                          Icon: const Icon(Icons.arrow_forward_ios,
+                              size: 22.0, color: btncolor),
+                          image: const Image(
+                              image: AssetImage("images/images.jpg")),
+                        ),
+                      ],
                     ),
                   );
                 },

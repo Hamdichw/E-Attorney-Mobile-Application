@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:e_attorney_hub/utils/widgets/text_field/text_field.dart';
-import 'package:e_attorney_hub/utils/widgets/text_field/text_field_secure.dart';
-
+import 'package:e_attorney_hub/utils/widgets/text_field.dart';
+import 'package:e_attorney_hub/view/nav_bar.dart';
 import '../../utils/const.dart';
+import '../../utils/function.dart';
 import 'login.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_switch/animated_switch.dart';
@@ -22,12 +22,13 @@ class _signupState extends State<signup> {
   TextEditingController password = TextEditingController();
   TextEditingController vfpassword = TextEditingController();
 
-  bool isSecure = true;
-  bool isSecure1 = true;
+  bool visible = true;
+  bool visible1 = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Align(
         alignment: Alignment.center,
         child: SingleChildScrollView(
@@ -58,26 +59,62 @@ class _signupState extends State<signup> {
                 SizedBox(
                   height: 30,
                 ),
-                Field(
-                    controller: email,
-                    hint: "email adresse",
-                    label: "email adresse",
-                    msg: "give email adresse"),
-                Field(
-                    controller: name,
-                    hint: "user name",
-                    label: "name",
-                    msg: "give user name"),
-                Field_secure(
-                    controller: password,
-                    hint: "Password",
-                    label: "password",
-                    msg: "give your password"),
-                Field_secure(
-                    controller: vfpassword,
-                    hint: "Conform Password",
-                    label: "Conform Password",
-                    msg: "repete your psw"),
+                InputField(
+                  hintText: "email",
+                  controller: email,
+                  validator: Validators.validateEmail,
+                ),
+                InputField(
+                  hintText: "name",
+                  controller: name,
+                  validator: Validators.validateName,
+                ),
+                InputField(
+                  hintText: "password",
+                  controller: password,
+                  obscure: visible,
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        visible = !visible;
+                      });
+                    },
+                    icon: visible == true
+                        ? const Icon(
+                            Icons.visibility,
+                            color: Colors.black,
+                          )
+                        : const Icon(
+                            Icons.visibility_off,
+                            color: Colors.black,
+                          ),
+                  ),
+                  icon: Icons.lock,
+                  validator: Validators.validatePassword,
+                ),
+                InputField(
+                  hintText: "Conform Password",
+                  controller: vfpassword,
+                  obscure: visible1,
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        visible1 = !visible1;
+                      });
+                    },
+                    icon: visible1 == true
+                        ? const Icon(
+                            Icons.visibility,
+                            color: Colors.black,
+                          )
+                        : const Icon(
+                            Icons.visibility_off,
+                            color: Colors.black,
+                          ),
+                  ),
+                  icon: Icons.lock,
+                  validator: Validators.validatePassword,
+                ),
                 Padding(
                   padding: EdgeInsets.only(left: 19, top: 8, right: 19),
                   child: Row(
@@ -111,7 +148,9 @@ class _signupState extends State<signup> {
                 Center(
                     child: ElevatedButton(
                   onPressed: () {
-                    if (formKey.currentState!.validate()) {}
+                    if (formKey.currentState!.validate()) {
+                      navigation(context, NavBar());
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     // Set height and width

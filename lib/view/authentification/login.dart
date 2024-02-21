@@ -1,8 +1,9 @@
 import 'package:e_attorney_hub/utils/const.dart';
-import 'package:e_attorney_hub/utils/widgets/text_field/text_field.dart';
-import 'package:e_attorney_hub/utils/widgets/text_field/text_field_secure.dart';
+import 'package:e_attorney_hub/utils/widgets/text_field.dart';
+
 import 'package:e_attorney_hub/view/nav_bar.dart';
 
+import '../../utils/function.dart';
 import 'signup.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_switch/animated_switch.dart';
@@ -20,16 +21,13 @@ class _loginState extends State<login> {
   TextEditingController password = TextEditingController();
   String Test_email = "123";
   String Test_password = "123";
-  bool isSecure = true;
+  bool visible = true;
+  bool isValid = true;
 
   @override
-  void setState(VoidCallback fn) {
-    // TODO: implement setState
-    print(isSecure);
-  }
-
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Align(
         alignment: Alignment.center,
         child: SingleChildScrollView(
@@ -47,8 +45,8 @@ class _loginState extends State<login> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+        const Padding(
+          padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
           child: Text(
             'Login',
             style: TextStyle(
@@ -58,28 +56,45 @@ class _loginState extends State<login> {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+        const Padding(
+          padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
           child: Text(
             'Get started now ',
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 50,
         ),
-        Field(
+        InputField(
+          hintText: "email",
           controller: email,
-          hint: "email",
-          label: "email",
-          msg: "enter your email",
+          icon: Icons.mail,
+          validator: Validators.validateEmail,
         ),
-        Field_secure(
+        InputField(
+          hintText: "password",
           controller: password,
-          hint: "password",
-          label: "password",
-          msg: "enter your password",
+          obscure: visible,
+          suffixIcon: IconButton(
+            onPressed: () {
+              setState(() {
+                visible = !visible;
+              });
+            },
+            icon: visible == true
+                ? const Icon(
+                    Icons.visibility,
+                    color: Colors.black,
+                  )
+                : const Icon(
+                    Icons.visibility_off,
+                    color: Colors.black,
+                  ),
+          ),
+          icon: Icons.lock,
+          validator: Validators.validatePassword,
         ),
-        Padding(
+        const Padding(
           padding: EdgeInsets.only(left: 19, top: 8, right: 19),
           child: Row(
             children: [
@@ -106,7 +121,7 @@ class _loginState extends State<login> {
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Center(
@@ -118,31 +133,26 @@ class _loginState extends State<login> {
               String Email = email.text;
               String Password = password.text;
               if (Email == Test_email && Password == Test_password) {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NavBar(),
-                    ));
-                print('Email: $email, Password: $password');
+                navigation(context, NavBar());
               }
             }
           },
-          child: Text(
+          style: ElevatedButton.styleFrom(
+            fixedSize: const Size(200, 50),
+            primary: btncolor,
+          ),
+          child: const Text(
             'Login',
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
             ),
           ),
-          style: ElevatedButton.styleFrom(
-            fixedSize: Size(200, 50),
-            primary: btncolor,
-          ),
         )),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               "Don't have an account?",
               style: TextStyle(
                 color: Colors.grey,
@@ -153,11 +163,11 @@ class _loginState extends State<login> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => signup(),
+                    builder: (context) => const signup(),
                   ),
                 );
               },
-              child: Text(
+              child: const Text(
                 "Signup Now",
                 style: TextStyle(
                     color: Colors.black,

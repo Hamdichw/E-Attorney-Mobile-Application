@@ -23,7 +23,7 @@ class _CustomFollowNotifcationState extends State<CustomFollowNotifcation> {
     return Container(
       padding: EdgeInsets.all(7),
       decoration: BoxDecoration(
-        color: Color.fromARGB(37, 158, 158, 158),
+        color: secondary,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -33,11 +33,6 @@ class _CustomFollowNotifcationState extends State<CustomFollowNotifcation> {
             size: 15,
             color: btncolor,
           ),
-          /* CircleAvatar(
-            radius: 25,
-            backgroundImage: AssetImage("imges/images.png"),
-            backgroundColor: btncolor,
-          ) */
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.12,
           ),

@@ -53,6 +53,8 @@ dependencies:
   open_filex: ^4.4.0
   path_provider: ^2.0.15
   uuid: ^3.0.7
+  google_fonts: ^6.1.0
+  
 
 
 dev_dependencies:
@@ -80,6 +82,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - images/
+    - google_fonts/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
