@@ -1,5 +1,4 @@
 import 'package:e_attorney_hub/models/lawyers.dart';
-import 'package:e_attorney_hub/view/chat_page.dart';
 import 'package:flutter/material.dart';
 
 import '../const.dart';
@@ -69,8 +68,8 @@ class _HomePageState extends State<HomePage> {
                           height: 15,
                         ),
                         card(
-                          name: data?[index].name,
-                          Lastname: data?[index].lastName,
+                          name: data[index].name,
+                          Lastname: data[index].lastName,
                           Icon: const Icon(Icons.arrow_forward_ios,
                               size: 22.0, color: btncolor),
                           image: const Image(

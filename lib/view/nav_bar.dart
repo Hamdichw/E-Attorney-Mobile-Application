@@ -1,4 +1,3 @@
-import 'package:animated/animated.dart';
 import 'package:e_attorney_hub/view/chat_page.dart';
 import 'package:e_attorney_hub/view/find_page.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +85,7 @@ class _NavBarState extends State<NavBar> {
               _pageIndex = index;
               _pageController.animateToPage(
                 _pageIndex,
-                duration: const Duration(milliseconds: 30),
+                duration: const Duration(milliseconds: 700),
                 curve: Curves.ease,
               );
             });

@@ -1,8 +1,8 @@
 import 'package:e_attorney_hub/utils/const.dart';
 import 'package:e_attorney_hub/utils/widgets/Card.dart';
 import 'package:flutter/material.dart';
-import '../utils/widgets/Notification_widget.dart';
 
+// ignore: must_be_immutable
 class NotitcationTap extends StatelessWidget {
   NotitcationTap({Key? key}) : super(key: key);
 

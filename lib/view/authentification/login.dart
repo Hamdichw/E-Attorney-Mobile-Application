@@ -19,8 +19,8 @@ class _loginState extends State<login> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-  String Test_email = "123";
-  String Test_password = "123";
+  String Test_email = "dali@g";
+  String Test_password = "12345678";
   bool visible = true;
   bool isValid = true;
 
