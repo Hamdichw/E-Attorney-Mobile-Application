@@ -17,17 +17,23 @@ class Screen2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
+            Image.asset(
+              "images/screen2.gif",
+              height: MediaQuery.of(context).size.height * 0.5,
+              width: MediaQuery.of(context).size.width * 0.9,
+            ),
+            /* Container(
               width: MediaQuery.of(context).size.width * 0.9,
               height: MediaQuery.of(context).size.height * 0.5,
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('images/toph2.png'),
                       fit: BoxFit.scaleDown)),
-            ),
+            ), */
             Text(
               "Easy To hire",
               style: TextStyle(

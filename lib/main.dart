@@ -7,6 +7,6 @@ import 'view/details_page.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: Details(),
+    home: SplashScreen(),
   ));
 }

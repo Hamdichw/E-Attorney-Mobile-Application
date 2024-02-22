@@ -12,6 +12,7 @@ class Screen4 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -33,10 +34,15 @@ class Screen4 extends StatelessWidget {
                   const Padding(
                       padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                       child: Text("We're happy to see you here.")),
-                  Image(
+                  Image.asset(
+                    "images/screen4.gif",
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    width: MediaQuery.of(context).size.height * 0.05,
+                  ),
+                  /* Image(
                       height: MediaQuery.of(context).size.height * 0.4,
                       width: MediaQuery.of(context).size.height * 0.05,
-                      image: const AssetImage('images/mobile_login.png')),
+                      image: const AssetImage('images/mobile_login.png')), */
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.08,
                   ),

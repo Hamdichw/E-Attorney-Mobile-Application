@@ -17,16 +17,24 @@ class Screen3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
+            /*  Container(
               width: MediaQuery.of(context).size.width * 0.9,
               height: MediaQuery.of(context).size.height * 0.5,
               decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('images/toph4.png'),
-                      fit: BoxFit.scaleDown)),
+                image: DecorationImage(
+                  image: AssetImage('images/Payement Information.gif'),
+                  // Choose the appropriate fit mode
+                ),
+              ),
+            ), */
+            Image.asset(
+              "images/payement.gif",
+              height: MediaQuery.of(context).size.height * 0.5,
+              width: MediaQuery.of(context).size.width * 0.9,
             ),
             Text(
               "Online Payments",
@@ -49,7 +57,7 @@ class Screen3 extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.023,
             ),
-            Next(onNext: onNext)
+            Next(onNext: onNext),
           ],
         ),
       ),

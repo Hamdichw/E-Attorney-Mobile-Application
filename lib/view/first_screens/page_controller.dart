@@ -30,7 +30,7 @@ class _ControllerState extends State<Controller> {
   void _nextPage() {
     if (_currentPageIndex < 3) {
       _pageController.nextPage(
-        duration: const Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 400),
         curve: Curves.easeInOut,
       );
       setState(() {
@@ -47,6 +47,7 @@ class _ControllerState extends State<Controller> {
       child: Scaffold(
         backgroundColor: Colors.white.withOpacity(.9),
         body: PageView(
+          physics: NeverScrollableScrollPhysics(),
           controller: _pageController,
           onPageChanged: (int index) {
             setState(() {

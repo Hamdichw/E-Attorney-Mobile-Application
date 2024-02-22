@@ -1,4 +1,6 @@
 import 'package:e_attorney_hub/models/lawyers.dart';
+import 'package:e_attorney_hub/utils/function.dart';
+import 'package:e_attorney_hub/view/details_page.dart';
 import 'package:flutter/material.dart';
 
 import '../const.dart';
@@ -61,7 +63,9 @@ class _HomePageState extends State<HomePage> {
                 itemCount: data.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      navigation(context, Details());
+                    },
                     child: Column(
                       children: [
                         const SizedBox(
