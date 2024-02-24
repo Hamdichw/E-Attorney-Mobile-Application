@@ -43,7 +43,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
                         child: const Image(
-                            image: AssetImage('images/images.jpg'))),
+                            image: AssetImage('assets/images/images.jpg'))),
                   ),
                   Positioned(
                     bottom: 0,

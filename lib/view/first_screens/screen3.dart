@@ -32,7 +32,7 @@ class Screen3 extends StatelessWidget {
               ),
             ), */
             Image.asset(
-              "images/payement.gif",
+              "assets/images/payement.gif",
               height: MediaQuery.of(context).size.height * 0.5,
               width: MediaQuery.of(context).size.width * 0.9,
             ),

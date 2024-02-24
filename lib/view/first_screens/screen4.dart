@@ -35,7 +35,7 @@ class Screen4 extends StatelessWidget {
                       padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                       child: Text("We're happy to see you here.")),
                   Image.asset(
-                    "images/screen4.gif",
+                    "assets/images/screen4.png",
                     height: MediaQuery.of(context).size.height * 0.4,
                     width: MediaQuery.of(context).size.height * 0.05,
                   ),

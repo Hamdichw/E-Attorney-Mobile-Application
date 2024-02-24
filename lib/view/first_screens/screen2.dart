@@ -22,7 +22,7 @@ class Screen2 extends StatelessWidget {
         child: Column(
           children: [
             Image.asset(
-              "images/screen2.gif",
+              "assets/images/screen2.gif",
               height: MediaQuery.of(context).size.height * 0.5,
               width: MediaQuery.of(context).size.width * 0.9,
             ),
