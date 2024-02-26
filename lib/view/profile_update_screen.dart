@@ -24,9 +24,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Background_color,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Background_color,
+        backgroundColor: Colors.white,
         title: const Text("Edit Profile"),
         centerTitle: true,
       ),

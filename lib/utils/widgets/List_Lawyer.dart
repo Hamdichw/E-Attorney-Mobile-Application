@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                           Icon: const Icon(Icons.arrow_forward_ios,
                               size: 22.0, color: btncolor),
                           image: const Image(
-                              image: AssetImage("images/images.jpg")),
+                              image: AssetImage("assets/images/images.jpg")),
                         ),
                       ],
                     ),
