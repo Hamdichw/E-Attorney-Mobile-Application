@@ -2,7 +2,6 @@ import '/utils/const.dart';
 import '/utils/widgets/Cards.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class NotitcationTap extends StatelessWidget {
   NotitcationTap({Key? key}) : super(key: key);
 
