@@ -8,6 +8,6 @@ import 'view/splash_screen.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: NavBar(),
+    home: SplashScreen(),
   ));
 }

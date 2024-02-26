@@ -117,25 +117,30 @@ class _AddDocState extends State<AddDoc> {
                   elevation: 5,
                   onPressed: () async {
                     final result = await FilePicker.platform.pickFiles(
-                      allowMultiple: true,
-                      type: FileType.any,
-                    );
+                        allowMultiple: true,
+                        type: FileType.custom,
+                        allowedExtensions: ['pdf']);
                     if (result == null) return;
                     setState(() {
                       widget.files.addAll(result.files);
                     });
+                    for (PlatformFile file in widget.files) {
+                      saveFilePermanently(file);
+                    }
                   },
-                  child: Row(
-                    children: [
-                      Text(
-                        "  Add Docs",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Icon(Icons.add),
-                    ],
+                  child: Center(
+                    child: Row(
+                      children: [
+                        Text(
+                          "  Add Docs",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Icon(Icons.add),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -144,5 +149,11 @@ class _AddDocState extends State<AddDoc> {
         ],
       ),
     );
+  }
+
+  Future<File> saveFilePermanently(PlatformFile file) async {
+    final appStorage = await getApplicationDocumentsDirectory();
+    final newFile = File('${appStorage.path}/${file.name}');
+    return File(file.path!).copy(newFile.path);
   }
 }

@@ -42,7 +42,7 @@ class NotitcationTap extends StatelessWidget {
                 color: Color.fromARGB(157, 0, 0, 0),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.02,
+                height: MediaQuery.of(context).size.height * 0.04,
               ),
               ListView.builder(
                 shrinkWrap: true,

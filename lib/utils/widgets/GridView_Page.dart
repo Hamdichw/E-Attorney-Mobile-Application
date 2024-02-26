@@ -15,8 +15,8 @@ Widget buildFile(PlatformFile file) {
     onTap: () async {
       final appDir = await getApplicationDocumentsDirectory();
       final filePath = '${appDir.path}/${file.name}';
+      openFile(filePath);
       await File(filePath).writeAsBytes(file.bytes!);
-      OpenFilex.open(filePath);
     },
     child: Container(
       padding: EdgeInsets.all(8),
@@ -55,4 +55,8 @@ Widget buildFile(PlatformFile file) {
       ),
     ),
   );
+}
+
+openFile(String filePath) {
+  OpenFilex.open(filePath);
 }
