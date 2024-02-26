@@ -1,7 +1,7 @@
-import 'package:e_attorney_hub/view/authentification/login.dart';
+import '/view/authentification/login.dart';
 import 'package:flutter/material.dart';
-import 'package:e_attorney_hub/utils/const.dart';
-import 'package:e_attorney_hub/utils/widgets/profile/Profile_menu_widget.dart';
+import '/utils/const.dart';
+import '/utils/widgets/profile/Profile_menu_widget.dart';
 import 'profile_update_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -10,7 +10,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Background_color,
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -24,7 +24,7 @@ class ProfileScreen extends StatelessWidget {
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
                         child: const Image(
-                            image: AssetImage("images/images.jpg"))),
+                            image: AssetImage("assets/images/images.jpg"))),
                   ),
                   Positioned(
                     bottom: 0,

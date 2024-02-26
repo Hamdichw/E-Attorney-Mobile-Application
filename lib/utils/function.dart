@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 
 navigation(context, page) {
   Navigator.push(context, MaterialPageRoute(builder: (context) => page));
@@ -84,4 +85,15 @@ class Validators {
     }
     return null;
   }
+}
+
+Future<DateTime?> showDatePickerDialog(
+    BuildContext context, DateTime date_now) async {
+  final DateTime? selectedDate = await showDatePicker(
+    context: context,
+    initialDate: date_now,
+    firstDate: DateTime.now(),
+    lastDate: DateTime.now().add(Duration(days: 365)),
+  );
+  return selectedDate;
 }

@@ -1,4 +1,4 @@
-import 'package:e_attorney_hub/view/first_screens/page_controller.dart';
+import '/view/first_screens/page_controller.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
               fit: BoxFit.cover,
               height: double.infinity,
               width: double.infinity,
-              image: AssetImage('images/splash1.png')),
+              image: AssetImage('assets/images/splash1.png')),
 
           ///thankyou
         ],

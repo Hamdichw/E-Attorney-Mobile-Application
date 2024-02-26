@@ -1,6 +1,6 @@
-import 'package:e_attorney_hub/utils/const.dart';
-import 'package:e_attorney_hub/view/authentification/login.dart';
-import 'package:e_attorney_hub/view/authentification/signup.dart';
+import '/utils/const.dart';
+import '/view/authentification/login.dart';
+import '/view/authentification/signup.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/widgets/buttons/btn_screen4.dart';
@@ -35,7 +35,7 @@ class Screen4 extends StatelessWidget {
                       padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                       child: Text("We're happy to see you here.")),
                   Image.asset(
-                    "images/screen4.gif",
+                    "assets/images/screen4.png",
                     height: MediaQuery.of(context).size.height * 0.4,
                     width: MediaQuery.of(context).size.height * 0.05,
                   ),

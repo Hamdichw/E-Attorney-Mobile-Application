@@ -1,8 +1,11 @@
-import 'package:e_attorney_hub/view/chat_page.dart';
-import 'package:e_attorney_hub/view/find_page.dart';
+import 'package:file_picker/file_picker.dart';
+
+import '/view/chat_page.dart';
+import '/view/find_page.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:e_attorney_hub/utils/const.dart';
+import '/utils/const.dart';
+import 'add_doc_page.dart';
 import 'notification_page.dart';
 import 'profile_screen.dart';
 
@@ -17,7 +20,7 @@ class NavBar extends StatefulWidget {
 class _NavBarState extends State<NavBar> {
   int _pageIndex = 2;
   late PageController _pageController;
-
+  List<PlatformFile> files = [];
   @override
   void initState() {
     super.initState();
@@ -102,13 +105,14 @@ class _NavBarState extends State<NavBar> {
 
         ///********les pages de navbar******** */
         children: <Widget>[
-          const Center(
+          AddDoc(files: files),
+          /* const Center(
             child: Text(
               "Add Documents",
               style: TextStyle(
                   color: btncolor, fontSize: 30, fontWeight: FontWeight.bold),
             ),
-          ),
+          ), */
           const Chat_Page(),
           const FindPage(),
           NotitcationTap(),

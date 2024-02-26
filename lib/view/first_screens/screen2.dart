@@ -1,5 +1,5 @@
-import 'package:e_attorney_hub/utils/const.dart';
-import 'package:e_attorney_hub/utils/widgets/buttons/btn_next.dart';
+import '/utils/const.dart';
+import '/utils/widgets/buttons/btn_next.dart';
 import 'package:flutter/material.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 
@@ -22,7 +22,7 @@ class Screen2 extends StatelessWidget {
         child: Column(
           children: [
             Image.asset(
-              "images/screen2.gif",
+              "assets/images/screen2.gif",
               height: MediaQuery.of(context).size.height * 0.5,
               width: MediaQuery.of(context).size.width * 0.9,
             ),

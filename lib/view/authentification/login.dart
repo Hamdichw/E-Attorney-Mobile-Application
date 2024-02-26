@@ -1,7 +1,7 @@
-import 'package:e_attorney_hub/utils/const.dart';
-import 'package:e_attorney_hub/utils/widgets/text_field.dart';
+import '/utils/const.dart';
+import '/utils/widgets/text_field.dart';
 
-import 'package:e_attorney_hub/view/nav_bar.dart';
+import '/view/nav_bar.dart';
 
 import '../../utils/function.dart';
 import 'signup.dart';

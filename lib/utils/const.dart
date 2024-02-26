@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 //button color
 const btncolor = Color.fromARGB(255, 33, 52, 66);
-const Color primary = Color(0xFF1FCC79);
+const Color Background_color = Color(0xffe3e3ef);
 const Color secondary = Color(0xffe9ebec);
 const Color mainTextColor = Color(0xFF2E3E5C);
 const Color secondaryText = Color(0xFF9FA5C0);

@@ -1,4 +1,4 @@
-import 'package:e_attorney_hub/utils/const.dart';
+import '/utils/const.dart';
 import 'package:flutter/material.dart';
 
 class Next extends StatelessWidget {

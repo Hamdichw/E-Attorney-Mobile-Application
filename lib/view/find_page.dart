@@ -15,12 +15,14 @@ class _FindPageState extends State<FindPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Background_color,
         body: Column(children: [
           Row(
             children: [
               Image(
-                  width: 70, height: 70, image: AssetImage("images/logo.png")),
+                  width: 70,
+                  height: 70,
+                  image: AssetImage("assets/images/logo.png")),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.19,
               ),

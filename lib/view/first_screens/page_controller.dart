@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:e_attorney_hub/view/first_screens/screen1.dart';
-import 'package:e_attorney_hub/view/first_screens/screen2.dart';
-import 'package:e_attorney_hub/view/first_screens/screen3.dart';
-import 'package:e_attorney_hub/view/first_screens/screen4.dart';
+import '/view/first_screens/screen1.dart';
+import '/view/first_screens/screen2.dart';
+import '/view/first_screens/screen3.dart';
+import '/view/first_screens/screen4.dart';
 
 class Controller extends StatefulWidget {
   const Controller({Key? key}) : super(key: key);
