@@ -86,11 +86,27 @@ class _AddDocState extends State<AddDoc> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           SizedBox(
             height: 40,
           ),
+          if (widget.files.isEmpty)
+            Column(children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.25,
+              ),
+              Image(
+                image: AssetImage("assets/images/nodata.png"),
+                width: 200,
+                height: 200,
+              ),
+              Text(
+                "No Files",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              )
+            ]),
           Expanded(
             child: GridView.builder(
               padding: EdgeInsets.all(16),
@@ -111,7 +127,7 @@ class _AddDocState extends State<AddDoc> {
             child: Padding(
               padding: const EdgeInsets.all(18.0),
               child: Container(
-                width: 100,
+                width: 130,
                 child: FloatingActionButton(
                   backgroundColor: Colors.white,
                   elevation: 5,
@@ -128,17 +144,25 @@ class _AddDocState extends State<AddDoc> {
                       saveFilePermanently(file);
                     }
                   },
-                  child: Center(
+                  child: Align(
+                    alignment: Alignment.center,
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "  Add Docs",
+                          " Add Docs",
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 14,
                               fontWeight: FontWeight.bold),
                         ),
-                        Icon(Icons.add),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Icon(
+                          Icons.add,
+                          color: Colors.black,
+                        ),
                       ],
                     ),
                   ),

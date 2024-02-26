@@ -60,3 +60,7 @@ Widget buildFile(PlatformFile file) {
 openFile(String filePath) {
   OpenFilex.open(filePath);
 }
+
+Widget buildEmptyFile() {
+  return Text("data");
+}
