@@ -1,5 +1,14 @@
+import 'dart:async';
+
+import 'package:get/get.dart';
+
 import '/view/first_screens/page_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'nav_bar.dart';
+
+bool? loggedin;
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -13,11 +22,18 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     // Add a delay and then navigate to the login page
-    Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const Controller()),
-      );
+    navigateToNextScreen().whenComplete(() async {
+      Timer(Duration(seconds: 2),
+          () => Get.to(loggedin == null || false ? Controller() : NavBar()));
+    });
+  }
+
+  Future navigateToNextScreen() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var isLoggedIn = prefs.getBool('isLoggedIn');
+
+    setState(() {
+      loggedin = isLoggedIn;
     });
   }
 
@@ -30,6 +46,16 @@ class _SplashScreenState extends State<SplashScreen> {
               height: double.infinity,
               width: double.infinity,
               image: AssetImage('assets/images/splash1.png')),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
+              child: CircularProgressIndicator(
+                strokeAlign: BorderSide.strokeAlignCenter,
+                color: Colors.white,
+              ),
+            ),
+          )
 
           ///thankyou
         ],

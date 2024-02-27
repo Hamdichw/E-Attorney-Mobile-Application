@@ -1,5 +1,8 @@
+import 'package:get/get.dart';
+
 import '/utils/const.dart';
 import '/utils/widgets/text_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '/view/nav_bar.dart';
 
@@ -126,14 +129,17 @@ class _loginState extends State<login> {
         ),
         Center(
             child: ElevatedButton(
-          onPressed: () {
+          onPressed: () async {
             // Validate the form
             if (_formKey.currentState!.validate()) {
               // Form is valid, perform login logic here
               String Email = email.text;
               String Password = password.text;
               if (Email == Test_email && Password == Test_password) {
-                navigation(context, NavBar());
+                /* navigation(context, NavBar()); */
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                prefs.setBool('isLoggedIn', true);
+                Get.to(NavBar());
               }
             }
           },

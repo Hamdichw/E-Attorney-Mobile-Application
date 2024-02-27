@@ -39,10 +39,6 @@ class Screen4 extends StatelessWidget {
                     height: MediaQuery.of(context).size.height * 0.4,
                     width: MediaQuery.of(context).size.height * 0.05,
                   ),
-                  /* Image(
-                      height: MediaQuery.of(context).size.height * 0.4,
-                      width: MediaQuery.of(context).size.height * 0.05,
-                      image: const AssetImage('images/mobile_login.png')), */
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.08,
                   ),

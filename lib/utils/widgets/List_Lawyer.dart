@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white70,
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -64,7 +64,13 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      navigation(context, Details());
+                      navigation(
+                          context,
+                          Details(
+                            Name: data[index].name,
+                            Type: 'Lawyer',
+                            Lastname: data[index].lastName,
+                          ));
                     },
                     child: Column(
                       children: [

@@ -1,3 +1,5 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '/view/authentification/login.dart';
 import 'package:flutter/material.dart';
 import '/utils/const.dart';
@@ -90,12 +92,15 @@ class ProfileScreen extends StatelessWidget {
                   icon: Icons.logout,
                   textColor: Colors.red,
                   endIcon: false,
-                  onPress: () {
+                  onPress: () async {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (BuildContext context) => const login(),
                         ));
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    await prefs.remove('isLoggedIn');
                   }),
             ],
           ),

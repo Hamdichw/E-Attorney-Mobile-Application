@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+
 import 'package:intl/intl.dart';
 
 import '../const.dart';
@@ -29,10 +32,11 @@ class card extends StatelessWidget {
           color: Colors.white, // Set the background color to white
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1), // Set the shadow color
-              spreadRadius: 2, // Set the spread radius of the shadow
+              color: Color.fromARGB(255, 0, 0, 0)
+                  .withOpacity(0.3), // Set the shadow color
+              spreadRadius: 5, // Set the spread radius of the shadow
               blurRadius: 7, // Set the blur radius of the shadow
-              offset: Offset(0, 3), // Set the offset of the shadow
+              offset: Offset(0, 8), // Set the offset of the shadow
             ),
           ],
         ),
@@ -53,10 +57,6 @@ class card extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    // Add some spacing between the top of the card and the title
-
-                    // Add a title widget
-
                     Text(
                       '$Lastname  $name ',
                       style: TextStyle(
@@ -64,18 +64,13 @@ class card extends StatelessWidget {
                           fontSize: 15,
                           fontWeight: FontWeight.bold),
                     ),
-
-                    // Add some spacing between the title and the subtitle
-
-                    // Add a subtitle widget
                     Text(
                       "lawyer ",
                       style: TextStyle(
-                        fontSize: 10,
+                        fontSize: 13,
                         color: Colors.grey[500],
                       ),
                     ),
-                    // Add some spacing between the subtitle and the text
                   ],
                 ),
               ),
@@ -89,8 +84,10 @@ class card extends StatelessWidget {
 }
 
 class Card4 extends StatefulWidget {
+  final String? info_text;
   const Card4({
     Key? key,
+    this.info_text,
   }) : super(key: key);
 
   @override
@@ -98,125 +95,94 @@ class Card4 extends StatefulWidget {
 }
 
 class _Card4State extends State<Card4> {
-  bool isVisible = false;
-
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          isVisible = !isVisible;
-        });
-      },
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: Color.fromARGB(0, 158, 158, 158),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Color.fromARGB(255, 0, 0, 0)
+                  .withOpacity(0.3), // Set the shadow color
+              spreadRadius: 5, // Set the spread radius of the shadow
+              blurRadius: 7, // Set the blur radius of the shadow
+              offset: Offset(0, 8), // Set the offset of the shadow
+            ),
+          ]),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), // Add border radius
-                border: Border.all(
-                  color: Color.fromARGB(57, 158, 158, 158), // Add border color
-                ),
-                color: Colors.white, // Set the background color to white
-                boxShadow: [
-                  BoxShadow(
-                    color:
-                        Colors.black.withOpacity(0.1), // Set the shadow color
-                    spreadRadius: 2, // Set the spread radius of the shadow
-                    blurRadius: 7, // Set the blur radius of the shadow
-                    offset: Offset(0, 3), // Set the offset of the shadow
-                  ),
-                ],
-              ),
-              child: ListTile(
-                leading: Icon(Icons.info),
-                title: Text("information"),
-                trailing: Icon(
-                    isVisible ? Icons.arrow_downward : Icons.arrow_forward),
-              )),
-          if (isVisible)
-            Column(
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: Color.fromARGB(0, 158, 158, 158),
+            padding: EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(height: 5),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.info,
+                      color: btncolor,
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset(0, 3),
+                    SizedBox(
+                      width: 8,
+                    ),
+                    Text(
+                      "information",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: MyColorsSample.grey_80,
                       ),
-                    ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: 15),
+                Text(
+                  '${widget.info_text}',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey[600],
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              "TRAVEL",
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: MyColorsSample.grey_20,
-                              ),
-                            ),
-                            SizedBox(height: 5),
-                            Text(
-                              "5 eats cheap",
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: MyColorsSample.grey_80,
-                              ),
-                            ),
-                            SizedBox(height: 15),
-                            Text(
-                              MyStringsSample.middle_lorem_ipsum,
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                            SizedBox(height: 10),
-                            Image.asset(
-                              ('assets/images/profile.png'),
-                              height: 200,
-                              width: 300,
-                              fit: BoxFit.cover,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                ),
+                SizedBox(height: 10),
+                Image.asset(
+                  ('assets/images/profile.png'),
+                  height: 200,
+                  width: 300,
+                  fit: BoxFit.cover,
                 ),
               ],
             ),
+          ),
         ],
       ),
     );
   }
 }
 
-class Card3 extends StatelessWidget {
-  const Card3({
+class Card3 extends StatefulWidget {
+  final String? name;
+  final String? lastname;
+  Card3({
     super.key,
+    this.name,
+    this.lastname,
   });
 
   @override
+  State<Card3> createState() => _Card3State();
+}
+
+class _Card3State extends State<Card3> {
+  @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 5,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
@@ -237,7 +203,9 @@ class Card3 extends StatelessWidget {
               Spacer(),
               IconButton(
                 icon: Icon(Icons.call, color: Colors.white),
-                onPressed: () {},
+                onPressed: () async {
+                  await FlutterPhoneDirectCaller.callNumber('2222222222');
+                },
               ),
               Container(
                 width: 4,
@@ -247,7 +215,7 @@ class Card3 extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(15),
             child: Text(
-              "John Smith \nTek",
+              '${widget.name} \n${widget.lastname}',
               style: TextStyle(fontSize: 24, color: Colors.white),
             ),
           ),
@@ -280,6 +248,7 @@ class _Card2State extends State<Card2> {
     final DateFormat formatter = DateFormat('MMM dd, yyyy');
     final String formattedDate = formatter.format(selectedDate);
     return Card(
+      elevation: 5,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
@@ -335,20 +304,43 @@ class _Card2State extends State<Card2> {
 }
 
 class Card1 extends StatelessWidget {
-  const Card1({
+  final String? name;
+  final String? lastname;
+  final String? adress;
+  final String? phone;
+  final String? email;
+  final String? Bio;
+  final String? type;
+
+  Card1({
     super.key,
+    this.name,
+    this.lastname,
+    this.adress,
+    this.phone,
+    this.email,
+    this.Bio,
+    this.type,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: Color.fromARGB(0, 158, 158, 158),
-        ),
-      ),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: Color.fromARGB(0, 158, 158, 158),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Color.fromARGB(255, 0, 0, 0)
+                  .withOpacity(0.3), // Set the shadow color
+              spreadRadius: 5, // Set the spread radius of the shadow
+              blurRadius: 7, // Set the blur radius of the shadow
+              offset: Offset(0, 8), // Set the offset of the shadow
+            ),
+          ]),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -377,7 +369,7 @@ class Card1 extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                "ahmed ahmed",
+                                "$name $lastname",
                                 style: TextStyle(
                                   color: btncolor,
                                   fontSize: 19,
@@ -393,14 +385,14 @@ class Card1 extends StatelessWidget {
                           ),
                           Container(height: 5),
                           Text(
-                            "lawyer",
+                            type!,
                             style: TextStyle(
                               color: Colors.grey[500],
                             ),
                           ),
                           Container(height: 10),
                           Text(
-                            "open to work",
+                            Bio!,
                             maxLines: 2,
                             style: TextStyle(
                               color: Colors.grey[700],
@@ -429,14 +421,14 @@ class Card1 extends StatelessWidget {
                       Icon(Icons.phone),
                       SizedBox(width: 4),
                       Text(
-                        "22-222-222",
+                        phone!,
                         style: TextStyle(fontSize: 17),
                       ),
                       Spacer(),
                       Icon(Icons.mail),
                       SizedBox(width: 4),
                       Text(
-                        "dali@gmail.com",
+                        email!,
                         style: TextStyle(fontSize: 17),
                       ),
                     ],
@@ -453,7 +445,7 @@ class Card1 extends StatelessWidget {
                       Icon(Icons.location_on_outlined),
                       SizedBox(width: 4),
                       Text(
-                        "30 Rue Jamaa Ezzitouna, Tunis",
+                        adress! /* "30 Rue Jamaa Ezzitouna, Tunis" */,
                         style: TextStyle(fontSize: 17),
                       ),
                     ],
@@ -492,10 +484,11 @@ class card_notifcation extends StatelessWidget {
           color: Colors.white, // Set the background color to white
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1), // Set the shadow color
-              spreadRadius: 2, // Set the spread radius of the shadow
+              color: Color.fromARGB(255, 0, 0, 0)
+                  .withOpacity(0.3), // Set the shadow color
+              spreadRadius: 5, // Set the spread radius of the shadow
               blurRadius: 7, // Set the blur radius of the shadow
-              offset: Offset(0, 3), // Set the offset of the shadow
+              offset: Offset(0, 8), // Set the offset of the shadow
             ),
           ],
         ),

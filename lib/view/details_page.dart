@@ -4,7 +4,15 @@ import 'package:flutter/material.dart';
 import '../utils/widgets/Cards.dart';
 
 class Details extends StatefulWidget {
-  const Details({super.key});
+  final String Name;
+  final String Lastname;
+  final String Type;
+
+  const Details(
+      {super.key,
+      required this.Name,
+      required this.Lastname,
+      required this.Type});
 
   @override
   State<Details> createState() => _DetailsState();
@@ -14,9 +22,9 @@ class _DetailsState extends State<Details> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Background_color,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Background_color,
+        backgroundColor: Colors.white,
         title: const Text(
           "View Profile",
           style: TextStyle(fontWeight: FontWeight.bold, color: btncolor),
@@ -31,9 +39,15 @@ class _DetailsState extends State<Details> {
               const SizedBox(
                 height: 30,
               ),
-              Card1(),
-              Container(height: 20),
-              Card4(),
+              Card1(
+                name: widget.Name,
+                lastname: widget.Lastname,
+                Bio: "open to work",
+                phone: "22-222-222",
+                email: "dali@gmail.com",
+                adress: "30 Rue Jamaa Ezzitouna, Tunis",
+                type: widget.Type,
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
@@ -43,13 +57,22 @@ class _DetailsState extends State<Details> {
                       child: Card2(),
                     ),
                     Container(width: 2),
-                    const Expanded(
+                    Expanded(
                       flex: 1,
-                      child: Card3(),
+                      child: Card3(
+                        name: widget.Name,
+                        lastname: widget.Lastname,
+                      ),
                     ),
                   ],
                 ),
               ),
+              Card4(
+                info_text: 'blabla blabla blabla blablablabla',
+              ),
+              SizedBox(
+                height: 13,
+              )
             ],
           ),
         ),
