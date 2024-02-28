@@ -7,12 +7,14 @@ class Details extends StatefulWidget {
   final String Name;
   final String Lastname;
   final String Type;
+  final String? Phone;
 
   const Details(
       {super.key,
       required this.Name,
       required this.Lastname,
-      required this.Type});
+      required this.Type,
+      this.Phone});
 
   @override
   State<Details> createState() => _DetailsState();
@@ -43,7 +45,7 @@ class _DetailsState extends State<Details> {
                 name: widget.Name,
                 lastname: widget.Lastname,
                 Bio: "open to work",
-                phone: "22-222-222",
+                phone: widget.Phone,
                 email: "dali@gmail.com",
                 adress: "30 Rue Jamaa Ezzitouna, Tunis",
                 type: widget.Type,
@@ -60,9 +62,9 @@ class _DetailsState extends State<Details> {
                     Expanded(
                       flex: 1,
                       child: Card3(
-                        name: widget.Name,
-                        lastname: widget.Lastname,
-                      ),
+                          name: widget.Name,
+                          lastname: widget.Lastname,
+                          phone: widget.Phone),
                     ),
                   ],
                 ),

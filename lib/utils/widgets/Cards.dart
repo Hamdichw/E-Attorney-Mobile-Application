@@ -168,10 +168,12 @@ class _Card4State extends State<Card4> {
 class Card3 extends StatefulWidget {
   final String? name;
   final String? lastname;
+  final String? phone;
   Card3({
     super.key,
     this.name,
     this.lastname,
+    this.phone,
   });
 
   @override
@@ -204,7 +206,8 @@ class _Card3State extends State<Card3> {
               IconButton(
                 icon: Icon(Icons.call, color: Colors.white),
                 onPressed: () async {
-                  await FlutterPhoneDirectCaller.callNumber('2222222222');
+                  String? num = widget.phone;
+                  await FlutterPhoneDirectCaller.callNumber(num!);
                 },
               ),
               Container(

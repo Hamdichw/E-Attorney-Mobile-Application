@@ -13,10 +13,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<Lawyer> data = [
-    Lawyer(age: 47, name: 'Leonardo', lastName: 'DiCaprio'),
-    Lawyer(age: 58, name: 'Johnny', lastName: 'Depp'),
-    Lawyer(age: 78, name: 'Robert', lastName: 'De Niro'),
-    Lawyer(age: 44, name: 'Tom', lastName: 'Hardy'),
+    Lawyer(age: 47, name: 'seif', lastName: 'boubakrie', phone: '95687135'),
+    Lawyer(age: 58, name: 'iskander', lastName: 'channouf', phone: '25951412'),
+    Lawyer(age: 78, name: 'hamdi', lastName: 'chtiwi', phone: '22449174'),
+    Lawyer(age: 44, name: 'saif', lastName: 'klai', phone: '26351837'),
     Lawyer(age: 66, name: 'Denzel', lastName: 'Washington'),
     Lawyer(age: 66, name: 'Denzel', lastName: 'Washington'),
     Lawyer(age: 66, name: 'Denzel', lastName: 'Washington'),
@@ -27,14 +27,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white70,
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            const SizedBox(
-              height: 15,
-            ),
             Padding(
               padding: const EdgeInsets.only(top: 16, left: 5, right: 5),
               child: TextField(
@@ -70,6 +66,7 @@ class _HomePageState extends State<HomePage> {
                             Name: data[index].name,
                             Type: 'Lawyer',
                             Lastname: data[index].lastName,
+                            Phone: data[index].phone,
                           ));
                     },
                     child: Column(

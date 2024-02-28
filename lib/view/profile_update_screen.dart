@@ -24,7 +24,6 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text("Edit Profile"),
@@ -109,7 +108,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       ),
                       icon: Icons.lock,
                       validator: Validators.validatePassword,
-                      prefixIcon: Icon(Icons.fingerprint),
+                      prefixIcon: Icon(Icons.lock),
                     ),
                     InputField(
                       hintText: "Conform Password",
@@ -133,7 +132,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       ),
                       icon: Icons.lock,
                       validator: Validators.validatePassword,
-                      prefixIcon: Icon(Icons.fingerprint),
+                      prefixIcon: Icon(Icons.lock),
                     ),
                     const SizedBox(height: 20),
                     // ************************************ Form Submit Button **************************************** //

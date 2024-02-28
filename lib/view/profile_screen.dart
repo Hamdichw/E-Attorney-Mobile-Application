@@ -12,7 +12,6 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -90,7 +89,7 @@ class ProfileScreen extends StatelessWidget {
               ProfileMenuWidget(
                   title: "Logout",
                   icon: Icons.logout,
-                  textColor: Colors.red,
+                  textColor: const Color.fromARGB(255, 255, 17, 0),
                   endIcon: false,
                   onPress: () async {
                     Navigator.push(

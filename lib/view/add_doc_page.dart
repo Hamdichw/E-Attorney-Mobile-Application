@@ -71,6 +71,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../utils/const.dart';
 import '../utils/widgets/GridView_Page.dart';
 
 class AddDoc extends StatefulWidget {
@@ -85,92 +86,116 @@ class AddDoc extends StatefulWidget {
 class _AddDocState extends State<AddDoc> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          SizedBox(
-            height: 40,
-          ),
-          if (widget.files.isEmpty)
-            Column(children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.25,
-              ),
-              Image(
-                image: AssetImage("assets/images/nodata.png"),
-                width: 200,
-                height: 200,
-              ),
-              Text(
-                "No Files",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              )
-            ]),
-          Expanded(
-            child: GridView.builder(
-              padding: EdgeInsets.all(16),
-              itemCount: widget.files.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 8,
-                crossAxisSpacing: 8,
-              ),
-              itemBuilder: (context, index) {
-                final file = widget.files[index];
-                return buildFile(file);
-              },
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: [
+            Row(
+              children: [
+                Image(
+                    width: 70,
+                    height: 70,
+                    image: AssetImage("assets/images/logo.png")),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.19,
+                ),
+                Text(
+                  "Documents",
+                  style: TextStyle(
+                      color: btncolor,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: Container(
-                width: 130,
-                child: FloatingActionButton(
-                  backgroundColor: Colors.white,
-                  elevation: 5,
-                  onPressed: () async {
-                    final result = await FilePicker.platform.pickFiles(
-                      allowMultiple: true,
-                      type: FileType.any,
-                    );
-                    if (result == null) return;
-                    setState(() {
-                      widget.files.addAll(result.files);
-                    });
-                    for (PlatformFile file in widget.files) {
-                      saveFilePermanently(file);
-                    }
-                  },
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          " Add Docs",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Icon(
-                          Icons.add,
-                          color: Colors.black,
-                        ),
-                      ],
+            SizedBox(
+              height: 30,
+            ),
+            if (widget.files.isEmpty)
+              Column(children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.25,
+                ),
+                Image(
+                  image: AssetImage("assets/images/nodata.png"),
+                  width: 200,
+                  height: 200,
+                ),
+                Text(
+                  "No Files",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                )
+              ]),
+            Expanded(
+              child: GridView.builder(
+                padding: EdgeInsets.all(16),
+                itemCount: widget.files.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                ),
+                itemBuilder: (context, index) {
+                  final file = widget.files[index];
+                  return buildFile(
+                    file,
+                    (int index) => setState(() =>
+                        widget.files.removeAt(index)), // onDelete function
+                    widget.files,
+                  );
+                },
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Container(
+                  width: 130,
+                  child: FloatingActionButton(
+                    backgroundColor: Colors.white,
+                    elevation: 5,
+                    onPressed: () async {
+                      final result = await FilePicker.platform.pickFiles(
+                          allowMultiple: true,
+                          type: FileType.custom,
+                          allowedExtensions: ['pdf']);
+                      if (result == null) return;
+                      setState(() {
+                        widget.files.addAll(result.files);
+                      });
+                      for (PlatformFile file in widget.files) {
+                        saveFilePermanently(file);
+                      }
+                    },
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            " Add Docs",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Icon(
+                            Icons.add,
+                            color: Colors.black,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

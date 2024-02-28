@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import '/utils/const.dart';
 import 'add_doc_page.dart';
+import 'chat.dart';
 import 'notification_page.dart';
 import 'profile_screen.dart';
 
@@ -113,7 +114,7 @@ class _NavBarState extends State<NavBar> {
                   color: btncolor, fontSize: 30, fontWeight: FontWeight.bold),
             ),
           ), */
-          const Chat_Page(),
+          Chat(),
           const FindPage(),
           NotitcationTap(),
           const ProfileScreen()

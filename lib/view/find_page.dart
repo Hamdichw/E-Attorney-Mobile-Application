@@ -15,7 +15,6 @@ class _FindPageState extends State<FindPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
         body: Column(children: [
           Row(
             children: [
