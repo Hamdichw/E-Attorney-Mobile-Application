@@ -157,9 +157,9 @@ class _AddDocState extends State<AddDoc> {
                     elevation: 5,
                     onPressed: () async {
                       final result = await FilePicker.platform.pickFiles(
-                          allowMultiple: true,
-                          type: FileType.custom,
-                          allowedExtensions: ['pdf']);
+                        allowMultiple: true,
+                        type: FileType.any, /* allowedExtensions: ['pdf'] */
+                      );
                       if (result == null) return;
                       setState(() {
                         widget.files.addAll(result.files);

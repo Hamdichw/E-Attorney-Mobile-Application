@@ -30,7 +30,7 @@ Widget buildFile(
           boxShadow: [
             BoxShadow(
               color: Color.fromARGB(146, 0, 0, 0)
-                  .withOpacity(0.3), // Set the shadow color
+                  .withOpacity(0.1), // Set the shadow color
               spreadRadius: 3, // Set the spread radius of the shadow
               blurRadius: 7, // Set the blur radius of the shadow
               offset: Offset(0, 3), // Set the offset of the shadow

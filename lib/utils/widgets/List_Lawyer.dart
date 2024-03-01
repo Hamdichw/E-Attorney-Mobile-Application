@@ -17,8 +17,8 @@ class _HomePageState extends State<HomePage> {
     Lawyer(age: 58, name: 'iskander', lastName: 'channouf', phone: '25951412'),
     Lawyer(age: 78, name: 'hamdi', lastName: 'chtiwi', phone: '22449174'),
     Lawyer(age: 44, name: 'saif', lastName: 'klai', phone: '26351837'),
-    Lawyer(age: 66, name: 'Denzel', lastName: 'Washington'),
-    Lawyer(age: 66, name: 'Denzel', lastName: 'Washington'),
+    Lawyer(age: 51, name: 'saif', lastName: 'Dabssi', phone: '25915880'),
+    Lawyer(age: 66, name: 'baha', lastName: 'Laamiri', phone: '26485618'),
     Lawyer(age: 66, name: 'Denzel', lastName: 'Washington'),
     Lawyer(age: 66, name: 'Denzel', lastName: 'Washington'),
     Lawyer(age: 49, name: 'Ben', lastName: 'Affleck'),
@@ -71,17 +71,19 @@ class _HomePageState extends State<HomePage> {
                     },
                     child: Column(
                       children: [
-                        const SizedBox(
-                          height: 15,
-                        ),
                         card(
                           name: data[index].name,
                           Lastname: data[index].lastName,
-                          Icon: const Icon(Icons.arrow_forward_ios,
-                              size: 22.0, color: btncolor),
-                          image: const Image(
-                              image: AssetImage("assets/images/images.jpg")),
+                          image: Image(
+                            image: AssetImage("assets/images/images.jpg"),
+                            height: 65,
+                            width: 65,
+                          ),
                         ),
+                        Divider(
+                          height: 1,
+                          color: Color.fromARGB(35, 0, 0, 0),
+                        )
                       ],
                     ),
                   );

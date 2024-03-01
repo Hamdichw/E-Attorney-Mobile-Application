@@ -26,6 +26,7 @@ class _loginState extends State<login> {
   String Test_password = "12345678";
   bool visible = true;
   bool isValid = true;
+  bool remeber = false;
 
   @override
   Widget build(BuildContext context) {
@@ -97,13 +98,22 @@ class _loginState extends State<login> {
           icon: Icons.lock,
           validator: Validators.validatePassword,
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.only(left: 19, top: 8, right: 19),
           child: Row(
             children: [
               AnimatedSwitch(
+                value: remeber,
                 colorOff: Color(0xffA09F99),
                 colorOn: btncolor,
+                onChanged: (value) async {
+                  setState(() {
+                    remeber = value;
+                  });
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs.setBool('isLoggedIn', value);
+                },
               ),
               SizedBox(
                 width: 5,
@@ -137,8 +147,8 @@ class _loginState extends State<login> {
               String Password = password.text;
               if (Email == Test_email && Password == Test_password) {
                 /* navigation(context, NavBar()); */
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                prefs.setBool('isLoggedIn', true);
+                /* SharedPreferences prefs = await SharedPreferences.getInstance();
+                prefs.setBool('isLoggedIn', true); */
                 Get.to(NavBar());
               }
             }

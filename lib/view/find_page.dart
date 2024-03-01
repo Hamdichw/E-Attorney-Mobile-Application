@@ -25,10 +25,16 @@ class _FindPageState extends State<FindPage> {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.19,
               ),
-              Text(
-                "Find a Lawyer",
-                style: TextStyle(
-                    color: btncolor, fontSize: 22, fontWeight: FontWeight.bold),
+              Row(
+                children: [
+                  Text(
+                    "Find a Lawyer",
+                    style: TextStyle(
+                        color: btncolor,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
             ],
           ),

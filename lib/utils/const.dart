@@ -99,3 +99,14 @@ class MyStringsSample {
   static const String middle_lorem_ipsum =
       "Flutter is an open-source UI software development kit created by Google. ";
 }
+
+final darkTheme = ThemeData(
+  brightness: Brightness.dark,
+  primarySwatch: Colors.blue,
+  hintColor: Colors.blueAccent,
+  scaffoldBackgroundColor: Colors.grey[900],
+  textTheme: TextTheme(
+    bodyText1: TextStyle(color: Colors.white),
+    bodyText2: TextStyle(color: Colors.white),
+  ),
+);

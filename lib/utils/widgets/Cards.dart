@@ -10,36 +10,18 @@ import '../function.dart';
 class card extends StatelessWidget {
   final String? name;
   final String? Lastname;
-  final Widget? Icon;
   final Image? image;
   const card({
     super.key,
     this.name,
     this.Lastname,
-    this.Icon,
     this.image,
   });
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 8),
+      padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
       child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10), // Add border radius
-          border: Border.all(
-            color: Color.fromARGB(57, 158, 158, 158), // Add border color
-          ),
-          color: Colors.white, // Set the background color to white
-          boxShadow: [
-            BoxShadow(
-              color: Color.fromARGB(255, 0, 0, 0)
-                  .withOpacity(0.3), // Set the shadow color
-              spreadRadius: 5, // Set the spread radius of the shadow
-              blurRadius: 7, // Set the blur radius of the shadow
-              offset: Offset(0, 8), // Set the offset of the shadow
-            ),
-          ],
-        ),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(
             0,
@@ -47,36 +29,37 @@ class card extends StatelessWidget {
             0,
             20,
           ),
-          child: ListTile(
-              leading: ClipRRect(
-                borderRadius: BorderRadius.circular(100),
+          child: Row(
+            children: <Widget>[
+              ClipRRect(
+                borderRadius: BorderRadius.circular(35),
                 child: image,
               ),
-              title: Padding(
-                padding: const EdgeInsets.fromLTRB(18.0, 0, 0, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      '$Lastname  $name ',
-                      style: TextStyle(
-                          color: btncolor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold),
+              SizedBox(width: 22), // Adjust this value as needed
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    '$Lastname  $name ',
+                    style: TextStyle(
+                      color: btncolor,
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
                     ),
-                    Text(
-                      "lawyer ",
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[500],
-                      ),
+                  ),
+                  Text(
+                    "lawyer ",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[500],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              trailing: Icon
-              //const Icon(Icons.arrow_forward_ios, size: 22.0, color: btncolor),
-              ),
+              Spacer(), // This will push the trailing icon to the right
+              Icon(Icons.arrow_forward_ios, size: 22.0, color: btncolor),
+            ],
+          ),
         ),
       ),
     );
