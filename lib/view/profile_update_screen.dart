@@ -24,13 +24,15 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text("Edit Profile"),
         centerTitle: true,
       ),
-      body: Center(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 20),
           child: Column(
             children: [
               // ********************************************* IMAGE with ICON *************************************** //
@@ -52,9 +54,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       height: 35,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
-                          color: btncolor),
-                      child: const Icon(Icons.camera,
-                          color: Colors.white, size: 20),
+                          color: Color.fromARGB(255, 0, 0, 0)),
+                      child:
+                          const Icon(Icons.edit, color: Colors.white, size: 22),
                     ),
                   ),
                 ],
@@ -145,8 +147,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                             backgroundColor: MaterialStatePropertyAll(btncolor),
                             side: MaterialStatePropertyAll(BorderSide.none),
                             shape: MaterialStatePropertyAll(StadiumBorder())),
-                        child: Text("Edit Profile",
-                            style: TextStyle(color: Colors.white)),
+                        child:
+                            Text("save", style: TextStyle(color: Colors.white)),
                       ),
                     ),
                   ],

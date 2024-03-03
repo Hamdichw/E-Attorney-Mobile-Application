@@ -88,6 +88,7 @@ class _AddDocState extends State<AddDoc> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: Column(
           children: [
             Row(
@@ -96,15 +97,12 @@ class _AddDocState extends State<AddDoc> {
                     width: 70,
                     height: 70,
                     image: AssetImage("assets/images/logo.png")),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.19,
-                ),
                 Text(
-                  "Documents",
+                  "Estishara.tn",
                   style: TextStyle(
                       color: btncolor,
                       fontSize: 22,
-                      fontWeight: FontWeight.bold),
+                      fontWeight: FontWeight.normal),
                 ),
               ],
             ),
@@ -153,13 +151,13 @@ class _AddDocState extends State<AddDoc> {
                 child: Container(
                   width: 130,
                   child: FloatingActionButton(
-                    backgroundColor: Colors.white,
+                    backgroundColor: btncolor,
                     elevation: 5,
                     onPressed: () async {
                       final result = await FilePicker.platform.pickFiles(
-                        allowMultiple: true,
-                        type: FileType.any, /* allowedExtensions: ['pdf'] */
-                      );
+                          allowMultiple: true,
+                          type: FileType.custom,
+                          allowedExtensions: ['pdf']);
                       if (result == null) return;
                       setState(() {
                         widget.files.addAll(result.files);
@@ -176,7 +174,7 @@ class _AddDocState extends State<AddDoc> {
                           Text(
                             " Add Docs",
                             style: TextStyle(
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -185,7 +183,7 @@ class _AddDocState extends State<AddDoc> {
                           ),
                           Icon(
                             Icons.add,
-                            color: Colors.black,
+                            color: Colors.white,
                           ),
                         ],
                       ),

@@ -2,11 +2,17 @@ import 'package:estichara/utils/const.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../view/chat_page.dart';
+import '../../view/chat/chat_page.dart';
+import '../../view/details_page.dart';
 
-class RecentChat extends StatelessWidget {
+class RecentChat extends StatefulWidget {
   const RecentChat({super.key});
 
+  @override
+  State<RecentChat> createState() => _RecentChatState();
+}
+
+class _RecentChatState extends State<RecentChat> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,12 +53,39 @@ class RecentChat extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(35),
-                                  child: Image.asset(
-                                    "assets/images/images.jpg",
-                                    height: 65,
-                                    width: 65,
+                                GestureDetector(
+                                  onLongPress: () {
+                                    showModalBottomSheet(
+                                        scrollControlDisabledMaxHeightRatio:
+                                            0.8,
+                                        transitionAnimationController:
+                                            AnimationController(
+                                          vsync: this,
+                                          duration: Duration(milliseconds: 400),
+                                        ),
+                                        showDragHandle: true,
+                                        isScrollControlled: false,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                                topRight: Radius.circular(20),
+                                                topLeft: Radius.circular(20))),
+                                        context: context,
+                                        builder: (context) {
+                                          return Details(
+                                            Name: "dali",
+                                            Type: 'Lawyer',
+                                            Lastname: "zaidi",
+                                            Phone: "52381162",
+                                          );
+                                        });
+                                  },
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(35),
+                                    child: Image.asset(
+                                      "assets/images/images.jpg",
+                                      height: 65,
+                                      width: 65,
+                                    ),
                                   ),
                                 ),
                                 Padding(

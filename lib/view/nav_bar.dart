@@ -1,12 +1,12 @@
 import 'package:file_picker/file_picker.dart';
 
-import '/view/chat_page.dart';
+import 'chat/chat_page.dart';
 import '/view/find_page.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import '/utils/const.dart';
 import 'add_doc_page.dart';
-import 'chat.dart';
+import 'chat/chat.dart';
 import 'notification_page.dart';
 import 'profile_screen.dart';
 

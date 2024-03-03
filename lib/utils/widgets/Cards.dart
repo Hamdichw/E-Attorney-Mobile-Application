@@ -82,12 +82,12 @@ class _Card4State extends State<Card4> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: Color.fromARGB(0, 158, 158, 158),
-          ),
-          boxShadow: [
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: Color.fromARGB(255, 158, 158, 158),
+        ),
+        /* boxShadow: [
             BoxShadow(
               color: Color.fromARGB(255, 0, 0, 0)
                   .withOpacity(0.3), // Set the shadow color
@@ -95,7 +95,8 @@ class _Card4State extends State<Card4> {
               blurRadius: 7, // Set the blur radius of the shadow
               offset: Offset(0, 8), // Set the offset of the shadow
             ),
-          ]),
+          ] */
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
@@ -166,24 +167,25 @@ class Card3 extends StatefulWidget {
 class _Card3State extends State<Card3> {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      shape: RoundedRectangleBorder(
+    return Container(
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
+        color: btncolor,
+        border: Border.all(
+          color: Color.fromARGB(255, 53, 53, 53),
+        ),
       ),
-      color: btncolor,
-      clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Row(
             children: <Widget>[
-              Container(
-                width: 15,
-              ),
-              Text(
-                "Call",
-                style: TextStyle(color: Colors.white),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: Text(
+                  "Call",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
               Spacer(),
               IconButton(
@@ -193,13 +195,11 @@ class _Card3State extends State<Card3> {
                   await FlutterPhoneDirectCaller.callNumber(num!);
                 },
               ),
-              Container(
-                width: 4,
-              ),
+              SizedBox(width: 4),
             ],
           ),
-          Container(
-            padding: EdgeInsets.all(15),
+          Padding(
+            padding: const EdgeInsets.all(15),
             child: Text(
               '${widget.name} \n${widget.lastname}',
               style: TextStyle(fontSize: 24, color: Colors.white),
@@ -233,18 +233,19 @@ class _Card2State extends State<Card2> {
   Widget build(BuildContext context) {
     final DateFormat formatter = DateFormat('MMM dd, yyyy');
     final String formattedDate = formatter.format(selectedDate);
-    return Card(
-      elevation: 5,
-      shape: RoundedRectangleBorder(
+    return Container(
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
+        color: Colors.teal[800],
+        border: Border.all(
+          color: Color.fromARGB(255, 53, 53, 53),
+        ),
       ),
-      color: Colors.teal[800],
-      clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(15),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
             child: Text(
               "Add an \nAppointment",
               style: TextStyle(fontSize: 24, color: Colors.white),
@@ -313,12 +314,12 @@ class Card1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: Color.fromARGB(0, 158, 158, 158),
-          ),
-          boxShadow: [
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: Color.fromARGB(255, 158, 158, 158),
+        ),
+        /* boxShadow: [
             BoxShadow(
               color: Color.fromARGB(255, 0, 0, 0)
                   .withOpacity(0.3), // Set the shadow color
@@ -326,7 +327,8 @@ class Card1 extends StatelessWidget {
               blurRadius: 7, // Set the blur radius of the shadow
               offset: Offset(0, 8), // Set the offset of the shadow
             ),
-          ]),
+          ] */
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -460,51 +462,24 @@ class card_notifcation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 8),
+      padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
       child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10), // Add border radius
-          border: Border.all(
-            color: Color.fromARGB(57, 158, 158, 158), // Add border color
-          ),
-          color: Colors.white, // Set the background color to white
-          boxShadow: [
-            BoxShadow(
-              color: Color.fromARGB(255, 0, 0, 0)
-                  .withOpacity(0.3), // Set the shadow color
-              spreadRadius: 5, // Set the spread radius of the shadow
-              blurRadius: 7, // Set the blur radius of the shadow
-              offset: Offset(0, 8), // Set the offset of the shadow
+        height: 80,
+        child: ListTile(
+            leading: Icon(
+              Icons.circle,
+              color: btncolor,
+              size: 10,
             ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(
-            0,
-            20,
-            0,
-            20,
-          ),
-          child: ListTile(
-              leading: Icon(
-                Icons.notifications_active,
-                color: btncolor,
-                size: 25,
+            title: Align(
+              alignment: Alignment.center,
+              child: Text(
+                msg!,
+                style: const TextStyle(
+                    fontSize: 15, fontWeight: FontWeight.w600, color: btncolor),
               ),
-              title: Align(
-                alignment: Alignment.center,
-                child: Text(
-                  msg!,
-                  style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: btncolor),
-                ),
-              ),
-              trailing: icon
-              //const Icon(Icons.arrow_forward_ios, size: 22.0, color: btncolor),
-              ),
-        ),
+            ),
+            trailing: icon),
       ),
     );
   }

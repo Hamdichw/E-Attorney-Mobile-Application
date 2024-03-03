@@ -1,17 +1,28 @@
+import 'package:animated_switch/animated_switch.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '/view/authentification/login.dart';
 import 'package:flutter/material.dart';
 import '/utils/const.dart';
 import '/utils/widgets/profile/Profile_menu_widget.dart';
+import 'Information_Page.dart';
 import 'profile_update_screen.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  bool dark = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -27,22 +38,6 @@ class ProfileScreen extends StatelessWidget {
                         child: const Image(
                             image: AssetImage("assets/images/images.jpg"))),
                   ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      width: 35,
-                      height: 35,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: btncolor),
-                      child: const Icon(
-                        Icons.edit,
-                        color: Color.fromARGB(255, 255, 255, 255),
-                        size: 20,
-                      ),
-                    ),
-                  ),
                 ],
               ),
               const SizedBox(height: 10),
@@ -51,56 +46,67 @@ class ProfileScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyMedium),
               const SizedBox(height: 20),
               /*  *************************************** BUTTON **************************** */
-              SizedBox(
-                width: 200,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                const UpdateProfileScreen()));
-                  },
-                  style: const ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(btncolor),
-                      side: MaterialStatePropertyAll(BorderSide.none),
-                      shape: MaterialStatePropertyAll(StadiumBorder())),
-                  child: const Text("Edit Profile",
-                      style: TextStyle(color: Colors.white)),
-                ),
-              ),
               const SizedBox(height: 30),
               const Divider(),
               const SizedBox(height: 10),
 
               /// ******************************** MENU ***********************************
               ProfileMenuWidget(
-                  title: "Settings", icon: Icons.settings, onPress: () {}),
+                title: "User Management",
+                icon: Icons.account_circle_outlined,
+                onPress: () {
+                  Get.to(UpdateProfileScreen());
+                },
+                isswitch: false,
+              ),
               ProfileMenuWidget(
-                  title: "Billing Details", icon: Icons.wallet, onPress: () {}),
+                title: "Langage",
+                icon: Icons.language,
+                onPress: () {},
+                isswitch: false,
+              ),
               ProfileMenuWidget(
-                  title: "User Management",
-                  icon: Icons.account_circle_outlined,
-                  onPress: () {}),
+                endIcon: false,
+                title: dark ? "Dark Theme" : "Light theme",
+                icon: dark ? Icons.dark_mode : Icons.wb_sunny_outlined,
+                Switch: AnimatedSwitch(
+                    colorOff: Color(0xffA09F99),
+                    colorOn: btncolor,
+                    onChanged: (Value) {
+                      setState(() {
+                        dark = Value;
+                      });
+                    }),
+                onPress: () {},
+                isswitch: true,
+              ),
               const Divider(),
               const SizedBox(height: 10),
               ProfileMenuWidget(
-                  title: "Information", icon: Icons.info, onPress: () {}),
+                title: "Information",
+                icon: Icons.info,
+                onPress: () {
+                  Get.to(Information());
+                },
+                isswitch: false,
+              ),
               ProfileMenuWidget(
-                  title: "Logout",
-                  icon: Icons.logout,
-                  textColor: const Color.fromARGB(255, 255, 17, 0),
-                  endIcon: false,
-                  onPress: () async {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => const login(),
-                        ));
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    await prefs.remove('isLoggedIn');
-                  }),
+                title: "Logout",
+                icon: Icons.logout,
+                textColor: const Color.fromARGB(255, 255, 17, 0),
+                endIcon: false,
+                onPress: () async {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => const login(),
+                      ));
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  await prefs.remove('isLoggedIn');
+                },
+                isswitch: false,
+              ),
             ],
           ),
         ),

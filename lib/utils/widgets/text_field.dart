@@ -28,7 +28,7 @@ class _InputFieldState extends State<InputField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
       child: TextFormField(
         controller: widget.controller,
         obscureText: widget.obscure ?? false,

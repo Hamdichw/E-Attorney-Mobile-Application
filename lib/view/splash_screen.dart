@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // Add a delay and then navigate to the login page
     navigateToNextScreen().whenComplete(() async {
       Timer(Duration(seconds: 2),
-          () => Get.to(loggedin == null || false ? Controller() : NavBar()));
+          () => Get.to(loggedin == false ? Controller() : NavBar()));
     });
   }
 
