@@ -1,5 +1,6 @@
 import 'package:estichara/utils/widgets/Alerts_List.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '/utils/const.dart';
 import '/utils/widgets/Cards.dart';
@@ -35,10 +36,11 @@ class _NotitcationTapState extends State<NotitcationTap> {
                     image: AssetImage("assets/images/logo.png")),
                 Text(
                   "Estishara.tn",
-                  style: TextStyle(
-                      color: btncolor,
-                      fontSize: 22,
-                      fontWeight: FontWeight.normal),
+                  style: GoogleFonts.electrolize(
+                      textStyle: TextStyle(
+                          color: btncolor,
+                          fontSize: 24,
+                          fontWeight: FontWeight.normal)),
                 ),
               ],
             ),

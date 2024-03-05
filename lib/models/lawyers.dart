@@ -3,11 +3,13 @@ class Lawyer {
   String name;
   String lastName;
   String? phone;
-
-  Lawyer({
-    required this.age,
-    required this.name,
-    required this.lastName,
-    this.phone,
-  });
+  String image;
+  bool? valide;
+  Lawyer(
+      {required this.age,
+      required this.name,
+      required this.lastName,
+      this.phone,
+      required this.image,
+      this.valide});
 }

@@ -68,6 +68,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -99,10 +100,11 @@ class _AddDocState extends State<AddDoc> {
                     image: AssetImage("assets/images/logo.png")),
                 Text(
                   "Estishara.tn",
-                  style: TextStyle(
-                      color: btncolor,
-                      fontSize: 22,
-                      fontWeight: FontWeight.normal),
+                  style: GoogleFonts.electrolize(
+                      textStyle: TextStyle(
+                          color: btncolor,
+                          fontSize: 24,
+                          fontWeight: FontWeight.normal)),
                 ),
               ],
             ),

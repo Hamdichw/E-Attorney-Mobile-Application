@@ -1,5 +1,7 @@
 import 'package:animated_switch/animated_switch.dart';
+import 'package:estichara/utils/theme_service.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '/view/authentification/login.dart';
@@ -21,29 +23,76 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: SingleChildScrollView(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
           child: Column(
             children: [
+              Row(
+                children: [
+                  Image(
+                      width: 70,
+                      height: 70,
+                      image: AssetImage("assets/images/logo.png")),
+                  Text(
+                    "Estishara.tn",
+                    style: GoogleFonts.electrolize(
+                        textStyle: TextStyle(
+                            color: btncolor,
+                            fontSize: 24,
+                            fontWeight: FontWeight.normal)),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.05,
+              ),
+
               /// -------------------------- IMAGE-----------------------------
               Stack(
                 children: [
                   SizedBox(
                     width: 120,
                     height: 120,
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: const Image(
-                            image: AssetImage("assets/images/images.jpg"))),
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.blueGrey, width: 2),
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.all(3),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(60),
+                          child: Image.asset(
+                            "assets/images/avatar.png",
+                            height: 65,
+                            width: 65,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 10),
-              Text("Dali", style: Theme.of(context).textTheme.headlineMedium),
-              Text("Developpeur Flutter",
-                  style: Theme.of(context).textTheme.bodyMedium),
+              Text(
+                "Dali",
+                style: GoogleFonts.electrolize(
+                    textStyle: TextStyle(
+                        color: btncolor,
+                        fontSize: 24,
+                        fontWeight: FontWeight.normal)),
+              ),
+              Text(
+                "Developpeur Flutter",
+                style: GoogleFonts.electrolize(
+                    textStyle: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 15,
+                        fontWeight: FontWeight.normal)),
+              ),
               const SizedBox(height: 20),
               /*  *************************************** BUTTON **************************** */
               const SizedBox(height: 30),

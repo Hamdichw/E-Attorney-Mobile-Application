@@ -1,6 +1,7 @@
 import 'package:estichara/utils/const.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../view/chat/chat_page.dart';
 import '../../view/details_page.dart';
@@ -27,7 +28,11 @@ class _RecentChatState extends State<RecentChat> with TickerProviderStateMixin {
                 children: [
                   Text(
                     "Recent Messages",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                    style: GoogleFonts.electrolize(
+                        textStyle: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
@@ -48,7 +53,6 @@ class _RecentChatState extends State<RecentChat> with TickerProviderStateMixin {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8, right: 8),
                       child: Container(
-                        height: 65,
                         child: Column(
                           children: [
                             Row(
@@ -72,6 +76,7 @@ class _RecentChatState extends State<RecentChat> with TickerProviderStateMixin {
                                         context: context,
                                         builder: (context) {
                                           return Details(
+                                            images: "assets/images/test1.jpg",
                                             Name: "dali",
                                             Type: 'Lawyer',
                                             Lastname: "zaidi",
@@ -79,12 +84,23 @@ class _RecentChatState extends State<RecentChat> with TickerProviderStateMixin {
                                           );
                                         });
                                   },
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(35),
-                                    child: Image.asset(
-                                      "assets/images/images.jpg",
-                                      height: 65,
-                                      width: 65,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                          color: Colors.black54, width: 2),
+                                    ),
+                                    child: Container(
+                                      padding: EdgeInsets.all(3),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(35),
+                                        child: Image.asset(
+                                          "assets/images/test1.jpg",
+                                          height: 65,
+                                          width: 65,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),

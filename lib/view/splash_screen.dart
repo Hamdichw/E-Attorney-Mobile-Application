@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:estichara/view/first_screens/screen4.dart';
 import 'package:get/get.dart';
 
 import '/view/first_screens/page_controller.dart';
@@ -9,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'nav_bar.dart';
 
 bool? loggedin;
+bool? FirstTime;
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -23,17 +25,31 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     // Add a delay and then navigate to the login page
     navigateToNextScreen().whenComplete(() async {
-      Timer(Duration(seconds: 2),
-          () => Get.to(loggedin == false ? Controller() : NavBar()));
+      Timer(
+          Duration(seconds: 2),
+          () => /* Get.to(FirstTime == false
+              ? Controller()
+              : loggedin 
+                  ? Screen4()
+                  : NavBar()) */
+              {
+                if (FirstTime == false || FirstTime == null)
+                  {Get.to(Controller())}
+                else if (loggedin == true)
+                  {Get.to(NavBar())}
+                else
+                  Get.to(Screen4())
+              });
     });
   }
 
   Future navigateToNextScreen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var isLoggedIn = prefs.getBool('isLoggedIn');
-
+    var firstLog = prefs.getBool('firstLog');
     setState(() {
       loggedin = isLoggedIn;
+      FirstTime = firstLog;
     });
   }
 

@@ -1,5 +1,6 @@
 import 'package:estichara/utils/const.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../utils/widgets/Active_Chat.dart';
 import '../../utils/widgets/Recent_chat.dart';
@@ -30,10 +31,11 @@ class _ChatState extends State<Chat> {
                       image: AssetImage("assets/images/logo.png")),
                   Text(
                     "Estishara.tn",
-                    style: TextStyle(
-                        color: btncolor,
-                        fontSize: 22,
-                        fontWeight: FontWeight.normal),
+                    style: GoogleFonts.electrolize(
+                        textStyle: TextStyle(
+                            color: btncolor,
+                            fontSize: 24,
+                            fontWeight: FontWeight.normal)),
                   ),
                   Spacer(),
                   IconButton(

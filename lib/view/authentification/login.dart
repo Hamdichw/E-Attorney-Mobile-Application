@@ -139,7 +139,7 @@ class _loginState extends State<login> {
         ),
         Center(
             child: ElevatedButton(
-          onPressed: () {
+          onPressed: () async {
             // Validate the form
             if (_formKey.currentState!.validate()) {
               // Form is valid, perform login logic here
@@ -147,8 +147,8 @@ class _loginState extends State<login> {
               String Password = password.text;
               if (Email == Test_email && Password == Test_password) {
                 /* navigation(context, NavBar()); */
-                /* SharedPreferences prefs = await SharedPreferences.getInstance();
-                prefs.setBool('isLoggedIn', true); */
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                prefs.setBool('firstLog', true);
                 Get.to(NavBar());
               }
             }

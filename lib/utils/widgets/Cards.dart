@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:intl/intl.dart';
 
@@ -11,11 +12,13 @@ class card extends StatelessWidget {
   final String? name;
   final String? Lastname;
   final Image? image;
+  final bool? valide;
   const card({
     super.key,
     this.name,
     this.Lastname,
     this.image,
+    this.valide,
   });
   @override
   Widget build(BuildContext context) {
@@ -25,39 +28,60 @@ class card extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(
             0,
-            20,
+            15,
             0,
-            20,
+            15,
           ),
           child: Row(
             children: <Widget>[
-              ClipRRect(
-                borderRadius: BorderRadius.circular(35),
-                child: image,
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.black54, width: 2),
+                ),
+                child: Container(
+                  padding: EdgeInsets.all(3),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(35),
+                    child: image,
+                  ),
+                ),
               ),
-              SizedBox(width: 22), // Adjust this value as needed
+              SizedBox(width: 25), // Adjust this value as needed
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    '$Lastname  $name ',
-                    style: TextStyle(
-                      color: btncolor,
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  Row(
+                    children: [
+                      Text(
+                        '$Lastname  $name ',
+                        style: GoogleFonts.electrolize(
+                            textStyle: TextStyle(
+                                color: btncolor,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold)),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      if (valide == true)
+                        Icon(
+                          Icons.verified,
+                          color: Colors.blueAccent,
+                        )
+                    ],
                   ),
                   Text(
                     "lawyer ",
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.grey[500],
+                      color: Colors.grey[700],
                     ),
                   ),
                 ],
               ),
               Spacer(), // This will push the trailing icon to the right
-              Icon(Icons.arrow_forward_ios, size: 22.0, color: btncolor),
+              Icon(Icons.menu_outlined, size: 30.0, color: btncolor),
             ],
           ),
         ),
@@ -298,6 +322,8 @@ class Card1 extends StatelessWidget {
   final String? email;
   final String? Bio;
   final String? type;
+  final String image;
+  final bool? valide;
 
   Card1({
     super.key,
@@ -308,6 +334,8 @@ class Card1 extends StatelessWidget {
     this.email,
     this.Bio,
     this.type,
+    required this.image,
+    this.valide,
   });
 
   @override
@@ -319,15 +347,6 @@ class Card1 extends StatelessWidget {
         border: Border.all(
           color: Color.fromARGB(255, 158, 158, 158),
         ),
-        /* boxShadow: [
-            BoxShadow(
-              color: Color.fromARGB(255, 0, 0, 0)
-                  .withOpacity(0.3), // Set the shadow color
-              spreadRadius: 5, // Set the spread radius of the shadow
-              blurRadius: 7, // Set the blur radius of the shadow
-              offset: Offset(0, 8), // Set the offset of the shadow
-            ),
-          ] */
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -342,7 +361,7 @@ class Card1 extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(100),
                       child: Image.asset(
-                        ("assets/images/avatar.png"),
+                        (image),
                         height: 100,
                         width: 100,
                         fit: BoxFit.cover,
@@ -365,10 +384,11 @@ class Card1 extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(width: 5),
-                              Icon(
-                                Icons.verified,
-                                color: Colors.blueAccent,
-                              ),
+                              if (valide == true)
+                                Icon(
+                                  Icons.verified,
+                                  color: Colors.blueAccent,
+                                ),
                             ],
                           ),
                           Container(height: 5),
@@ -451,14 +471,16 @@ class Card1 extends StatelessWidget {
   }
 }
 
-class card_notifcation extends StatelessWidget {
+class card_notification extends StatelessWidget {
   final String? msg;
   final Widget? icon;
-  card_notifcation({
-    super.key,
+
+  card_notification({
+    Key? key,
     this.msg,
     this.icon,
-  });
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -466,20 +488,21 @@ class card_notifcation extends StatelessWidget {
       child: Container(
         height: 80,
         child: ListTile(
-            leading: Icon(
-              Icons.circle,
-              color: btncolor,
-              size: 10,
+          leading: Icon(
+            Icons.circle,
+            color: btncolor,
+            size: 10,
+          ),
+          title: Align(
+            alignment: Alignment.center,
+            child: Text(
+              msg!,
+              style: const TextStyle(
+                  fontSize: 15, fontWeight: FontWeight.w600, color: btncolor),
             ),
-            title: Align(
-              alignment: Alignment.center,
-              child: Text(
-                msg!,
-                style: const TextStyle(
-                    fontSize: 15, fontWeight: FontWeight.w600, color: btncolor),
-              ),
-            ),
-            trailing: icon),
+          ),
+          trailing: icon,
+        ),
       ),
     );
   }

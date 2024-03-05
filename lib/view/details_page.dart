@@ -8,13 +8,17 @@ class Details extends StatefulWidget {
   final String Lastname;
   final String Type;
   final String? Phone;
+  final String images;
+  final bool? valide;
 
   const Details(
       {super.key,
       required this.Name,
       required this.Lastname,
       required this.Type,
-      this.Phone});
+      this.Phone,
+      required this.images,
+      this.valide});
 
   @override
   State<Details> createState() => _DetailsState();
@@ -23,23 +27,13 @@ class Details extends StatefulWidget {
 class _DetailsState extends State<Details> {
   @override
   Widget build(BuildContext context) {
-    return /* Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: const Text(
-            "View Profile",
-            style: TextStyle(fontWeight: FontWeight.bold, color: btncolor),
-          ),
-          centerTitle: true,
-        ),
-        body:  */
-        SingleChildScrollView(
+    return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(14, 0, 14, 0),
         child: Column(
           children: [
             Card1(
+              image: widget.images,
               name: widget.Name,
               lastname: widget.Lastname,
               Bio: "open to work",
@@ -47,6 +41,7 @@ class _DetailsState extends State<Details> {
               email: "dali@gmail.com",
               adress: "30 Rue Jamaa Ezzitouna, Tunis",
               type: widget.Type,
+              valide: widget.valide,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),

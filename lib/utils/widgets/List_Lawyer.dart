@@ -1,4 +1,3 @@
-import 'package:estichara/utils/widgets/Dargable_list.dart';
 import 'package:estichara/view/chat/chat.dart';
 import 'package:get/get.dart';
 
@@ -20,15 +19,61 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final List<Lawyer> data = [
-    Lawyer(age: 47, name: 'seif', lastName: 'boubakrie', phone: '95687135'),
-    Lawyer(age: 58, name: 'iskander', lastName: 'channouf', phone: '25951412'),
-    Lawyer(age: 78, name: 'hamdi', lastName: 'chtiwi', phone: '22449174'),
-    Lawyer(age: 44, name: 'saif', lastName: 'klai', phone: '26351837'),
-    Lawyer(age: 51, name: 'saif', lastName: 'Dabssi', phone: '25915880'),
-    Lawyer(age: 66, name: 'baha', lastName: 'Laamiri', phone: '26485618'),
-    Lawyer(age: 66, name: 'Denzel', lastName: 'Washington'),
-    Lawyer(age: 66, name: 'Denzel', lastName: 'Washington'),
-    Lawyer(age: 49, name: 'Ben', lastName: 'Affleck'),
+    Lawyer(
+        age: 47,
+        name: 'seif',
+        lastName: 'boubakrie',
+        phone: '95687135',
+        image: 'assets/images/test1.jpg',
+        valide: true),
+    Lawyer(
+        age: 58,
+        name: 'iskander',
+        lastName: 'channouf',
+        phone: '25951412',
+        image: 'assets/images/test2.jpg',
+        valide: true),
+    Lawyer(
+        age: 78,
+        name: 'hamdi',
+        lastName: 'chtiwi',
+        phone: '22449174',
+        image: 'assets/images/test3.jpg'),
+    Lawyer(
+        age: 44,
+        name: 'saif',
+        lastName: 'klai',
+        phone: '26351837',
+        image: 'assets/images/avatar.png',
+        valide: true),
+    Lawyer(
+        age: 51,
+        name: 'saif',
+        lastName: 'Dabssi',
+        phone: '25915880',
+        image: 'assets/images/test1.jpg'),
+    Lawyer(
+        age: 66,
+        name: 'baha',
+        lastName: 'Laamiri',
+        phone: '26485618',
+        image: 'assets/images/test2.jpg',
+        valide: true),
+    Lawyer(
+        age: 66,
+        name: 'Denzel',
+        lastName: 'Washington',
+        image: 'assets/images/test3.jpg'),
+    Lawyer(
+        age: 66,
+        name: 'Denzel',
+        lastName: 'Washington',
+        image: 'assets/images/test4.jpg'),
+    Lawyer(
+        age: 49,
+        name: 'Ben',
+        lastName: 'Affleck',
+        image: 'assets/images/images.jpg'),
   ];
 
   @override
@@ -36,31 +81,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(left: 10, right: 10),
         child: Column(
           children: [
-            /*  Padding(
-                padding: const EdgeInsets.only(top: 16, left: 5, right: 5),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: "Search...",
-                    hintStyle: const TextStyle(color: Colors.black),
-                    prefixIcon: const Icon(
-                      Icons.search,
-                      color: Colors.black,
-                      size: 20,
-                    ),
-                    filled: true,
-                    fillColor: const Color.fromARGB(255, 216, 216, 216),
-                    contentPadding: const EdgeInsets.all(8),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide(color: Colors.grey.shade100)),
-                  ),
-                ),
-              ), */
             const SizedBox(
-              height: 15,
+              height: 10,
             ),
             Expanded(
               child: ListView.builder(
@@ -85,30 +110,26 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           context: context,
                           builder: (context) {
                             return Details(
+                              images: data[index].image,
                               Name: data[index].name,
                               Type: 'Lawyer',
                               Lastname: data[index].lastName,
                               Phone: data[index].phone,
+                              valide: data[index].valide,
                             );
                           });
-                      /*  navigation(
-                          context,
-                          Details(
-                            Name: data[index].name,
-                            Type: 'Lawyer',
-                            Lastname: data[index].lastName,
-                            Phone: data[index].phone,
-                          )); */
                     },
                     child: Column(
                       children: [
                         card(
+                          valide: data[index].valide,
                           name: data[index].name,
                           Lastname: data[index].lastName,
                           image: Image(
-                            image: AssetImage("assets/images/images.jpg"),
+                            image: AssetImage(data[index].image),
                             height: 65,
                             width: 65,
+                            fit: BoxFit.cover,
                           ),
                         ),
                         Divider(

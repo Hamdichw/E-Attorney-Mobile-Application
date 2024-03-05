@@ -1,6 +1,7 @@
 import 'package:estichara/view/details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../view/chat/chat_page.dart';
 import '../const.dart';
@@ -20,7 +21,11 @@ class ActiveChat extends StatelessWidget {
               children: [
                 Text(
                   "online",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                  style: GoogleFonts.electrolize(
+                      textStyle: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold)),
                 ),
               ],
             ),
@@ -44,29 +49,36 @@ class ActiveChat extends StatelessWidget {
                             borderRadius: BorderRadius.circular(35),
                             boxShadow: [
                               BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  blurRadius: 10,
+                                  color: Colors.grey.withOpacity(0.3),
+                                  blurRadius: 8,
                                   spreadRadius: 2,
                                   offset: Offset(0, 3))
                             ]),
                         child: GestureDetector(
-                          onLongPress: () {
-                            Get.to(Details(
-                              Name: "Name",
-                              Lastname: "Lastname",
-                              Type: "Type",
-                              Phone: "22-222-222",
-                            ));
-                          },
                           onTap: () {
                             Get.to(Chat_Page());
                           },
                           child: Stack(
                             children: [
-                              ClipRRect(
-                                  borderRadius: BorderRadius.circular(35),
-                                  child:
-                                      Image.asset("assets/images/images.jpg")),
+                              DecoratedBox(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                      color: Colors.black54, width: 2),
+                                ),
+                                child: Container(
+                                  padding: EdgeInsets.all(3),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(35),
+                                    child: Image.asset(
+                                      "assets/images/test3.jpg",
+                                      height: 65,
+                                      width: 65,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
                               Positioned(
                                 bottom: 5,
                                 right: 5,
