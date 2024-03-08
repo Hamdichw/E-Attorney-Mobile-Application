@@ -111,15 +111,6 @@ class _Card4State extends State<Card4> {
         border: Border.all(
           color: Color.fromARGB(255, 158, 158, 158),
         ),
-        /* boxShadow: [
-            BoxShadow(
-              color: Color.fromARGB(255, 0, 0, 0)
-                  .withOpacity(0.3), // Set the shadow color
-              spreadRadius: 5, // Set the spread radius of the shadow
-              blurRadius: 7, // Set the blur radius of the shadow
-              offset: Offset(0, 8), // Set the offset of the shadow
-            ),
-          ] */
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -144,7 +135,7 @@ class _Card4State extends State<Card4> {
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: MyColorsSample.grey_80,
+                        color: Color(0xFF37474F),
                       ),
                     ),
                   ],

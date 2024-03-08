@@ -1,9 +1,8 @@
+import '../../utils/widgets/Button.dart';
 import '/utils/const.dart';
 import '/view/authentification/login.dart';
 import '/view/authentification/signup.dart';
 import 'package:flutter/material.dart';
-
-import '../../utils/widgets/buttons/btn_screen4.dart';
 
 class Screen4 extends StatelessWidget {
   const Screen4({

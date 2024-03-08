@@ -1,4 +1,5 @@
 import 'package:estichara/utils/const.dart';
+import 'package:estichara/utils/widgets/SearshField.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -50,27 +51,7 @@ class _ChatState extends State<Chat> {
                       )),
                 ],
               ),
-              if (show)
-                Padding(
-                  padding: const EdgeInsets.only(top: 24, left: 10, right: 10),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: "Search...",
-                      hintStyle: const TextStyle(color: Colors.black),
-                      prefixIcon: const Icon(
-                        Icons.search,
-                        color: Colors.black,
-                        size: 20,
-                      ),
-                      filled: true,
-                      fillColor: const Color.fromARGB(255, 216, 216, 216),
-                      contentPadding: const EdgeInsets.all(8),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide(color: Colors.grey.shade100)),
-                    ),
-                  ),
-                ),
+              if (show) Searsh_Field(),
               ActiveChat(),
               RecentChat()
             ],

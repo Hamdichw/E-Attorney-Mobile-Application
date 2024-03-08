@@ -1,8 +1,8 @@
 import 'package:estichara/view/first_screens/screen4.dart';
 import 'package:get/get.dart';
 
+import '../../utils/widgets/Button.dart';
 import '/utils/const.dart';
-import '/utils/widgets/buttons/btn_next.dart';
 import 'package:flutter/material.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 

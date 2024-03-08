@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../utils/const.dart';
 import '../utils/widgets/List_Lawyer.dart';
+import '../utils/widgets/SearshField.dart';
 
 class FindPage extends StatefulWidget {
   const FindPage({super.key});
@@ -53,147 +54,86 @@ class _FindPageState extends State<FindPage> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 8),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Text(
-                    "Find by :",
-                    style: GoogleFonts.electrolize(
-                        textStyle: TextStyle(
-                            color: btncolor,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold)),
-                  ),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Container(
-                    height: 35,
-
-                    //color: Color(0xFF957f60),
-                    decoration: BoxDecoration(
+            child: Row(
+              children: [
+                Text(
+                  "Find by :",
+                  style: GoogleFonts.electrolize(
+                      textStyle: TextStyle(
+                          color: btncolor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold)),
+                ),
+                SizedBox(
+                  width: 8,
+                ),
+                Container(
+                  height: 35,
+                  //color: Color(0xFF957f60),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(35),
+                      color: const Color.fromARGB(139, 158, 158, 158)),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: DropdownButton(
+                        items: items.map((String item) {
+                          return DropdownMenuItem(
+                              value: item, child: Text(item));
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            dropdownValue = newValue!;
+                          });
+                        },
                         borderRadius: BorderRadius.circular(35),
-                        color: const Color.fromARGB(139, 158, 158, 158)),
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 10),
-                      child: DropdownButton(
-                          items: items.map((String item) {
-                            return DropdownMenuItem(
-                                value: item, child: Text(item));
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              dropdownValue = newValue!;
-                            });
-                          },
-                          borderRadius: BorderRadius.circular(35),
-                          hint: Row(
-                            children: [
-                              Icon(Icons.location_on_outlined),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 4),
-                                child: Text("lieux"),
-                              ),
-                            ],
-                          )),
-                    ),
+                        hint: Row(
+                          children: [
+                            Icon(Icons.location_on_outlined),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text("lieux"),
+                            ),
+                          ],
+                        )),
                   ),
-                  SizedBox(
-                    width: 12,
-                  ),
-                  Container(
-                    height: 35,
-
-                    //color: Color(0xFF957f60),
-                    decoration: BoxDecoration(
+                ),
+                SizedBox(
+                  width: 12,
+                ),
+                Container(
+                  height: 35,
+                  //color: Color(0xFF957f60),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(35),
+                      color: const Color.fromARGB(139, 158, 158, 158)),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: DropdownButton(
+                        items: items.map((String item) {
+                          return DropdownMenuItem(
+                              value: item, child: Text(item));
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            dropdownValue = newValue!;
+                          });
+                        },
                         borderRadius: BorderRadius.circular(35),
-                        color: const Color.fromARGB(139, 158, 158, 158)),
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 10),
-                      child: DropdownButton(
-                          items: items.map((String item) {
-                            return DropdownMenuItem(
-                                value: item, child: Text(item));
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              dropdownValue = newValue!;
-                            });
-                          },
-                          borderRadius: BorderRadius.circular(35),
-                          hint: Row(
-                            children: [
-                              Icon(Icons.person_2_outlined),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 4),
-                                child: Text("Type"),
-                              ),
-                            ],
-                          )),
-                    ),
+                        hint: Row(
+                          children: [
+                            Icon(Icons.person_2_outlined),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text("Type"),
+                            ),
+                          ],
+                        )),
                   ),
-                  SizedBox(
-                    width: 12,
-                  ),
-                  Container(
-                    height: 35,
-
-                    //color: Color(0xFF957f60),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(35),
-                        color: const Color.fromARGB(139, 158, 158, 158)),
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 10),
-                      child: DropdownButton(
-                          items: items.map((String item) {
-                            return DropdownMenuItem(
-                                value: item, child: Text(item));
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              dropdownValue = newValue!;
-                            });
-                          },
-                          borderRadius: BorderRadius.circular(35),
-                          hint: Row(
-                            children: [
-                              Icon(Icons.location_on_outlined),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 4),
-                                child: Text("lieux"),
-                              ),
-                            ],
-                          )),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-          if (show)
-            Padding(
-              padding:
-                  const EdgeInsets.only(top: 16, left: 5, right: 5, bottom: 8),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: "Search...",
-                  hintStyle: const TextStyle(color: Colors.black),
-                  prefixIcon: const Icon(
-                    Icons.search,
-                    color: Colors.black,
-                    size: 20,
-                  ),
-                  filled: true,
-                  fillColor: Color.fromARGB(131, 216, 216, 216),
-                  contentPadding: const EdgeInsets.all(8),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide:
-                          BorderSide(color: Color.fromARGB(149, 25, 25, 25))),
-                ),
-              ),
-            ),
+          if (show) Searsh_Field(),
           Expanded(
             child: HomePage(),
           ),

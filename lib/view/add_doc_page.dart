@@ -92,22 +92,7 @@ class _AddDocState extends State<AddDoc> {
         backgroundColor: Colors.white,
         body: Column(
           children: [
-            Row(
-              children: [
-                Image(
-                    width: 70,
-                    height: 70,
-                    image: AssetImage("assets/images/logo.png")),
-                Text(
-                  "Estishara.tn",
-                  style: GoogleFonts.electrolize(
-                      textStyle: TextStyle(
-                          color: btncolor,
-                          fontSize: 24,
-                          fontWeight: FontWeight.normal)),
-                ),
-              ],
-            ),
+            Application_Name(),
             SizedBox(
               height: 30,
             ),

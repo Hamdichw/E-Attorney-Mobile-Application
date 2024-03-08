@@ -1,5 +1,6 @@
 import 'package:animated_switch/animated_switch.dart';
 import 'package:estichara/utils/theme_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '/view/authentification/login.dart';
 import 'package:flutter/material.dart';
 import '/utils/const.dart';
-import '/utils/widgets/profile/Profile_menu_widget.dart';
+import '../utils/widgets/Profile_menu_widget.dart';
 import 'Information_Page.dart';
 import 'profile_update_screen.dart';
 
@@ -29,22 +30,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Row(
-                children: [
-                  Image(
-                      width: 70,
-                      height: 70,
-                      image: AssetImage("assets/images/logo.png")),
-                  Text(
-                    "Estishara.tn",
-                    style: GoogleFonts.electrolize(
-                        textStyle: TextStyle(
-                            color: btncolor,
-                            fontSize: 24,
-                            fontWeight: FontWeight.normal)),
-                  ),
-                ],
-              ),
+              Application_Name(),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.05,
               ),
@@ -145,14 +131,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 textColor: const Color.fromARGB(255, 255, 17, 0),
                 endIcon: false,
                 onPress: () async {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => const login(),
-                      ));
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-                  await prefs.remove('isLoggedIn');
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return CupertinoAlertDialog(
+                        title: Text("Confirm Logout"),
+                        content: Text("Are you sure you want to logout?"),
+                        actions: <Widget>[
+                          CupertinoDialogAction(
+                            child: TextButton(
+                              child: Text("Cancel"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ),
+                          CupertinoDialogAction(
+                            child: TextButton(
+                              child: Text("Logout"),
+                              onPressed: () async {
+                                Navigator.of(context)
+                                    .pop(); // Close the AlertDialog
+                                Navigator.pushReplacement(
+                                  // Navigate to the login screen and remove the current route from the navigation stack
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        const login(),
+                                  ),
+                                );
+                                SharedPreferences prefs =
+                                    await SharedPreferences.getInstance();
+                                await prefs.remove('isLoggedIn');
+                              },
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 },
                 isswitch: false,
               ),
