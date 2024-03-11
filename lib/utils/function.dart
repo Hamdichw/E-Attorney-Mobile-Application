@@ -1,5 +1,9 @@
+import 'package:estichara/view/nav_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:get/get.dart';
+
+import '../controller/sign_in_with_facebook.dart';
+import '../controller/sign_in_with_google.dart';
 
 navigation(context, page) {
   Navigator.push(context, MaterialPageRoute(builder: (context) => page));
@@ -96,4 +100,22 @@ Future<DateTime?> showDatePickerDialog(
     lastDate: DateTime.now().add(Duration(days: 365)),
   );
   return selectedDate;
+}
+
+Future signIn() async {
+  final user = await GoogleSignin.login();
+  if (user == null) {
+    Get.snackbar("login", "failed");
+  } else {
+    Get.offAll(NavBar());
+  }
+}
+
+Future signInFacebook() async {
+  final user = await FacebookAuthHandler.login();
+  if (user == null) {
+    Get.snackbar("login", "failed");
+  } else {
+    Get.to(NavBar());
+  }
 }

@@ -149,13 +149,13 @@ class _loginState extends State<login> {
                 /* navigation(context, NavBar()); */
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 prefs.setBool('firstLog', true);
-                Get.to(NavBar());
+                Get.offAll(NavBar());
               }
             }
           },
           style: ElevatedButton.styleFrom(
             fixedSize: const Size(200, 50),
-            primary: btncolor,
+            backgroundColor: btncolor,
           ),
           child: const Text(
             'Login',

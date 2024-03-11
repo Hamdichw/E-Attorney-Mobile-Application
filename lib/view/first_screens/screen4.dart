@@ -1,3 +1,7 @@
+import 'package:estichara/view/nav_bar.dart';
+
+import '../../controller/sign_in_with_google.dart';
+import '../../utils/function.dart';
 import '../../utils/widgets/Button.dart';
 import '/utils/const.dart';
 import '/view/authentification/login.dart';
@@ -43,6 +47,7 @@ class Screen4 extends StatelessWidget {
                       height: MediaQuery.of(context).size.height * 0.08,
                     ),
                     btn_screen4(
+                        onpress: () => signInFacebook(),
                         text: "Continue with Facebook",
                         icon: Icon(
                           Icons.facebook,
@@ -53,12 +58,25 @@ class Screen4 extends StatelessWidget {
                       height: MediaQuery.of(context).size.height * 0.018,
                     ),
                     btn_screen4(
-                        text: "Continue with Google",
-                        icon: Icon(
-                          Icons.email_sharp,
-                          size: MediaQuery.of(context).size.height * 0.03,
-                          color: btncolor,
-                        )),
+                      onpress: () =>
+                          signIn() /* async {
+                        final user = await GoogleSignin.login();
+                        if (user != null)
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (BuildContext context) => NavBar(),
+                            ),
+                          );
+                      } */
+                      , // Use a lambda function
+                      text: "Continue with Google",
+                      icon: Icon(
+                        Icons.email_sharp,
+                        size: MediaQuery.of(context).size.height * 0.03,
+                        color: btncolor,
+                      ),
+                    ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.08,
                     ),

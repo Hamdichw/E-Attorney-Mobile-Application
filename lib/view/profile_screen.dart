@@ -3,8 +3,11 @@ import 'package:estichara/utils/theme_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../controller/sign_in_with_facebook.dart';
+import '../controller/sign_in_with_google.dart';
 import '/view/authentification/login.dart';
 import 'package:flutter/material.dart';
 import '/utils/const.dart';
@@ -163,6 +166,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 SharedPreferences prefs =
                                     await SharedPreferences.getInstance();
                                 await prefs.remove('isLoggedIn');
+                                await GoogleSignin.logout();
+                                await FacebookAuthHandler.logout();
                               },
                             ),
                           ),

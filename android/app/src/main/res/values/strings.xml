@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">estishara</string>
+    <string name="facebook_app_id">404465225519690</string>
+    <string name="fb_login_protocol_scheme">fb404465225519690</string>
+    <string name="facebook_client_token">843ab0c5ccd5d0cbed83ee9d08cd6818</string>
+</resources>
+

@@ -34,11 +34,11 @@ class _SplashScreenState extends State<SplashScreen> {
                   : NavBar()) */
               {
                 if (FirstTime == false || FirstTime == null)
-                  {Get.to(Controller())}
+                  {Get.offAll(Controller())}
                 else if (loggedin == true)
-                  {Get.to(NavBar())}
+                  {Get.offAll(NavBar())}
                 else
-                  Get.to(Screen4())
+                  {Get.offAll(Screen4())}
               });
     });
   }

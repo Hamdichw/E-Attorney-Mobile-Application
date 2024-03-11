@@ -62,6 +62,8 @@ dependencies:
   theme_button: ^1.0.4
   bottom_sheet: ^4.0.0
   get_storage: ^2.1.1
+  google_sign_in: ^6.2.1
+  flutter_facebook_auth: ^6.1.1
   
 
 
