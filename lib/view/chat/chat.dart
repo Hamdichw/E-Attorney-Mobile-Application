@@ -51,7 +51,7 @@ class _ChatState extends State<Chat> {
                       )),
                 ],
               ),
-              if (show) Searsh_Field(),
+              //if (show) Searsh_Field(searchController: ,),
               ActiveChat(),
               RecentChat()
             ],

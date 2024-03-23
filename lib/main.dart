@@ -1,4 +1,6 @@
 import 'package:estichara/utils/theme_service.dart';
+import 'package:estichara/view/first_screens/page_controller.dart';
+import 'package:estichara/view/first_screens/introduction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:get/get.dart';

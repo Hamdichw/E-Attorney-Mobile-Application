@@ -18,64 +18,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  final List<Lawyer> data = [
-    Lawyer(
-        age: 47,
-        name: 'seif',
-        lastName: 'boubakrie',
-        phone: '95687135',
-        image: 'assets/images/test1.jpg',
-        valide: true),
-    Lawyer(
-        age: 58,
-        name: 'iskander',
-        lastName: 'channouf',
-        phone: '25951412',
-        image: 'assets/images/test2.jpg',
-        valide: true),
-    Lawyer(
-        age: 78,
-        name: 'hamdi',
-        lastName: 'chtiwi',
-        phone: '22449174',
-        image: 'assets/images/test3.jpg'),
-    Lawyer(
-        age: 44,
-        name: 'saif',
-        lastName: 'klai',
-        phone: '26351837',
-        image: 'assets/images/avatar.png',
-        valide: true),
-    Lawyer(
-        age: 51,
-        name: 'saif',
-        lastName: 'Dabssi',
-        phone: '25915880',
-        image: 'assets/images/test1.jpg'),
-    Lawyer(
-        age: 66,
-        name: 'baha',
-        lastName: 'Laamiri',
-        phone: '26485618',
-        image: 'assets/images/test2.jpg',
-        valide: true),
-    Lawyer(
-        age: 66,
-        name: 'Denzel',
-        lastName: 'Washington',
-        image: 'assets/images/test3.jpg'),
-    Lawyer(
-        age: 66,
-        name: 'Denzel',
-        lastName: 'Washington',
-        image: 'assets/images/test4.jpg'),
-    Lawyer(
-        age: 49,
-        name: 'Ben',
-        lastName: 'Affleck',
-        image: 'assets/images/images.jpg'),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

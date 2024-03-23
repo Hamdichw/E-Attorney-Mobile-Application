@@ -1,6 +1,7 @@
 import 'package:estichara/view/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controller/sign_in_with_facebook.dart';
 import '../controller/sign_in_with_google.dart';
@@ -107,6 +108,9 @@ Future signIn() async {
   if (user == null) {
     Get.snackbar("login", "failed");
   } else {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('firstLog', true);
+    prefs.setBool('isLoggedIn', true);
     Get.offAll(NavBar());
   }
 }

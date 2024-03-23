@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../models/lawyers.dart';
+
 //button color
 const btncolor = Color.fromARGB(255, 33, 52, 66);
 const Color Background_color = Color(0xffe3e3ef);
@@ -29,3 +31,71 @@ class Application_Name extends StatelessWidget {
     );
   }
 }
+
+List<String> introduction_title = [
+  "Find The Best lawyer",
+  "Easy To hire",
+  "Online Payments"
+];
+List<String> introduction_text = [
+  "Get started now and find the best lawyer to advocate for your rights and achieve the best possible outcome for your legal situation.",
+  "User-Friendly Interface: Navigate through the hiring process with ease, even if you're new to legal services.",
+  "Effortless Transactions: Make payments for legal services quickly and conveniently from the comfort of your own home."
+];
+final List<Lawyer> data = [
+  Lawyer(
+      age: 47,
+      name: 'seif',
+      lastName: 'boubakrie',
+      phone: '95687135',
+      image: 'assets/images/test1.jpg',
+      valide: true),
+  Lawyer(
+      age: 58,
+      name: 'iskander',
+      lastName: 'channouf',
+      phone: '25951412',
+      image: 'assets/images/test2.jpg',
+      valide: true),
+  Lawyer(
+      age: 78,
+      name: 'hamdi',
+      lastName: 'chtiwi',
+      phone: '22449174',
+      image: 'assets/images/test3.jpg'),
+  Lawyer(
+      age: 44,
+      name: 'saif',
+      lastName: 'klai',
+      phone: '26351837',
+      image: 'assets/images/avatar.png',
+      valide: true),
+  Lawyer(
+      age: 51,
+      name: 'saif',
+      lastName: 'Dabssi',
+      phone: '25915880',
+      image: 'assets/images/test1.jpg'),
+  Lawyer(
+      age: 66,
+      name: 'baha',
+      lastName: 'Laamiri',
+      phone: '26485618',
+      image: 'assets/images/test2.jpg',
+      valide: true),
+  Lawyer(
+      age: 66,
+      name: 'Denzel',
+      lastName: 'Washington',
+      image: 'assets/images/test3.jpg'),
+  Lawyer(
+      age: 66,
+      name: 'Denzel',
+      lastName: 'Washington',
+      image: 'assets/images/test4.jpg'),
+  Lawyer(
+      age: 49,
+      name: 'Ben',
+      lastName: 'Affleck',
+      image: 'assets/images/images.jpg'),
+];
