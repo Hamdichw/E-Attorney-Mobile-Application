@@ -1,3 +1,6 @@
+import 'package:get/get.dart';
+
+import '../utils/theme_service.dart';
 import '/utils/const.dart';
 import '/utils/function.dart';
 import '/utils/widgets/text_field.dart';
@@ -23,12 +26,24 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: theme.backgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text("Edit Profile"),
+        backgroundColor: theme.backgroundColor,
+        title: Text("8".tr),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Themes().changeTheme();
+            },
+            icon: Icon(
+              Icons.dark_mode,
+              size: 20,
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -69,7 +84,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                 child: Column(
                   children: [
                     InputField(
-                      hintText: "Full name",
+                      hintText: "9".tr,
                       controller: name,
                       validator: Validators.validateName,
                       prefixIcon: Icon(
@@ -77,19 +92,19 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       ),
                     ),
                     InputField(
-                      hintText: "Email",
+                      hintText: "10".tr,
                       controller: email,
                       validator: Validators.validateEmail,
                       prefixIcon: Icon(Icons.email),
                     ),
                     InputField(
-                      hintText: "phone",
+                      hintText: "11".tr,
                       controller: phone,
                       validator: Validators.validatePhone,
                       prefixIcon: Icon(Icons.phone),
                     ),
                     InputField(
-                      hintText: "password",
+                      hintText: "12".tr,
                       controller: password,
                       obscure: visible,
                       suffixIcon: IconButton(
@@ -99,13 +114,13 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                           });
                         },
                         icon: visible == true
-                            ? const Icon(
+                            ? Icon(
                                 Icons.visibility,
-                                color: Colors.black,
+                                color: theme.textTheme.displayLarge!.color,
                               )
-                            : const Icon(
+                            : Icon(
                                 Icons.visibility_off,
-                                color: Colors.black,
+                                color: theme.textTheme.displayLarge!.color,
                               ),
                       ),
                       icon: Icons.lock,
@@ -113,7 +128,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       prefixIcon: Icon(Icons.lock),
                     ),
                     InputField(
-                      hintText: "Conform Password",
+                      hintText: "12".tr,
                       controller: vfpassword,
                       obscure: visible1,
                       suffixIcon: IconButton(
@@ -122,14 +137,14 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                             visible1 = !visible1;
                           });
                         },
-                        icon: visible1 == true
-                            ? const Icon(
+                        icon: visible == true
+                            ? Icon(
                                 Icons.visibility,
-                                color: Colors.black,
+                                color: theme.textTheme.displayLarge!.color,
                               )
-                            : const Icon(
+                            : Icon(
                                 Icons.visibility_off,
-                                color: Colors.black,
+                                color: theme.textTheme.displayLarge!.color,
                               ),
                       ),
                       icon: Icons.lock,
@@ -138,7 +153,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     ),
                     const SizedBox(height: 20),
                     // ************************************ Form Submit Button **************************************** //
-                    const SizedBox(
+                    SizedBox(
                       width: 200,
                       height: 50,
                       child: ElevatedButton(
@@ -147,8 +162,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                             backgroundColor: MaterialStatePropertyAll(btncolor),
                             side: MaterialStatePropertyAll(BorderSide.none),
                             shape: MaterialStatePropertyAll(StadiumBorder())),
-                        child:
-                            Text("save", style: TextStyle(color: Colors.white)),
+                        child: Text("13".tr,
+                            style: TextStyle(color: Colors.white)),
                       ),
                     ),
                   ],

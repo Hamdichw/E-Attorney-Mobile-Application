@@ -56,11 +56,15 @@ class _Screen1State extends State<Screen1> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Text(
-                    introduction_text[x - 1],
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                    textAlign: TextAlign.center,
+                child: Container(
+                  height: 90,
+                  child: Center(
+                    child: Text(
+                      introduction_text[x - 1],
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ),

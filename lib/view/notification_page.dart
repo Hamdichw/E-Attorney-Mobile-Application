@@ -22,9 +22,9 @@ class _NotitcationTapState extends State<NotitcationTap> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -44,23 +44,28 @@ class _NotitcationTapState extends State<NotitcationTap> {
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.5,
                     height: 50,
-                    color: Colors.white,
                     child: Column(
                       children: [
                         Center(
                             child: Text(
-                          "Alerts",
+                          "Request",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
-                            color: click ? Colors.blueAccent : Colors.black,
+                            color: click
+                                ? Colors.blueAccent
+                                : theme.textTheme.displayLarge!.color,
                           ),
                         )),
                         Spacer(),
                         if (click)
                           Divider(
                             height: 1,
-                            color: Color.fromARGB(157, 0, 0, 0),
+                            color: Theme.of(context).brightness ==
+                                    Brightness.dark
+                                ? Colors.white.withOpacity(
+                                    0.6) // White color with 14% opacity
+                                : Color.fromARGB(157, 0, 0, 0), // Default color
                           )
                       ],
                     ),
@@ -74,7 +79,6 @@ class _NotitcationTapState extends State<NotitcationTap> {
                     });
                   },
                   child: Container(
-                    color: Colors.white,
                     width: MediaQuery.of(context).size.width * 0.5,
                     height: 50,
                     child: Column(
@@ -85,14 +89,20 @@ class _NotitcationTapState extends State<NotitcationTap> {
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
-                            color: click1 ? Colors.blueAccent : Colors.black,
+                            color: click1
+                                ? Colors.blueAccent
+                                : theme.textTheme.displayLarge!.color,
                           ),
                         )),
                         Spacer(),
                         if (click1)
                           Divider(
                             height: 1,
-                            color: Color.fromARGB(157, 0, 0, 0),
+                            color: Theme.of(context).brightness ==
+                                    Brightness.dark
+                                ? Colors.white.withOpacity(
+                                    0.6) // White color with 14% opacity
+                                : Color.fromARGB(157, 0, 0, 0), // Default color
                           )
                       ],
                     ),
@@ -105,7 +115,6 @@ class _NotitcationTapState extends State<NotitcationTap> {
             else
               Expanded(
                 child: Container(
-                  decoration: BoxDecoration(color: Colors.grey[200]),
                   child: Column(
                     children: [
                       SizedBox(

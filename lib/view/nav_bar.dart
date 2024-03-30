@@ -11,7 +11,8 @@ import 'notification_page.dart';
 import 'profile_screen.dart';
 
 class NavBar extends StatefulWidget {
-  NavBar({Key? key}) : super(key: key);
+  final int? indx;
+  NavBar({Key? key, this.indx}) : super(key: key);
 
   @override
   _NavBarState createState() => _NavBarState();
@@ -25,7 +26,7 @@ class _NavBarState extends State<NavBar> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(initialPage: _pageIndex);
+    _pageController = PageController(initialPage: widget.indx ?? _pageIndex);
   }
 
   @override
@@ -36,6 +37,7 @@ class _NavBarState extends State<NavBar> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -51,35 +53,36 @@ class _NavBarState extends State<NavBar> {
 
         ///*******************navigation et element ************************ */
         child: CurvedNavigationBar(
-          buttonBackgroundColor: Colors.white,
+          color: theme.backgroundColor,
+          buttonBackgroundColor: theme.backgroundColor,
           backgroundColor: const Color.fromARGB(0, 255, 255, 255),
-          index: _pageIndex,
+          index: widget.indx ?? _pageIndex,
           height: 50.0,
-          items: const <Widget>[
+          items: <Widget>[
             Icon(
               Icons.note_add_outlined,
               size: 30,
-              color: btncolor,
+              color: theme.textTheme.bodyText1!.color,
             ),
             Icon(
               Icons.chat_bubble_outline,
               size: 30,
-              color: btncolor,
+              color: theme.textTheme.bodyText1!.color,
             ),
             Icon(
               Icons.home_outlined,
               size: 30,
-              color: btncolor,
+              color: theme.textTheme.bodyText1!.color,
             ),
             Icon(
               Icons.notifications_outlined,
               size: 30,
-              color: btncolor,
+              color: theme.textTheme.bodyText1!.color,
             ),
             Icon(
               Icons.account_circle_outlined,
               size: 30,
-              color: btncolor,
+              color: theme.textTheme.bodyText1!.color,
             ),
           ],
 
@@ -107,13 +110,6 @@ class _NavBarState extends State<NavBar> {
         ///********les pages de navbar******** */
         children: <Widget>[
           AddDoc(files: files),
-          /* const Center(
-            child: Text(
-              "Add Documents",
-              style: TextStyle(
-                  color: btncolor, fontSize: 30, fontWeight: FontWeight.bold),
-            ),
-          ), */
           Chat(),
           const FindPage(),
           NotitcationTap(),

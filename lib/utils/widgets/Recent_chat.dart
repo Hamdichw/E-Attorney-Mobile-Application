@@ -16,6 +16,7 @@ class RecentChat extends StatefulWidget {
 class _RecentChatState extends State<RecentChat> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Column(
@@ -30,7 +31,7 @@ class _RecentChatState extends State<RecentChat> with TickerProviderStateMixin {
                     "Recent Messages",
                     style: GoogleFonts.electrolize(
                         textStyle: TextStyle(
-                            color: Colors.black87,
+                            color: theme.textTheme.displayLarge!.color,
                             fontSize: 22,
                             fontWeight: FontWeight.bold)),
                   ),
@@ -88,7 +89,9 @@ class _RecentChatState extends State<RecentChat> with TickerProviderStateMixin {
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       border: Border.all(
-                                          color: Colors.black54, width: 2),
+                                          color: theme
+                                              .textTheme.bodyMedium!.color!,
+                                          width: 2),
                                     ),
                                     child: Container(
                                       padding: EdgeInsets.all(3),
@@ -114,7 +117,8 @@ class _RecentChatState extends State<RecentChat> with TickerProviderStateMixin {
                                         "Dali Zaidi",
                                         style: TextStyle(
                                             fontSize: 20,
-                                            color: btncolor,
+                                            color: theme
+                                                .textTheme.bodyText1!.color,
                                             fontWeight: FontWeight.bold),
                                       ),
                                       SizedBox(
@@ -123,8 +127,10 @@ class _RecentChatState extends State<RecentChat> with TickerProviderStateMixin {
                                       Text(
                                         "salam alaykom .....",
                                         style: TextStyle(
-                                            fontSize: 16,
-                                            color: Colors.black54),
+                                          fontSize: 16,
+                                          color:
+                                              theme.textTheme.bodyText2!.color,
+                                        ),
                                       )
                                     ],
                                   ),
@@ -139,8 +145,10 @@ class _RecentChatState extends State<RecentChat> with TickerProviderStateMixin {
                                       Text(
                                         "00:00",
                                         style: TextStyle(
-                                            fontSize: 15,
-                                            color: Colors.black54),
+                                          fontSize: 15,
+                                          color: theme
+                                              .textTheme.displayLarge!.color,
+                                        ),
                                       ),
                                       SizedBox(
                                         height: 10,

@@ -11,6 +11,8 @@ class ActiveChat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Column(
       children: [
         Align(
@@ -23,7 +25,7 @@ class ActiveChat extends StatelessWidget {
                   "online",
                   style: GoogleFonts.electrolize(
                       textStyle: TextStyle(
-                          color: Colors.black87,
+                          color: theme.textTheme.displayLarge!.color,
                           fontSize: 22,
                           fontWeight: FontWeight.bold)),
                 ),

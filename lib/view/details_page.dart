@@ -49,9 +49,13 @@ class _DetailsState extends State<Details> {
                 children: <Widget>[
                   Expanded(
                     flex: 1,
-                    child: Card2(),
+                    child: Card2(
+                      FirstName: widget.Name,
+                      LastName: widget.Lastname,
+                      phone: widget.Phone,
+                    ),
                   ),
-                  Container(width: 2),
+                  Container(width: MediaQuery.of(context).size.width * 0.02),
                   Expanded(
                     flex: 1,
                     child: Card3(

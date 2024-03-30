@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../models/lawyers.dart';
+import '../model/lawyers.dart';
 import '../utils/const.dart';
 import '../utils/widgets/List_Lawyer.dart';
 import '../utils/widgets/Search_bar.dart';
@@ -22,9 +22,9 @@ class _FindPageState extends State<FindPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
         body: Column(
           children: [
             Row(
@@ -50,7 +50,7 @@ class _FindPageState extends State<FindPage> {
                     /*  setState(() {
                       show = !show;
                     }); */
-                    showSearch(context: context, delegate: SearshData());
+                    showSearch(context: context, delegate: SearchData());
                   },
                   icon: Icon(
                     Icons.search,
@@ -151,7 +151,6 @@ class _FindPageState extends State<FindPage> {
                 ],
               ),
             ),
-            if (show) Searsh_Field(),
             Expanded(
               child: HomePage(),
             ),

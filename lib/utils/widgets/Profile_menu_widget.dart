@@ -26,6 +26,7 @@ class ProfileMenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     var iconColor = btncolor;
     return ListTile(
         onTap: onPress, //****************function here *********** */
@@ -36,7 +37,10 @@ class ProfileMenuWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(100),
             color: iconColor.withOpacity(0.1),
           ),
-          child: Icon(icon, color: iconColor),
+          child: Icon(
+            icon,
+            color: theme.textTheme.bodyText1!.color,
+          ),
         ),
         //************* text here *********/
         title: Text(title),
@@ -49,8 +53,11 @@ class ProfileMenuWidget extends StatelessWidget {
                   color:
                       const Color.fromARGB(255, 158, 158, 158).withOpacity(0.1),
                 ),
-                child: const Icon(Icons.arrow_forward_ios_sharp,
-                    size: 18.0, color: btncolor))
+                child: Icon(
+                  Icons.arrow_forward_ios_sharp,
+                  size: 18.0,
+                  color: theme.textTheme.bodyText1!.color,
+                ))
             : isswitch
                 ? Container(
                     width: 50,

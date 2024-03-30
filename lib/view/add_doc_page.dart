@@ -87,9 +87,9 @@ class AddDoc extends StatefulWidget {
 class _AddDocState extends State<AddDoc> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
         body: Column(
           children: [
             Application_Name(),
@@ -123,11 +123,11 @@ class _AddDocState extends State<AddDoc> {
                 itemBuilder: (context, index) {
                   final file = widget.files[index];
                   return buildFile(
-                    file,
-                    (int index) => setState(() =>
-                        widget.files.removeAt(index)), // onDelete function
-                    widget.files,
-                  );
+                      file,
+                      (int index) => setState(() =>
+                          widget.files.removeAt(index)), // onDelete function
+                      widget.files,
+                      theme);
                 },
               ),
             ),

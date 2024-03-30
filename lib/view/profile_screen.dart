@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import '/utils/const.dart';
 import '../utils/widgets/Profile_menu_widget.dart';
 import 'Information_Page.dart';
+import 'language.dart';
 import 'profile_update_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -28,13 +29,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Application_Name(),
+              Row(
+                children: [
+                  Image(
+                    width: 70,
+                    height: 70,
+                    image: AssetImage("assets/images/logo.png"),
+                  ),
+                  Text(
+                    "Estishara.tn",
+                    style: GoogleFonts.electrolize(
+                      textStyle: TextStyle(
+                        color: btncolor,
+                        fontSize: 24,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.05,
               ),
@@ -71,7 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 "Dali",
                 style: GoogleFonts.electrolize(
                     textStyle: TextStyle(
-                        color: btncolor,
+                        color: theme.textTheme.bodyText1!.color,
                         fontSize: 24,
                         fontWeight: FontWeight.normal)),
               ),
@@ -79,19 +98,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 "Developpeur Flutter",
                 style: GoogleFonts.electrolize(
                     textStyle: TextStyle(
-                        color: Colors.black87,
+                        color: theme.textTheme.displayLarge!.color,
                         fontSize: 15,
                         fontWeight: FontWeight.normal)),
               ),
               const SizedBox(height: 20),
               /*  *************************************** BUTTON **************************** */
               const SizedBox(height: 30),
-              const Divider(),
+              Divider(
+                color: theme.textTheme.displayLarge!.color,
+              ),
               const SizedBox(height: 10),
 
               /// ******************************** MENU ***********************************
               ProfileMenuWidget(
-                title: "User Management",
+                title: "5".tr,
                 icon: Icons.account_circle_outlined,
                 onPress: () {
                   Get.to(UpdateProfileScreen());
@@ -99,14 +120,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 isswitch: false,
               ),
               ProfileMenuWidget(
-                title: "Langage",
+                title: "4".tr,
                 icon: Icons.language,
-                onPress: () {},
+                onPress: () {
+                  Get.off(Language());
+                },
                 isswitch: false,
               ),
               ProfileMenuWidget(
                 endIcon: false,
-                title: dark ? "Dark Theme" : "Light theme",
+                title: "Dark Theme",
                 icon: dark ? Icons.dark_mode : Icons.wb_sunny_outlined,
                 Switch: AnimatedSwitch(
                     colorOff: Color(0xffA09F99),
@@ -119,10 +142,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onPress: () {},
                 isswitch: true,
               ),
-              const Divider(),
+              Divider(
+                color: theme.textTheme.displayLarge!.color,
+              ),
               const SizedBox(height: 10),
               ProfileMenuWidget(
-                title: "Information",
+                title: "6".tr,
                 icon: Icons.info,
                 onPress: () {
                   Get.to(Information());
@@ -130,7 +155,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 isswitch: false,
               ),
               ProfileMenuWidget(
-                title: "Logout",
+                title: "7".tr,
                 icon: Icons.logout,
                 textColor: const Color.fromARGB(255, 255, 17, 0),
                 endIcon: false,
@@ -138,39 +163,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return CupertinoAlertDialog(
+                      return AlertDialog(
                         title: Text("Confirm Logout"),
                         content: Text("Are you sure you want to logout?"),
                         actions: <Widget>[
-                          CupertinoDialogAction(
-                            child: TextButton(
-                              child: Text("Cancel"),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
+                          TextButton(
+                            child: Text("Cancel"),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
                           ),
-                          CupertinoDialogAction(
-                            child: TextButton(
-                              child: Text("Logout"),
-                              onPressed: () async {
-                                Navigator.of(context)
-                                    .pop(); // Close the AlertDialog
-                                Navigator.pushReplacement(
-                                  // Navigate to the login screen and remove the current route from the navigation stack
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        Screen4(),
-                                  ),
-                                );
-                                SharedPreferences prefs =
-                                    await SharedPreferences.getInstance();
-                                await prefs.remove('isLoggedIn');
-                                await GoogleSignin.logout();
-                                await FacebookAuthHandler.logout();
-                              },
-                            ),
+                          TextButton(
+                            child: Text("Logout"),
+                            onPressed: () async {
+                              Navigator.of(context)
+                                  .pop(); // Close the AlertDialog
+                              Navigator.pushReplacement(
+                                // Navigate to the login screen and remove the current route from the navigation stack
+                                context,
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) => Screen4(),
+                                ),
+                              );
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              await prefs.remove('isLoggedIn');
+                              await GoogleSignin.logout();
+                              await FacebookAuthHandler.logout();
+                            },
                           ),
                         ],
                       );

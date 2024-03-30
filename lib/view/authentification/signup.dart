@@ -28,7 +28,6 @@ class _signupState extends State<signup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Align(
         alignment: Alignment.center,
         child: SingleChildScrollView(

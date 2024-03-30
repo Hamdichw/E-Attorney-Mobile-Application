@@ -1,7 +1,7 @@
 import 'package:estichara/view/chat/chat.dart';
 import 'package:get/get.dart';
 
-import '/models/lawyers.dart';
+import '../../model/lawyers.dart';
 import '/utils/function.dart';
 import '/view/details_page.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +20,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.only(left: 10, right: 10),
         child: Column(
@@ -76,7 +76,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         ),
                         Divider(
                           height: 1,
-                          color: Color.fromARGB(35, 0, 0, 0),
+                          color: theme.brightness == Brightness.dark
+                              ? Colors.white.withOpacity(
+                                  0.14) // White color with 14% opacity
+                              : Color.fromARGB(35, 0, 0, 0), // Default color
                         )
                       ],
                     ),

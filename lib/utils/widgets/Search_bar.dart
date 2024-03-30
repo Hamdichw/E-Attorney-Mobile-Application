@@ -1,21 +1,43 @@
-import 'package:estichara/models/lawyers.dart';
+import 'package:estichara/model/lawyers.dart';
 import 'package:estichara/utils/const.dart';
 import 'package:estichara/utils/widgets/Cards.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/diagnostics.dart';
+import 'package:get/get.dart';
 
 import '../../view/details_page.dart';
 
-class SearshData extends SearchDelegate {
+class SearchData extends SearchDelegate {
+  String? locationFilter;
+  String? typeFilter;
+  List<String> appliedFilters = [];
+
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
+      Wrap(
+        children: appliedFilters
+            .map((filter) => Chip(
+                  label: Text(filter),
+                  deleteIcon: Icon(Icons.clear),
+                  onDeleted: () {
+                    remove();
+                    query = '';
+                  },
+                ))
+            .toList(),
+      ),
+      IconButton(
+        onPressed: () {
+          _showFilterDialog(context);
+        },
+        icon: Icon(Icons.filter_list),
+      ),
       IconButton(
         onPressed: () {
           query = '';
         },
         icon: Icon(Icons.clear),
-      )
+      ),
     ];
   }
 
@@ -31,54 +53,84 @@ class SearshData extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
-    throw UnimplementedError();
+    var searchList = data.where((lawyer) =>
+        lawyer.name.toLowerCase().contains(query.toLowerCase()) ||
+        lawyer.lastName.toLowerCase().contains(query.toLowerCase()));
+
+    // Apply filters if they are set
+    if (appliedFilters.contains(locationFilter)) {
+      searchList = searchList
+          .where((lawyer) => lawyer.location == locationFilter)
+          .toList();
+    }
+
+    if (appliedFilters.contains(typeFilter)) {
+      searchList = searchList
+          .where((lawyer) =>
+              lawyer.type.toLowerCase() == typeFilter!.toLowerCase())
+          .toList();
+    }
+
+    return _buildListView(context, searchList);
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    var searchList = query.isEmpty
-        ? data
-        : data
-            .where((lawyer) =>
-                lawyer.name.toLowerCase().contains(query.toLowerCase()) ||
-                lawyer.lastName.toLowerCase().contains(query.toLowerCase()))
-            .toList();
+    var filteredList = data.where((lawyer) =>
+        lawyer.name.toLowerCase().contains(query.toLowerCase()) ||
+        lawyer.lastName.toLowerCase().contains(query.toLowerCase()));
+
+    // Apply filters if they are set
+    if (appliedFilters.contains(locationFilter)) {
+      filteredList =
+          filteredList.where((lawyer) => lawyer.location == locationFilter);
+    }
+
+    if (appliedFilters.contains(typeFilter)) {
+      filteredList = filteredList.where(
+          (lawyer) => lawyer.type.toLowerCase() == typeFilter!.toLowerCase());
+    }
+
+    return _buildListView(context, filteredList);
+  }
+
+  Widget _buildListView(BuildContext context, Iterable<Lawyer> list) {
     return ListView.builder(
-      itemCount: searchList.length,
+      itemCount: list.length,
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
             showModalBottomSheet(
-                barrierColor: Color.fromARGB(163, 0, 0, 0),
-                backgroundColor: Color.fromARGB(202, 255, 255, 255),
-                scrollControlDisabledMaxHeightRatio: 0.75,
-                showDragHandle: true,
-                isScrollControlled: false,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(20),
-                        topLeft: Radius.circular(20))),
-                context: context,
-                builder: (context) {
-                  return Details(
-                    images: searchList[index].image,
-                    Name: searchList[index].name,
-                    Type: 'Lawyer',
-                    Lastname: searchList[index].lastName,
-                    Phone: searchList[index].phone,
-                    valide: searchList[index].valide,
-                  );
-                });
+              barrierColor: Color.fromARGB(163, 0, 0, 0),
+              backgroundColor: Color.fromARGB(202, 255, 255, 255),
+              scrollControlDisabledMaxHeightRatio: 0.75,
+              showDragHandle: true,
+              isScrollControlled: false,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(20),
+                      topLeft: Radius.circular(20))),
+              context: context,
+              builder: (context) {
+                return Details(
+                  images: list.elementAt(index).image,
+                  Name: list.elementAt(index).name,
+                  Type: 'Lawyer',
+                  Lastname: list.elementAt(index).lastName,
+                  Phone: list.elementAt(index).phone,
+                  valide: list.elementAt(index).valide,
+                );
+              },
+            );
           },
           child: Column(
             children: [
               card(
-                valide: searchList[index].valide,
-                name: searchList[index].name,
-                Lastname: searchList[index].lastName,
+                valide: list.elementAt(index).valide,
+                name: list.elementAt(index).name,
+                Lastname: list.elementAt(index).lastName,
                 image: Image(
-                  image: AssetImage(searchList[index].image),
+                  image: AssetImage(list.elementAt(index).image),
                   height: 65,
                   width: 65,
                   fit: BoxFit.cover,
@@ -93,5 +145,85 @@ class SearshData extends SearchDelegate {
         );
       },
     );
+  }
+
+  void _showFilterDialog(BuildContext context) {
+    String? selectedLocation;
+    String? selectedType;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Text("Apply Filters"),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Wrap(
+                    spacing: 8.0,
+                    children: [
+                      for (String location in [
+                        "Tunis",
+                        "Ariana",
+                        "Nabel",
+                        "Sousse",
+                        "Medenine",
+                        "Gafsa"
+                      ])
+                        ChoiceChip(
+                          label: Text(location),
+                          selected: selectedLocation == location,
+                          onSelected: (selected) {
+                            setState(() {
+                              selectedLocation = selected ? location : null;
+                              appliedFilters.add(selectedLocation!);
+                            });
+                          },
+                        ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Wrap(
+                    spacing: 8.0,
+                    children: [
+                      ChoiceChip(
+                        label: Text("Normal"),
+                        selected: selectedType == "Normal",
+                        onSelected: (selected) {
+                          setState(() {
+                            selectedType = selected ? "Normal" : null;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    // Apply filters based on selectedLocation and selectedType
+                  },
+                  child: Text("Apply"),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("Cancel"),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void remove() {
+    appliedFilters = [];
   }
 }

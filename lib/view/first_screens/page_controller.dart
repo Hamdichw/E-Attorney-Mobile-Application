@@ -41,7 +41,7 @@ class _ControllerState extends State<Controller> {
       child: Scaffold(
         backgroundColor: Colors.white.withOpacity(.9),
         body: PageView(
-          //physics: NeverScrollableScrollPhysics(),
+          physics: NeverScrollableScrollPhysics(),
           controller: _pageController,
           onPageChanged: (int index) {
             setState(() {

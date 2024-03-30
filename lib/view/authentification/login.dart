@@ -31,7 +31,6 @@ class _loginState extends State<login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Align(
         alignment: Alignment.center,
         child: SingleChildScrollView(

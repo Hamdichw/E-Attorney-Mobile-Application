@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../models/lawyers.dart';
+import '../model/lawyers.dart';
 
 //button color
 const btncolor = Color.fromARGB(255, 33, 52, 66);
@@ -49,53 +49,50 @@ final List<Lawyer> data = [
       lastName: 'boubakrie',
       phone: '95687135',
       image: 'assets/images/test1.jpg',
-      valide: true),
+      valide: true,
+      location: 'tunis',
+      type: 'normal'),
   Lawyer(
       age: 58,
       name: 'iskander',
       lastName: 'channouf',
       phone: '25951412',
       image: 'assets/images/test2.jpg',
-      valide: true),
+      valide: true,
+      type: 'gafsa',
+      location: 'gafsa'),
   Lawyer(
       age: 78,
       name: 'hamdi',
       lastName: 'chtiwi',
       phone: '22449174',
-      image: 'assets/images/test3.jpg'),
+      image: 'assets/images/test3.jpg',
+      location: 'gafsa',
+      type: 'normal'),
   Lawyer(
       age: 44,
       name: 'saif',
       lastName: 'klai',
       phone: '26351837',
       image: 'assets/images/avatar.png',
-      valide: true),
+      valide: true,
+      location: 'krib',
+      type: 'normal'),
   Lawyer(
       age: 51,
       name: 'saif',
       lastName: 'Dabssi',
       phone: '25915880',
-      image: 'assets/images/test1.jpg'),
+      image: 'assets/images/test1.jpg',
+      location: 'morouj4',
+      type: 'normal'),
   Lawyer(
       age: 66,
       name: 'baha',
       lastName: 'Laamiri',
       phone: '26485618',
       image: 'assets/images/test2.jpg',
-      valide: true),
-  Lawyer(
-      age: 66,
-      name: 'Denzel',
-      lastName: 'Washington',
-      image: 'assets/images/test3.jpg'),
-  Lawyer(
-      age: 66,
-      name: 'Denzel',
-      lastName: 'Washington',
-      image: 'assets/images/test4.jpg'),
-  Lawyer(
-      age: 49,
-      name: 'Ben',
-      lastName: 'Affleck',
-      image: 'assets/images/images.jpg'),
+      valide: true,
+      location: 'takelsa',
+      type: 'normal'),
 ];

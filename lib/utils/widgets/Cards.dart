@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:intl/intl.dart';
@@ -22,6 +23,7 @@ class card extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
       child: Container(
@@ -37,7 +39,8 @@ class card extends StatelessWidget {
               DecoratedBox(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: Colors.black54, width: 2),
+                  border: Border.all(
+                      color: theme.textTheme.bodyMedium!.color!, width: 2),
                 ),
                 child: Container(
                   padding: EdgeInsets.all(3),
@@ -57,7 +60,7 @@ class card extends StatelessWidget {
                         '$Lastname  $name ',
                         style: GoogleFonts.electrolize(
                             textStyle: TextStyle(
-                                color: btncolor,
+                                color: theme.textTheme.bodyLarge!.color,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold)),
                       ),
@@ -75,13 +78,17 @@ class card extends StatelessWidget {
                     "lawyer ",
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.grey[700],
+                      color: theme.textTheme.bodyMedium!.color,
                     ),
                   ),
                 ],
               ),
               Spacer(), // This will push the trailing icon to the right
-              Icon(Icons.menu_outlined, size: 30.0, color: btncolor),
+              Icon(
+                Icons.menu_outlined,
+                size: 30.0,
+                color: theme.textTheme.bodyLarge!.color,
+              ),
             ],
           ),
         ),
@@ -104,9 +111,11 @@ class Card4 extends StatefulWidget {
 class _Card4State extends State<Card4> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colorScheme.background,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
           color: Color.fromARGB(255, 158, 158, 158),
@@ -125,7 +134,7 @@ class _Card4State extends State<Card4> {
                   children: [
                     Icon(
                       Icons.info,
-                      color: btncolor,
+                      color: theme.textTheme.bodyLarge!.color,
                     ),
                     SizedBox(
                       width: 8,
@@ -135,7 +144,7 @@ class _Card4State extends State<Card4> {
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF37474F),
+                        color: theme.textTheme.bodyLarge!.color,
                       ),
                     ),
                   ],
@@ -183,6 +192,7 @@ class _Card3State extends State<Card3> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 180,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: btncolor,
@@ -213,11 +223,15 @@ class _Card3State extends State<Card3> {
               SizedBox(width: 4),
             ],
           ),
+          Spacer(),
           Padding(
             padding: const EdgeInsets.all(15),
-            child: Text(
-              '${widget.name} \n${widget.lastname}',
-              style: TextStyle(fontSize: 24, color: Colors.white),
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                '${widget.name} ${widget.lastname}',
+                style: TextStyle(fontSize: 24, color: Colors.white),
+              ),
             ),
           ),
         ],
@@ -227,8 +241,14 @@ class _Card3State extends State<Card3> {
 }
 
 class Card2 extends StatefulWidget {
+  final String FirstName;
+  final String LastName;
+  final String? phone;
   Card2({
     Key? key,
+    required this.FirstName,
+    required this.LastName,
+    this.phone,
   }) : super(key: key);
 
   @override
@@ -249,6 +269,7 @@ class _Card2State extends State<Card2> {
     final DateFormat formatter = DateFormat('MMM dd, yyyy');
     final String formattedDate = formatter.format(selectedDate);
     return Container(
+      height: 180,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Colors.teal[800],
@@ -262,7 +283,7 @@ class _Card2State extends State<Card2> {
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: Text(
-              "Add an \nAppointment",
+              "Send request for an Appointment",
               style: TextStyle(fontSize: 24, color: Colors.white),
             ),
           ),
@@ -287,10 +308,11 @@ class _Card2State extends State<Card2> {
                   final DateTime? selectedDate1 = await showDatePickerDialog(
                       context,
                       selectedDate); // Use the showDatePickerDialog function
-                  if (selectedDate != null) {
+                  if (selectedDate1 != null) {
                     setState(() {
-                      this.selectedDate = selectedDate1!;
+                      selectedDate = selectedDate1;
                     });
+                    _showPopup(context);
                   }
                 },
               ),
@@ -301,6 +323,102 @@ class _Card2State extends State<Card2> {
           ),
         ],
       ),
+    );
+  }
+
+  void _showPopup(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          scrollable: true,
+          titleTextStyle: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 20, color: btncolor),
+          title: Text("Request for an Appointment"),
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    "First Name :  ",
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                  ),
+                  Text(
+                    widget.FirstName,
+                    style: TextStyle(fontSize: 18),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Text(
+                    "Last Name :  ",
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                  ),
+                  Text(
+                    widget.LastName,
+                    style: TextStyle(fontSize: 18),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Text(
+                    "Phone Number :  ",
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                  ),
+                  Text(
+                    widget.FirstName,
+                    style: TextStyle(fontSize: 18),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Text("Date selected :  ",
+                      style:
+                          TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
+                  Text("${DateFormat('MMMM dd, yyyy').format(selectedDate)}",
+                      style: TextStyle(fontSize: 18))
+                ],
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                "Close",
+                style:
+                    TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text(
+                "Send",
+                style: TextStyle(color: btncolor, fontWeight: FontWeight.bold),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Get.snackbar("the Request Send succefuly ", "Thank you *_*",
+                    icon: Icon(
+                      Icons.done,
+                      color: Colors.teal[800],
+                    ),
+                    margin: EdgeInsets.only(top: 10),
+                    animationDuration: Duration(seconds: 2),
+                    colorText: Colors.teal[800],
+                    backgroundColor: Colors.white,
+                    duration: Duration(seconds: 8));
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -331,9 +449,10 @@ class Card1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colorScheme.background,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
           color: Color.fromARGB(255, 158, 158, 158),
@@ -369,7 +488,7 @@ class Card1 extends StatelessWidget {
                               Text(
                                 "$name $lastname",
                                 style: TextStyle(
-                                  color: btncolor,
+                                  color: theme.textTheme.bodyLarge!.color,
                                   fontSize: 19,
                                   fontWeight: FontWeight.bold,
                                 ),

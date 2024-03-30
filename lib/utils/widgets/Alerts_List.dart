@@ -17,7 +17,6 @@ class _AlertsState extends State<Alerts> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
       body: ListView.builder(
         itemCount: messages.length,
         itemBuilder: (context, index) {

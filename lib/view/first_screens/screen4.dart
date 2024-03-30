@@ -14,9 +14,9 @@ class Screen4 extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -26,12 +26,12 @@ class Screen4 extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const Padding(
+                    Padding(
                         padding: EdgeInsets.fromLTRB(20, 40, 0, 0),
                         child: Text(
                           "Welcome!",
                           style: TextStyle(
-                              color: btncolor,
+                              color: theme.textTheme.bodyText1!.color,
                               fontSize: 30,
                               fontWeight: FontWeight.bold),
                         )),
@@ -120,9 +120,11 @@ class Screen4 extends StatelessWidget {
                               builder: (context) => const login(),
                             ));
                       },
-                      child: const Text(
+                      child: Text(
                         "Login now",
-                        style: TextStyle(color: btncolor),
+                        style: TextStyle(
+                          color: theme.textTheme.bodyText1!.color,
+                        ),
                       ))
                 ],
               )
