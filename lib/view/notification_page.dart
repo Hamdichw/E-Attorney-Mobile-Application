@@ -1,5 +1,6 @@
 import 'package:estichara/utils/widgets/Alerts_List.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '/utils/const.dart';
@@ -48,7 +49,7 @@ class _NotitcationTapState extends State<NotitcationTap> {
                       children: [
                         Center(
                             child: Text(
-                          "Request",
+                          "14".tr,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -85,7 +86,7 @@ class _NotitcationTapState extends State<NotitcationTap> {
                       children: [
                         Center(
                             child: Text(
-                          "meets",
+                          "15".tr,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,

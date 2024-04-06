@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controller/sign_in_with_facebook.dart';
 import '../controller/sign_in_with_google.dart';
+import '../utils/function.dart';
 import '/view/authentification/login.dart';
 import '/view/first_screens/screen4.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +26,19 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  bool dark = true;
+  List<dynamic>? userDataList;
 
+  @override
+  void initState() {
+    super.initState();
+    fetchUserData();
+  }
+
+  Future<void> fetchUserData() async {
+    userDataList = await fetchData();
+  }
+
+  bool dark = true;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -57,65 +69,70 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.05,
               ),
-
-              /// -------------------------- IMAGE-----------------------------
-              Stack(
-                children: [
-                  SizedBox(
-                    width: 120,
-                    height: 120,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.blueGrey, width: 2),
-                      ),
-                      child: Container(
-                        padding: EdgeInsets.all(3),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(60),
-                          child: Image.asset(
-                            "assets/images/avatar.png",
-                            height: 65,
-                            width: 65,
-                            fit: BoxFit.cover,
+              if (userDataList != null)
+                Stack(
+                  children: [
+                    SizedBox(
+                      width: 120,
+                      height: 120,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.blueGrey, width: 2),
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.all(3),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(60),
+                            child: Image.network(
+                              userDataList![5],
+                              height: 65,
+                              width: 65,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Text(
-                "Dali",
-                style: GoogleFonts.electrolize(
-                    textStyle: TextStyle(
-                        color: theme.textTheme.bodyText1!.color,
-                        fontSize: 24,
-                        fontWeight: FontWeight.normal)),
-              ),
-              Text(
-                "Developpeur Flutter",
-                style: GoogleFonts.electrolize(
-                    textStyle: TextStyle(
-                        color: theme.textTheme.displayLarge!.color,
-                        fontSize: 15,
-                        fontWeight: FontWeight.normal)),
-              ),
+                  ],
+                ),
+              SizedBox(height: 10),
+              if (userDataList != null)
+                Column(
+                  children: [
+                    Text(
+                      "${userDataList![2]} ",
+                      style: GoogleFonts.electrolize(
+                        textStyle: TextStyle(
+                          color: theme.textTheme.bodyText1!.color,
+                          fontSize: 24,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      "${userDataList![6]}",
+                      style: GoogleFonts.electrolize(
+                        textStyle: TextStyle(
+                          color: theme.textTheme.displayLarge!.color,
+                          fontSize: 15,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               const SizedBox(height: 20),
-              /*  *************************************** BUTTON **************************** */
               const SizedBox(height: 30),
               Divider(
                 color: theme.textTheme.displayLarge!.color,
               ),
               const SizedBox(height: 10),
-
-              /// ******************************** MENU ***********************************
               ProfileMenuWidget(
                 title: "5".tr,
                 icon: Icons.account_circle_outlined,
                 onPress: () {
-                  Get.to(UpdateProfileScreen());
+                  Get.off(UpdateProfileScreen());
                 },
                 isswitch: false,
               ),
@@ -132,13 +149,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 title: "Dark Theme",
                 icon: dark ? Icons.dark_mode : Icons.wb_sunny_outlined,
                 Switch: AnimatedSwitch(
-                    colorOff: Color(0xffA09F99),
-                    colorOn: btncolor,
-                    onChanged: (Value) {
-                      setState(() {
-                        dark = Value;
-                      });
-                    }),
+                  colorOff: Color(0xffA09F99),
+                  colorOn: btncolor,
+                  onChanged: (Value) {
+                    setState(() {
+                      dark = Value;
+                    });
+                  },
+                ),
                 onPress: () {},
                 isswitch: true,
               ),
@@ -206,4 +224,3 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
-///*********************page de profile********************** */

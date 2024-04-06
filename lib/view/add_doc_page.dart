@@ -68,6 +68,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
@@ -136,7 +137,7 @@ class _AddDocState extends State<AddDoc> {
               child: Padding(
                 padding: const EdgeInsets.all(18.0),
                 child: Container(
-                  width: 130,
+                  width: 140,
                   child: FloatingActionButton(
                     backgroundColor: btncolor,
                     elevation: 5,
@@ -159,7 +160,7 @@ class _AddDocState extends State<AddDoc> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            " Add Docs",
+                            "21".tr,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 14,

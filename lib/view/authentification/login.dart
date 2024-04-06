@@ -1,8 +1,10 @@
+import 'package:estichara/view/resetpassword.dart';
 import 'package:get/get.dart';
 
 import '/utils/const.dart';
 import '/utils/widgets/text_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../controller/sign_in_controller.dart';
 
 import '/view/nav_bar.dart';
 
@@ -11,22 +13,8 @@ import 'signup.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_switch/animated_switch.dart';
 
-class login extends StatefulWidget {
-  const login({super.key});
-
-  @override
-  State<login> createState() => _loginState();
-}
-
-class _loginState extends State<login> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
-  String Test_email = "dali@g";
-  String Test_password = "12345678";
-  bool visible = true;
-  bool isValid = true;
-  bool remeber = false;
+class Login extends StatelessWidget {
+  final loginController = Get.lazyPut(() => LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -34,21 +22,23 @@ class _loginState extends State<login> {
       body: Align(
         alignment: Alignment.center,
         child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Login(context),
+          child: GetBuilder<LoginController>(
+            builder: (controller) => Form(
+              key: controller.formKey,
+              child: _buildLoginUI(context, controller),
+            ),
           ),
         ),
       ),
     );
   }
 
-  Column Login(BuildContext context) {
+  Column _buildLoginUI(BuildContext context, LoginController controller) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
           child: Text(
             'Login',
@@ -59,61 +49,56 @@ class _loginState extends State<login> {
             ),
           ),
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
           child: Text(
             'Get started now ',
           ),
         ),
-        const SizedBox(
+        SizedBox(
           height: 50,
         ),
         InputField(
-          hintText: "email",
-          controller: email,
+          hintText: "user name",
+          controller: controller.username,
           icon: Icons.mail,
-          validator: Validators.validateEmail,
+          validator: Validators.validateName,
         ),
-        InputField(
-          hintText: "password",
-          controller: password,
-          obscure: visible,
-          suffixIcon: IconButton(
-            onPressed: () {
-              setState(() {
-                visible = !visible;
-              });
-            },
-            icon: visible == true
-                ? const Icon(
-                    Icons.visibility,
-                    color: Colors.black,
-                  )
-                : const Icon(
-                    Icons.visibility_off,
-                    color: Colors.black,
-                  ),
+        Obx(
+          () => InputField(
+            hintText: "password",
+            controller: controller.password,
+            obscure: controller.visible.value,
+            suffixIcon: IconButton(
+              onPressed: () {
+                controller.toggleVisibility();
+              },
+              icon: controller.visible.value
+                  ? Icon(
+                      Icons.visibility_off,
+                      color: Colors.black,
+                    )
+                  : Icon(
+                      Icons.visibility,
+                      color: Colors.black,
+                    ),
+            ),
+            icon: Icons.lock,
+            validator: Validators.validatePassword,
           ),
-          icon: Icons.lock,
-          validator: Validators.validatePassword,
         ),
         Padding(
           padding: EdgeInsets.only(left: 19, top: 8, right: 19),
           child: Row(
             children: [
-              AnimatedSwitch(
-                value: remeber,
-                colorOff: Color(0xffA09F99),
-                colorOn: btncolor,
-                onChanged: (value) async {
-                  setState(() {
-                    remeber = value;
-                  });
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-                  prefs.setBool('isLoggedIn', value);
-                },
-              ),
+              Obx(() => AnimatedSwitch(
+                    value: controller.remember.value,
+                    colorOff: Color(0xffA09F99),
+                    colorOn: btncolor,
+                    onChanged: (value) async {
+                      controller.remember.value = value;
+                    },
+                  )),
               SizedBox(
                 width: 5,
               ),
@@ -124,50 +109,47 @@ class _loginState extends State<login> {
                 ),
               ),
               Spacer(),
-              Text(
-                "Forgot Password",
-                style: TextStyle(
-                  color: Colors.grey,
+              TextButton(
+                onPressed: () {
+                  Get.off(ResetPassword());
+                },
+                child: Text(
+                  "Forgot Password",
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
                 ),
               ),
             ],
           ),
         ),
-        const SizedBox(
+        SizedBox(
           height: 20,
         ),
         Center(
-            child: ElevatedButton(
-          onPressed: () async {
-            // Validate the form
-            if (_formKey.currentState!.validate()) {
-              // Form is valid, perform login logic here
-              String Email = email.text;
-              String Password = password.text;
-              if (Email == Test_email && Password == Test_password) {
-                /* navigation(context, NavBar()); */
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                prefs.setBool('firstLog', true);
-                Get.offAll(NavBar());
+          child: ElevatedButton(
+            onPressed: () async {
+              if (controller.formKey.currentState!.validate()) {
+                await controller.login();
               }
-            }
-          },
-          style: ElevatedButton.styleFrom(
-            fixedSize: const Size(200, 50),
-            backgroundColor: btncolor,
-          ),
-          child: const Text(
-            'Login',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
+            },
+            style: ElevatedButton.styleFrom(
+              fixedSize: Size(200, 50),
+              backgroundColor: btncolor,
+            ),
+            child: Text(
+              'Login',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
-        )),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
+            Text(
               "Don't have an account?",
               style: TextStyle(
                 color: Colors.grey,
@@ -175,19 +157,15 @@ class _loginState extends State<login> {
             ),
             TextButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const signup(),
-                  ),
-                );
+                Get.off(() => Signup());
               },
-              child: const Text(
+              child: Text(
                 "Signup Now",
                 style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 16),
+                  color: Colors.black,
+                  fontWeight: FontWeight.normal,
+                  fontSize: 16,
+                ),
               ),
             )
           ],

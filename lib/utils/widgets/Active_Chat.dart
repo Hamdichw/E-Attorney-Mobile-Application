@@ -22,7 +22,7 @@ class ActiveChat extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "online",
+                  "19".tr,
                   style: GoogleFonts.electrolize(
                       textStyle: TextStyle(
                           color: theme.textTheme.displayLarge!.color,

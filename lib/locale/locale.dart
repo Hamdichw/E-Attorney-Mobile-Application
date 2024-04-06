@@ -12,12 +12,21 @@ class MyLocale implements Translations {
           "5": "إدارة المستخدمين",
           "6": "المعلومات",
           "7": "تسجيل الخروج",
-          "8": "تحرير الملف الشخصي",
+          "8": " الملف الشخصي",
           "9": "الاسم الكامل",
           "10": "البريد الإلكتروني",
           "11": "الهاتف",
           "12": "كلمة المرور",
-          "13": "حفظ"
+          "13": "حفظ",
+          "14": "طلبات",
+          "15": "المواعيد",
+          "16": "الاقسام",
+          "17": "الموقع",
+          "18": "الاختصاص",
+          "19": "متصل",
+          "20": "الرسائل الأخيرة",
+          "21": "إضافة المستندات",
+          "22": "البحث"
         },
         "en": {
           "1": "Arabic",
@@ -32,7 +41,16 @@ class MyLocale implements Translations {
           "10": "Email",
           "11": "Phone",
           "12": "Password",
-          "13": "Save"
+          "13": "Save",
+          "14": "requests",
+          "15": "appointment",
+          "16": "Find by",
+          "17": "location",
+          "18": "type",
+          "19": "online",
+          "20": "Recent Messages",
+          "21": "Add Docs",
+          "22": "search"
         },
         "fr": {
           "1": "Arabe",
@@ -47,7 +65,16 @@ class MyLocale implements Translations {
           "10": "E-mail",
           "11": "Téléphone",
           "12": "Mot de passe",
-          "13": "Enregistrer"
+          "13": "Enregistrer",
+          "14": "demandes",
+          "15": "rendez-vous",
+          "16": "Find by",
+          "17": "lieux",
+          "18": "type",
+          "19": "en ligne",
+          "20": "Messages récents",
+          "21": "ajouter des documents",
+          "22": "recherche"
         }
       };
 }

@@ -88,7 +88,7 @@ class Screen4 extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute<void>(
-                        builder: (BuildContext context) => const signup(),
+                        builder: (BuildContext context) => Signup(),
                       ));
                 },
                 style: ButtonStyle(
@@ -117,7 +117,7 @@ class Screen4 extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const login(),
+                              builder: (context) => Login(),
                             ));
                       },
                       child: Text(

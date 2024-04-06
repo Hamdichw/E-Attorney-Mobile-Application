@@ -28,7 +28,7 @@ class _RecentChatState extends State<RecentChat> with TickerProviderStateMixin {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Recent Messages",
+                    "20".tr,
                     style: GoogleFonts.electrolize(
                         textStyle: TextStyle(
                             color: theme.textTheme.displayLarge!.color,
@@ -59,32 +59,6 @@ class _RecentChatState extends State<RecentChat> with TickerProviderStateMixin {
                             Row(
                               children: [
                                 GestureDetector(
-                                  onLongPress: () {
-                                    showModalBottomSheet(
-                                        scrollControlDisabledMaxHeightRatio:
-                                            0.8,
-                                        transitionAnimationController:
-                                            AnimationController(
-                                          vsync: this,
-                                          duration: Duration(milliseconds: 400),
-                                        ),
-                                        showDragHandle: true,
-                                        isScrollControlled: false,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.only(
-                                                topRight: Radius.circular(20),
-                                                topLeft: Radius.circular(20))),
-                                        context: context,
-                                        builder: (context) {
-                                          return Details(
-                                            images: "assets/images/test1.jpg",
-                                            Name: "dali",
-                                            Type: 'Lawyer',
-                                            Lastname: "zaidi",
-                                            Phone: "52381162",
-                                          );
-                                        });
-                                  },
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,

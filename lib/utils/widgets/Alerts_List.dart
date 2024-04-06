@@ -8,62 +8,30 @@ class Alerts extends StatefulWidget {
 }
 
 class _AlertsState extends State<Alerts> {
-  List<String> messages = [
-    'you have meeting tomorrow',
-    'you have an appointment',
-    'you have a task due'
-  ];
+  Future<List<String>>? data;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
-        itemCount: messages.length,
-        itemBuilder: (context, index) {
-          return Dismissible(
-            key: Key(messages[index]),
-            onDismissed: (direction) {
-              setState(() {
-                messages.removeAt(index);
-              });
-            },
-            background: Container(
-              color: Colors.red,
-              alignment: Alignment.centerRight,
-              padding: EdgeInsets.only(right: 20.0),
-              child: Icon(Icons.delete, color: Colors.white),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-              child: Container(
-                height: 80,
-                child: ListTile(
-                  leading: Icon(
-                    Icons.circle,
-                    color: Colors.blue,
-                    size: 10,
-                  ),
-                  title: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      messages[index],
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.blue,
-                      ),
-                    ),
-                  ),
-                  trailing: Icon(
-                    Icons.close,
-                    size: 20,
-                    color: Colors.red,
-                  ),
-                ),
-              ),
-            ),
-          );
-        },
+      body: FutureBuilder(
+        future: data,
+        builder: ((context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            // Create a list of Text widgets to display all items
+            List<Widget> texts = [];
+            for (var i = 0; i < snapshot.data!.length; i++) {
+              texts.add(Text(snapshot.data![i]));
+            }
+            // Return a column containing all Text widgets
+            return Column(
+              children: texts,
+            );
+          }
+        }),
       ),
     );
   }

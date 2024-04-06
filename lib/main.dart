@@ -1,5 +1,6 @@
 import 'package:estichara/locale/locale.dart';
 import 'package:estichara/locale/locale_controller.dart';
+import 'package:estichara/utils/dependency_injection.dart';
 import 'package:estichara/utils/theme_service.dart';
 import 'package:estichara/view/find_page.dart';
 import 'package:estichara/view/first_screens/page_controller.dart';
@@ -18,20 +19,12 @@ import 'view/nav_bar.dart';
 import 'view/notification_page.dart';
 import 'view/profile_screen.dart';
 import 'view/splash_screen.dart';
+import 'view/verification.dart';
 
-/* void main() async {
-  await GetStorage.init();
-  runApp(GetMaterialApp(
-    debugShowCheckedModeBanner: false,
-    theme: Themes().lightTheme,
-    darkTheme: Themes().darkTheme,
-    themeMode: Themes().getThemeMode(),
-    home: ProfileScreen(),
-  ));
-} */
-void main() async {
+Future<void> main() async {
   await GetStorage.init();
   runApp(MyApp());
+  DependencyInjection.init();
 }
 
 class MyApp extends StatelessWidget {
@@ -47,7 +40,7 @@ class MyApp extends StatelessWidget {
       theme: Themes().lightTheme,
       darkTheme: Themes().darkTheme,
       themeMode: Themes().getThemeMode(),
-      home: NavBar(),
+      home: SplashScreen(),
     );
   }
 }

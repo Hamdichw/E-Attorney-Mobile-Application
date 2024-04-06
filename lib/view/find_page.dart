@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../model/lawyers.dart';
@@ -67,7 +68,7 @@ class _FindPageState extends State<FindPage> {
               child: Row(
                 children: [
                   Text(
-                    "Find by :",
+                    "${"16".tr} :",
                     style: GoogleFonts.electrolize(
                       textStyle: TextStyle(
                         color: btncolor,
@@ -105,7 +106,7 @@ class _FindPageState extends State<FindPage> {
                             Icon(Icons.location_on_outlined),
                             Padding(
                               padding: const EdgeInsets.only(left: 4),
-                              child: Text("lieux"),
+                              child: Text("17".tr),
                             ),
                           ],
                         ),
@@ -141,7 +142,7 @@ class _FindPageState extends State<FindPage> {
                             Icon(Icons.person_2_outlined),
                             Padding(
                               padding: const EdgeInsets.only(left: 4),
-                              child: Text("Type"),
+                              child: Text("18".tr),
                             ),
                           ],
                         ),

@@ -37,7 +37,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     onTap: () {
                       showModalBottomSheet(
                           barrierColor: Color.fromARGB(163, 0, 0, 0),
-                          backgroundColor: Color.fromARGB(202, 255, 255, 255),
+                          backgroundColor: Theme.of(context).brightness ==
+                                  Brightness.dark
+                              ? theme.colorScheme
+                                  .background // White color with 14% opacity
+                              : Color.fromARGB(202, 255, 255, 255),
                           scrollControlDisabledMaxHeightRatio: 0.75,
                           transitionAnimationController: AnimationController(
                             vsync: this,

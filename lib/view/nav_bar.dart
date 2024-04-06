@@ -26,7 +26,8 @@ class _NavBarState extends State<NavBar> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(initialPage: widget.indx ?? _pageIndex);
+    _pageController =
+        PageController(initialPage: _pageIndex = widget.indx ?? _pageIndex);
   }
 
   @override
@@ -56,7 +57,7 @@ class _NavBarState extends State<NavBar> {
           color: theme.backgroundColor,
           buttonBackgroundColor: theme.backgroundColor,
           backgroundColor: const Color.fromARGB(0, 255, 255, 255),
-          index: widget.indx ?? _pageIndex,
+          index: _pageIndex,
           height: 50.0,
           items: <Widget>[
             Icon(

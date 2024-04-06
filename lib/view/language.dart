@@ -24,7 +24,8 @@ class _LanguageState extends State<Language> {
     MyLocaleController controllerlang = Get.find();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Language"),
+        title: Text("4".tr),
+        centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -35,8 +36,16 @@ class _LanguageState extends State<Language> {
         ),
       ),
       body: Column(children: [
+        SizedBox(
+          height: 40,
+        ),
         ListTile(
           title: Text("1".tr),
+          leading: Image.asset(
+            'assets/images/tunisie.png', // Replace with path to Tunisia flag image
+            width: 30,
+            height: 30,
+          ),
           trailing: selectedLanguage == "ar" ? Icon(Icons.done) : null,
           onTap: () {
             setState(() {
@@ -48,6 +57,11 @@ class _LanguageState extends State<Language> {
         ),
         ListTile(
           title: Text("2".tr),
+          leading: Image.asset(
+            'assets/images/england.png', // Replace with path to England flag image
+            width: 30,
+            height: 30,
+          ),
           trailing: selectedLanguage == "en" ? Icon(Icons.done) : null,
           onTap: () {
             setState(() {
@@ -59,6 +73,11 @@ class _LanguageState extends State<Language> {
         ),
         ListTile(
           title: Text("3".tr),
+          leading: Image.asset(
+            'assets/images/french.png', // Replace with path to France flag image
+            width: 30,
+            height: 30,
+          ),
           trailing: selectedLanguage == "fr" ? Icon(Icons.done) : null,
           onTap: () {
             setState(() {
