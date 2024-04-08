@@ -38,9 +38,9 @@ class Themes {
     return isSavedDarkMode() ? ThemeMode.dark : ThemeMode.light;
   }
 
-  void changeTheme() {
-    Get.changeThemeMode(isSavedDarkMode() ? ThemeMode.light : ThemeMode.dark);
-    saveThemeData(!isSavedDarkMode());
+  void changeTheme(bool isDarkMode) {
+    Get.changeTheme(isDarkMode ? darkTheme : lightTheme);
+    saveThemeData(isDarkMode);
   }
 }
 /* 

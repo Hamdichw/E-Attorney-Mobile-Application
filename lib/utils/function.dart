@@ -1,9 +1,16 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+import 'dart:ui';
+import 'package:image/image.dart' as img;
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 import 'package:estichara/view/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../controller/sign_in_with_facebook.dart';
 import '../controller/sign_in_with_google.dart';
@@ -124,6 +131,37 @@ Future<void> signIn() async {
   }
 }
 
+Future<void> signUp2(String username, String email) async {
+  var headers = {"Content-Type": "application/json"};
+  try {
+    Map<String, dynamic> body = {
+      "email": email,
+      "username": username,
+    };
+    final response = await http.post(
+      Uri.parse("https://backendserver.cleverapps.io/ClientAuth/register"),
+      body: jsonEncode(body),
+      headers: headers,
+    );
+    if (response.statusCode == 201) {
+      final json = jsonDecode(response.body);
+      var token = json['token'];
+
+      // Save token to SharedPreferences
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', token);
+      await prefs.setString('userData', jsonEncode(json));
+      // Optionally, save login status if needed
+
+      // Navigate to next screen
+    } else {
+      throw jsonDecode(response.body)["message"] ?? "Unknown Error Occurred";
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
 Future<void> saveUserDataFromGoogle(GoogleSignInAccount user) async {
   // Extract user data from GoogleSignInAccount
   String? displayName = user.displayName;
@@ -183,17 +221,16 @@ Future<List<dynamic>?> fetchData() async {
     // Retrieve user data from SharedPreferences
     Map<String, dynamic>? userData = await getUserData();
     Map<String, dynamic>? userData1 = await getUserDataGoogle();
-    print("data google: $userData1");
-    print("data adia :$userData");
     if (userData != null) {
-      // Access specific fields from user data
       String firstName = userData['firstName'] ?? '';
       String lastName = userData['lastName'] ?? '';
       String username = userData['username'] ?? '';
       String email = userData['email'] ?? '';
       String phone = userData['phoneNumber'] ?? '';
-      String image = userData['profileImage'] ??
-          'https://i.pinimg.com/564x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg';
+      String image = userData['profileImage'] != null
+          ? userData['profileImage']
+          : 'https://i.pinimg.com/564x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg';
+
       String userInfo = userData['userInfo'] ?? '';
       int id = userData['userID'] ?? '';
 
@@ -216,8 +253,9 @@ Future<List<dynamic>?> fetchData() async {
       String firstName = userData1['username'] ?? '';
       String phone = userData1['username'] ?? '';
       String email = userData1['email'] ?? '';
-      String image = userData1['image'] ??
-          'https://i.pinimg.com/564x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg';
+      String image = userData1['image'] != null
+          ? userData1['image']
+          : 'https://i.pinimg.com/564x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg';
       String userInfo = userData1['image'] ?? '';
       String id = userData1['image'] ?? '';
       List<dynamic> userDataList = [
@@ -284,4 +322,22 @@ Future<void> ResetPasswordFunction(String email) async {
     // Handle network errors
     print('Error: $e');
   }
+}
+
+Future<XFile> compressImage(XFile file) async {
+  String targetPath =
+      file.path; // You can specify a different target path if needed
+  List<int> result = (await FlutterImageCompress.compressWithFile(
+    targetPath,
+    minHeight: 800,
+    minWidth: 600,
+    quality: 88,
+  )) as List<int>;
+  String fName = file.name;
+  Directory appDocDir = await getApplicationCacheDirectory();
+  String appDocPath = appDocDir.path;
+  String compressedImagePath = '$appDocPath/$fName.jpg';
+  await File(compressedImagePath).writeAsBytes(result);
+
+  return XFile(compressedImagePath);
 }
