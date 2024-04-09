@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
@@ -13,10 +14,20 @@ class SignupController extends GetxController {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
   final RxBool visible = true.obs;
   final RxBool remember = false.obs;
+  late DateTime selectedDate;
+  final DateFormat formatter = DateFormat('yyyy-MM-dd');
+
   void toggleVisibility() {
     visible.value = !visible.value;
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    selectedDate = DateTime.now();
   }
 
   Future<void> signUp() async {
@@ -26,9 +37,12 @@ class SignupController extends GetxController {
         "firstName": firstNameController.text,
         "lastName": lastNameController.text,
         "email": emailController.text,
+        "birthday": formatter.format(selectedDate),
         "username": usernameController.text,
+        "phoneNumber": phoneController.text,
         "password": passwordController.text
       };
+      print(body);
       final response = await http.post(
         Uri.parse("https://backendserver.cleverapps.io/ClientAuth/register"),
         body: jsonEncode(body),

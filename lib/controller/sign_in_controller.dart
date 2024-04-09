@@ -11,7 +11,7 @@ import '../utils/Api.dart';
 
 class LoginController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final TextEditingController username = TextEditingController();
+  final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   final RxBool visible = true.obs;
   final RxBool remember = false.obs;
@@ -24,7 +24,7 @@ class LoginController extends GetxController {
     var headers = {"Content-Type": "application/json"};
     try {
       Map<String, dynamic> body = {
-        "username": username.text,
+        "email": email.text,
         "password": password.text
       };
       final response = await http.post(
@@ -34,6 +34,7 @@ class LoginController extends GetxController {
       );
       if (response.statusCode == 200) {
         final jsonData = jsonDecode(response.body);
+        print(jsonData);
         var token = jsonData['token'];
 
         // Save token to SharedPreferences

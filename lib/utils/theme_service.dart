@@ -43,22 +43,3 @@ class Themes {
     saveThemeData(isDarkMode);
   }
 }
-/* 
-class Themes {
-  static ThemeData customDarkTheme = ThemeData.dark().copyWith(
-    textTheme: TextTheme(
-        // Set text color for all text elements in dark theme
-        bodyLarge: TextStyle(color: Colors.white),
-        bodyMedium: TextStyle(color: Colors.grey[700]),
-        displayLarge: TextStyle(color: Colors.white)),
-  );
-  static ThemeData customLightTheme = ThemeData.light().copyWith(
-    backgroundColor: Colors.white,
-    textTheme: TextTheme(
-        bodyLarge:
-            TextStyle(color: btncolor), // Change text color for bodyText1
-        bodyMedium: TextStyle(
-            color: Colors.grey[700]), // Change text color for bodyText2
-        displayLarge: TextStyle(color: Colors.black87)),
-  );
-} */

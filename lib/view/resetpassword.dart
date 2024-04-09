@@ -39,10 +39,13 @@ class _ResetPasswordState extends State<ResetPassword> {
           SizedBox(
             height: 50,
           ),
-          InputField(
-            hintText: 'enter your email',
-            controller: email,
-            validator: Validators.validateEmail,
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
+            child: InputField(
+              hintText: 'enter your email',
+              controller: email,
+              validator: Validators.validateEmail,
+            ),
           ),
           SizedBox(
             height: 10,

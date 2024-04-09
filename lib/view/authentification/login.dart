@@ -58,33 +58,39 @@ class Login extends StatelessWidget {
         SizedBox(
           height: 50,
         ),
-        InputField(
-          hintText: "user name",
-          controller: controller.username,
-          icon: Icons.mail,
-          validator: Validators.validateName,
+        Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
+          child: InputField(
+            hintText: "email",
+            controller: controller.email,
+            prefixIcon: Icon(Icons.mail),
+            validator: Validators.validateEmail,
+          ),
         ),
         Obx(
-          () => InputField(
-            hintText: "password",
-            controller: controller.password,
-            obscure: controller.visible.value,
-            suffixIcon: IconButton(
-              onPressed: () {
-                controller.toggleVisibility();
-              },
-              icon: controller.visible.value
-                  ? Icon(
-                      Icons.visibility_off,
-                      color: Colors.black,
-                    )
-                  : Icon(
-                      Icons.visibility,
-                      color: Colors.black,
-                    ),
+          () => Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
+            child: InputField(
+              hintText: "password",
+              controller: controller.password,
+              obscure: controller.visible.value,
+              suffixIcon: IconButton(
+                onPressed: () {
+                  controller.toggleVisibility();
+                },
+                icon: controller.visible.value
+                    ? Icon(
+                        Icons.visibility_off,
+                        color: Colors.black,
+                      )
+                    : Icon(
+                        Icons.visibility,
+                        color: Colors.black,
+                      ),
+              ),
+              prefixIcon: Icon(Icons.lock),
+              validator: Validators.validatePassword,
             ),
-            icon: Icons.lock,
-            validator: Validators.validatePassword,
           ),
         ),
         Padding(

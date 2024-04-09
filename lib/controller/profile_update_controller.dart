@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:estichara/view/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -18,7 +19,9 @@ class UpdateProfileController extends GetxController {
   final TextEditingController email = TextEditingController();
   final TextEditingController phone = TextEditingController();
   final TextEditingController password = TextEditingController();
-  final TextEditingController vfpassword = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController bioController = TextEditingController();
   final RxBool visible = true.obs;
   final RxBool visible1 = true.obs;
   List<dynamic>? userDataList;
@@ -47,12 +50,10 @@ class UpdateProfileController extends GetxController {
       if (token != null) {
         var headers = {"Authorization": "Bearer $token"};
 
-        print(headers);
         // Open the file and read its bytes
         XFile img = await compressImage(image);
         List<int> imageBytes = await File(img.path).readAsBytes();
-        print(image);
-        print(userDataList![7]);
+
         // Create a FormData object to send the image file
         var request = http.MultipartRequest(
             'POST',
@@ -78,7 +79,9 @@ class UpdateProfileController extends GetxController {
 
           userDataList?[5] = responseBody; // Update image URL in userDataList
           updateUserDataInStorage(); // Update user data in storage
-          Get.off(ProfileScreen());
+          Get.off(NavBar(
+            indx: 4,
+          ));
         } else {
           print("Failed with status code: ${response.statusCode}");
           // Print response body if needed
@@ -106,13 +109,32 @@ class UpdateProfileController extends GetxController {
 
         print(userDataList![7]);
         print(token);
-        Map<String, dynamic> body = {
-          "firstName": name.text,
-          "lastName": name.text,
-          "username": name.text,
-          "email": email.text,
-          "password": password.text
-        };
+        Map<String, dynamic>? body = toJson();
+
+        // Add fields to be updated
+        if (name.text.isNotEmpty) {
+          body["username"] = name.text;
+        }
+        if (phone.text.isNotEmpty) {
+          body["phoneNumber"] = phone.text;
+        }
+        if (bioController.text.isNotEmpty) {
+          body["bio"] = bioController.text;
+        }
+        if (firstNameController.text.isNotEmpty) {
+          body["firstName"] = firstNameController.text;
+          print(["firstName"]);
+        }
+        if (lastNameController.text.isNotEmpty) {
+          body["lastName"] = lastNameController
+              .text; // Assuming first and last names are the same
+        }
+        if (email.text.isNotEmpty) {
+          body["email"] = email.text;
+        }
+        if (password.text.isNotEmpty) {
+          body["password"] = password.text;
+        }
         print(body);
         final response = await http.put(
             Uri.parse(
@@ -121,7 +143,17 @@ class UpdateProfileController extends GetxController {
             body: jsonEncode(body));
 
         if (response.statusCode == 200) {
+          // Clear all fields
+          name.clear();
+          phone.clear();
+          bioController.clear();
+          firstNameController.clear();
+          lastNameController.clear();
+          email.clear();
+          password.clear();
           // Handle successful update
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setString('userData', response.body);
           print("Profile updated successfully!");
           Get.snackbar('updated', 'succed',
               icon: Icon(
@@ -131,6 +163,9 @@ class UpdateProfileController extends GetxController {
               ),
               snackStyle: SnackStyle.FLOATING,
               backgroundColor: Colors.green[400]);
+          Get.off(NavBar(
+            indx: 4,
+          ));
         } else {
           // Handle failed update
           Get.snackbar('updated', 'failed',

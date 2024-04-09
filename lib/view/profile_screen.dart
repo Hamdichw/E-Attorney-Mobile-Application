@@ -128,13 +128,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 SizedBox(height: 10),
                 // Profile Menu Items
                 ProfileMenuWidget(
-                  title: "Update Profile",
+                  title: "5".tr,
                   icon: Icons.account_circle_outlined,
                   onPress: () => Get.to(UpdateProfileScreen()),
                   isswitch: true,
                 ),
                 ProfileMenuWidget(
-                  title: "Language",
+                  title: "4".tr,
                   icon: Icons.language,
                   onPress: () => Get.off(Language()),
                   isswitch: true,
@@ -148,7 +148,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Divider(color: theme.textTheme.displayLarge!.color),
                 SizedBox(height: 10),
                 ProfileMenuWidget(
-                  title: "Information",
+                  title: "6".tr,
                   icon: Icons.info,
                   onPress: () => Get.to(Information()),
                   isswitch: false,
@@ -190,6 +190,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 await prefs.remove('isLoggedIn');
                                 await prefs.remove('userData');
                                 await prefs.remove('userDataGoogle');
+                                await GoogleSignin.logout();
                                 // Handle logout from Google and Facebook
                               },
                             ),

@@ -47,51 +47,113 @@ class Signup extends StatelessWidget {
                   SizedBox(
                     height: 30,
                   ),
-                  InputField(
-                    hintText: "First Name",
-                    controller: controller.firstNameController,
-                    validator: Validators.validateName,
-                    // Add validator if needed
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 20, bottom: 15),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: InputField(
+                            hintText: "First Name",
+                            controller: controller.firstNameController,
+                            validator: Validators.validateName,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: InputField(
+                            hintText: "Last Name",
+                            controller: controller.lastNameController,
+                            validator: Validators.validateLastName,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  InputField(
-                    hintText: "Last Name",
-                    controller: controller.lastNameController,
-                    validator: Validators.validateLastName,
-                    // Add validator if needed
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 20, bottom: 15),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: InputField(
+                            hintText: "User Name",
+                            controller: controller.usernameController,
+                            validator: Validators.validateName,
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 60),
+                            child: InputField(
+                              hintText: 'Birthday',
+                              readonly: true,
+                              onPressed: () async {
+                                // Provide the onPressed callback
+                                final DateTime? selectedDate1 =
+                                    await showDatePicker(
+                                  context: context,
+                                  initialDate: controller.selectedDate,
+                                  firstDate: DateTime(1900),
+                                  lastDate: DateTime.now(),
+                                );
+                                if (selectedDate1 != null) {
+                                  controller.selectedDate = selectedDate1;
+                                }
+                              },
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                  InputField(
-                    hintText: "User Name",
-                    controller: controller.usernameController,
-                    validator: Validators.validateName,
-                    // Add validator if needed
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 20, bottom: 15),
+                    child: InputField(
+                      hintText: "phone",
+                      controller: controller.phoneController,
+                      validator: Validators.validatePhone,
+                      // Add validator if needed
+                    ),
                   ),
-                  InputField(
-                    hintText: "Email",
-                    controller: controller.emailController,
-                    validator: Validators.validateEmail,
-                    // Add validator if needed
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 20, bottom: 15),
+                    child: InputField(
+                      hintText: "Email",
+                      controller: controller.emailController,
+                      validator: Validators.validateEmail,
+                      // Add validator if needed
+                    ),
                   ),
                   Obx(
-                    () => InputField(
-                      hintText: "Password",
-                      controller: controller.passwordController,
-                      obscure: controller.visible.value,
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          controller.toggleVisibility();
-                        },
-                        icon: controller.visible.value
-                            ? const Icon(
-                                Icons.visibility_off,
-                                color: Colors.black,
-                              )
-                            : const Icon(
-                                Icons.visibility,
-                                color: Colors.black,
-                              ),
+                    () => Padding(
+                      padding: const EdgeInsets.only(
+                          left: 20, right: 20, bottom: 15),
+                      child: InputField(
+                        hintText: "Password",
+                        controller: controller.passwordController,
+                        obscure: controller.visible.value,
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            controller.toggleVisibility();
+                          },
+                          icon: controller.visible.value
+                              ? const Icon(
+                                  Icons.visibility_off,
+                                  color: Colors.black,
+                                )
+                              : const Icon(
+                                  Icons.visibility,
+                                  color: Colors.black,
+                                ),
+                        ),
+                        validator: Validators.validatePassword,
+                        // Add validator if needed
                       ),
-                      validator: Validators.validatePassword,
-                      // Add validator if needed
                     ),
                   ),
                   Padding(

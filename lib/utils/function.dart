@@ -120,30 +120,42 @@ Future<void> signIn() async {
   if (user == null) {
     Get.snackbar("Login", "Failed");
   } else {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('firstLog', true);
-    prefs.setBool('isLoggedIn', true);
-
+    print(11);
+    await loginwithgooglecustomize(user.displayName, user.email, user.photoUrl);
+    print(1);
     // Save user data to SharedPreferences
-    await saveUserDataFromGoogle(user);
-
-    Get.offAll(NavBar());
   }
 }
 
-Future<void> signUp2(String username, String email) async {
+Future<void> loginwithgooglecustomize(
+    String? username, String? email, String? profileImage) async {
   var headers = {"Content-Type": "application/json"};
   try {
+    // Split username into first name and last name
+    String firstName = '';
+    String lastName = '';
+    if (username != null) {
+      List<String> parts = username.split(" ");
+      firstName = parts[0];
+      if (parts.length > 1) {
+        lastName = parts.sublist(1).join(" ");
+      }
+    }
+
     Map<String, dynamic> body = {
       "email": email,
       "username": username,
+      "firstName": firstName,
+      "lastName": lastName,
+      "profileImage": profileImage
     };
+    print(body);
     final response = await http.post(
-      Uri.parse("https://backendserver.cleverapps.io/ClientAuth/register"),
+      Uri.parse("https://backendserver.cleverapps.io/ClientAuth/loginGoogle"),
       body: jsonEncode(body),
       headers: headers,
     );
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       var token = json['token'];
 
@@ -151,33 +163,18 @@ Future<void> signUp2(String username, String email) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('token', token);
       await prefs.setString('userData', jsonEncode(json));
+      await prefs.setBool('firstLog', true);
+      await prefs.setBool('isLoggedIn', true);
       // Optionally, save login status if needed
 
       // Navigate to next screen
+      Get.offAll(NavBar());
     } else {
       throw jsonDecode(response.body)["message"] ?? "Unknown Error Occurred";
     }
   } catch (error) {
     throw error;
   }
-}
-
-Future<void> saveUserDataFromGoogle(GoogleSignInAccount user) async {
-  // Extract user data from GoogleSignInAccount
-  String? displayName = user.displayName;
-  String? email = user.email;
-  String? photoUrl = user.photoUrl;
-
-  // Create a map to store user data
-  Map<String, dynamic> userData = {
-    'username': displayName,
-    'email': email,
-    'image': photoUrl,
-  };
-
-  // Save user data to SharedPreferences
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.setString('userDataGoogle', jsonEncode(userData));
 }
 
 Future signInFacebook() async {
@@ -205,22 +202,10 @@ Future<Map<String, dynamic>?> getUserData() async {
   }
 }
 
-Future<Map<String, dynamic>?> getUserDataGoogle() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String? userDataJson = prefs.getString('userDataGoogle');
-  if (userDataJson != null) {
-    // Convert JSON string back to Map
-    return jsonDecode(userDataJson);
-  } else {
-    return null;
-  }
-}
-
 Future<List<dynamic>?> fetchData() async {
   try {
     // Retrieve user data from SharedPreferences
     Map<String, dynamic>? userData = await getUserData();
-    Map<String, dynamic>? userData1 = await getUserDataGoogle();
     if (userData != null) {
       String firstName = userData['firstName'] ?? '';
       String lastName = userData['lastName'] ?? '';
@@ -246,28 +231,6 @@ Future<List<dynamic>?> fetchData() async {
         id
       ];
       // Return the list containing user data
-      return userDataList;
-    } else if (userData1 != null) {
-      String username = userData1['username'] ?? '';
-      String lastName = userData1['username'] ?? '';
-      String firstName = userData1['username'] ?? '';
-      String phone = userData1['username'] ?? '';
-      String email = userData1['email'] ?? '';
-      String image = userData1['image'] != null
-          ? userData1['image']
-          : 'https://i.pinimg.com/564x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg';
-      String userInfo = userData1['image'] ?? '';
-      String id = userData1['image'] ?? '';
-      List<dynamic> userDataList = [
-        lastName,
-        firstName,
-        username,
-        email,
-        phone,
-        image,
-        userInfo,
-        id
-      ];
       return userDataList;
     } else {
       // Handle scenario where user data is not available (user not logged in)

@@ -40,9 +40,12 @@ class _VerificationState extends State<Verification> {
           SizedBox(
             height: 50,
           ),
-          InputField(
-            hintText: 'enter verification',
-            controller: verification,
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
+            child: InputField(
+              hintText: 'enter verification',
+              controller: verification,
+            ),
           ),
           SizedBox(
             height: 10,

@@ -85,68 +85,97 @@ class UpdateProfileScreen extends StatelessWidget {
                   key: controller.formKey,
                   child: Column(
                     children: [
-                      InputField(
-                        hintText: "9".tr,
-                        controller: controller.name,
-                        // Add validator if needed
-                        prefixIcon: Icon(
-                          Icons.account_circle_outlined,
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, bottom: 15),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: InputField(
+                                hintText: "First Name",
+                                controller: controller.firstNameController,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: InputField(
+                                hintText: "Last Name",
+                                controller: controller.lastNameController,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      InputField(
-                        hintText: "10".tr,
-                        controller: controller.email,
-                        // Add validator if needed
-                        prefixIcon: Icon(Icons.email),
-                      ),
-                      InputField(
-                        hintText: "11".tr,
-                        controller: controller.phone,
-                        // Add validator if needed
-                        prefixIcon: Icon(Icons.phone),
-                      ),
-                      InputField(
-                        hintText: "12".tr,
-                        controller: controller.password,
-                        obscure: controller.visible.value,
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            controller.toggleVisibility();
-                          },
-                          icon: controller.visible.value
-                              ? Icon(
-                                  Icons.visibility,
-                                  color: theme.textTheme.displayLarge!.color,
-                                )
-                              : Icon(
-                                  Icons.visibility_off,
-                                  color: theme.textTheme.displayLarge!.color,
-                                ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, bottom: 15),
+                        child: InputField(
+                          hintText: "9".tr,
+                          controller: controller.name,
+                          // Add validator if needed
+                          prefixIcon: Icon(
+                            Icons.account_circle_outlined,
+                          ),
                         ),
-                        // Add validator if needed
-                        prefixIcon: Icon(Icons.lock),
                       ),
-                      InputField(
-                        hintText: "12".tr,
-                        controller: controller.vfpassword,
-                        obscure: controller.visible1.value,
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            controller.toggleVisibility1();
-                          },
-                          icon: controller.visible1.value
-                              ? Icon(
-                                  Icons.visibility,
-                                  color: theme.textTheme.displayLarge!.color,
-                                )
-                              : Icon(
-                                  Icons.visibility_off,
-                                  color: theme.textTheme.displayLarge!.color,
-                                ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, bottom: 15),
+                        child: InputField(
+                          hintText: "10".tr,
+                          controller: controller.email,
+                          // Add validator if needed
+                          prefixIcon: Icon(Icons.email),
                         ),
-                        // Add validator if needed
-                        prefixIcon: Icon(Icons.lock),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, bottom: 15),
+                        child: InputField(
+                          hintText: "11".tr,
+                          controller: controller.phone,
+                          // Add validator if needed
+                          prefixIcon: Icon(Icons.phone),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, bottom: 15),
+                        child: InputField(
+                          hintText: "bio",
+                          controller: controller.bioController,
+                          prefixIcon: Icon(Icons.text_snippet),
+                        ),
+                      ),
+                      Obx(() => Padding(
+                            padding: const EdgeInsets.only(
+                                left: 20, right: 20, bottom: 15),
+                            child: InputField(
+                              hintText: "12".tr,
+                              controller: controller.password,
+                              obscure: controller.visible1.value,
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  controller.toggleVisibility1();
+                                },
+                                icon: controller.visible1.value
+                                    ? Icon(
+                                        Icons.visibility_off,
+                                        color:
+                                            theme.textTheme.displayLarge!.color,
+                                      )
+                                    : Icon(
+                                        Icons.visibility,
+                                        color:
+                                            theme.textTheme.displayLarge!.color,
+                                      ),
+                              ),
+                              // Add validator if needed
+                              prefixIcon: Icon(Icons.lock),
+                            ),
+                          )),
                       const SizedBox(height: 20),
                       // ************************************ Form Submit Button **************************************** //
                       SizedBox(
