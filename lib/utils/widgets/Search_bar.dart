@@ -4,34 +4,15 @@ import 'package:estichara/utils/widgets/Cards.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../controller/list_lawyer_controller.dart';
 import '../../view/details_page.dart';
 
 class SearchData extends SearchDelegate {
-  String? locationFilter;
-  String? typeFilter;
-  List<String> appliedFilters = [];
+  final List_Lawyer_Controller controller = Get.find<List_Lawyer_Controller>();
 
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
-      Wrap(
-        children: appliedFilters
-            .map((filter) => Chip(
-                  label: Text(filter),
-                  deleteIcon: Icon(Icons.clear),
-                  onDeleted: () {
-                    remove();
-                    query = '';
-                  },
-                ))
-            .toList(),
-      ),
-      IconButton(
-        onPressed: () {
-          _showFilterDialog(context);
-        },
-        icon: Icon(Icons.filter_list),
-      ),
       IconButton(
         onPressed: () {
           query = '';
@@ -53,51 +34,47 @@ class SearchData extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    var searchList = data.where((lawyer) =>
-        lawyer.name.toLowerCase().contains(query.toLowerCase()) ||
-        lawyer.lastName.toLowerCase().contains(query.toLowerCase()));
-
-    // Apply filters if they are set
-    if (appliedFilters.contains(locationFilter)) {
-      searchList = searchList
-          .where((lawyer) => lawyer.location == locationFilter)
-          .toList();
-    }
-
-    if (appliedFilters.contains(typeFilter)) {
-      searchList = searchList
-          .where((lawyer) =>
-              lawyer.type.toLowerCase() == typeFilter!.toLowerCase())
-          .toList();
-    }
-
-    return _buildListView(context, searchList);
+    return FutureBuilder<List<dynamic>>(
+      future: controller.GetAllLawyer(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else {
+          var searchList = snapshot.data!.where((lawyer) =>
+              lawyer['firstName'].toLowerCase().contains(query.toLowerCase()) ||
+              lawyer['lastName'].toLowerCase().contains(query.toLowerCase()));
+          return _buildListView(context, searchList);
+        }
+      },
+    );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    var filteredList = data.where((lawyer) =>
-        lawyer.name.toLowerCase().contains(query.toLowerCase()) ||
-        lawyer.lastName.toLowerCase().contains(query.toLowerCase()));
-
-    // Apply filters if they are set
-    if (appliedFilters.contains(locationFilter)) {
-      filteredList =
-          filteredList.where((lawyer) => lawyer.location == locationFilter);
-    }
-
-    if (appliedFilters.contains(typeFilter)) {
-      filteredList = filteredList.where(
-          (lawyer) => lawyer.type.toLowerCase() == typeFilter!.toLowerCase());
-    }
-
-    return _buildListView(context, filteredList);
+    return FutureBuilder<List<dynamic>>(
+      future: controller.GetAllLawyer(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else {
+          var filteredList = snapshot.data!.where((lawyer) =>
+              lawyer['firstName'].toLowerCase().contains(query.toLowerCase()) ||
+              lawyer['lastName'].toLowerCase().contains(query.toLowerCase()));
+          return _buildListView(context, filteredList);
+        }
+      },
+    );
   }
 
-  Widget _buildListView(BuildContext context, Iterable<Lawyer> list) {
+  Widget _buildListView(BuildContext context, Iterable<dynamic> list) {
     return ListView.builder(
       itemCount: list.length,
       itemBuilder: (context, index) {
+        var lawyer = list.elementAt(index);
         return GestureDetector(
           onTap: () {
             showModalBottomSheet(
@@ -108,17 +85,22 @@ class SearchData extends SearchDelegate {
               isScrollControlled: false,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(20),
-                      topLeft: Radius.circular(20))),
+                topRight: Radius.circular(20),
+                topLeft: Radius.circular(20),
+              )),
               context: context,
               builder: (context) {
                 return Details(
-                  images: list.elementAt(index).image,
-                  Name: list.elementAt(index).name,
+                  images: lawyer['profileImage'] ??
+                      'https://i.pinimg.com/564x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg',
+                  Name: lawyer['firstName'] ?? '',
                   Type: 'Lawyer',
-                  Lastname: list.elementAt(index).lastName,
-                  Phone: list.elementAt(index).phone,
-                  valide: list.elementAt(index).valide,
+                  Lastname: lawyer['lastName'] ?? '',
+                  Phone: lawyer['phoneNumber'] ?? '',
+                  valide: lawyer['valide'] ?? true,
+                  email: lawyer['email'] ?? '',
+                  bio: lawyer['bio'] ?? '',
+                  adress: lawyer['address'] ?? '',
                 );
               },
             );
@@ -126,11 +108,12 @@ class SearchData extends SearchDelegate {
           child: Column(
             children: [
               card(
-                valide: list.elementAt(index).valide,
-                name: list.elementAt(index).name,
-                Lastname: list.elementAt(index).lastName,
-                image: Image(
-                  image: AssetImage(list.elementAt(index).image),
+                valide: lawyer['valide'] ?? false,
+                name: lawyer['firstName'] ?? '',
+                Lastname: lawyer['lastName'] ?? '',
+                image: Image.network(
+                  lawyer['profileImage'] ??
+                      'https://i.pinimg.com/564x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg',
                   height: 65,
                   width: 65,
                   fit: BoxFit.cover,
@@ -145,85 +128,5 @@ class SearchData extends SearchDelegate {
         );
       },
     );
-  }
-
-  void _showFilterDialog(BuildContext context) {
-    String? selectedLocation;
-    String? selectedType;
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return AlertDialog(
-              title: Text("Apply Filters"),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Wrap(
-                    spacing: 8.0,
-                    children: [
-                      for (String location in [
-                        "Tunis",
-                        "Ariana",
-                        "Nabel",
-                        "Sousse",
-                        "Medenine",
-                        "Gafsa"
-                      ])
-                        ChoiceChip(
-                          label: Text(location),
-                          selected: selectedLocation == location,
-                          onSelected: (selected) {
-                            setState(() {
-                              selectedLocation = selected ? location : null;
-                              appliedFilters.add(selectedLocation!);
-                            });
-                          },
-                        ),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Wrap(
-                    spacing: 8.0,
-                    children: [
-                      ChoiceChip(
-                        label: Text("Normal"),
-                        selected: selectedType == "Normal",
-                        onSelected: (selected) {
-                          setState(() {
-                            selectedType = selected ? "Normal" : null;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    // Apply filters based on selectedLocation and selectedType
-                  },
-                  child: Text("Apply"),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text("Cancel"),
-                ),
-              ],
-            );
-          },
-        );
-      },
-    );
-  }
-
-  void remove() {
-    appliedFilters = [];
   }
 }

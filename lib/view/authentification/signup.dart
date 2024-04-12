@@ -84,26 +84,26 @@ class Signup extends StatelessWidget {
                             validator: Validators.validateName,
                           ),
                         ),
+                        SizedBox(
+                          width: 10,
+                        ),
                         Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 60),
-                            child: InputField(
-                              hintText: 'Birthday',
-                              readonly: true,
-                              onPressed: () async {
-                                // Provide the onPressed callback
-                                final DateTime? selectedDate1 =
-                                    await showDatePicker(
-                                  context: context,
-                                  initialDate: controller.selectedDate,
-                                  firstDate: DateTime(1900),
-                                  lastDate: DateTime.now(),
-                                );
-                                if (selectedDate1 != null) {
-                                  controller.selectedDate = selectedDate1;
-                                }
-                              },
-                            ),
+                          child: InputField(
+                            hintText: 'Birthday',
+                            readonly: true,
+                            onPressed: () async {
+                              // Provide the onPressed callback
+                              final DateTime? selectedDate1 =
+                                  await showDatePicker(
+                                context: context,
+                                initialDate: controller.selectedDate,
+                                firstDate: DateTime(1900),
+                                lastDate: DateTime.now(),
+                              );
+                              if (selectedDate1 != null) {
+                                controller.selectedDate = selectedDate1;
+                              }
+                            },
                           ),
                         )
                       ],

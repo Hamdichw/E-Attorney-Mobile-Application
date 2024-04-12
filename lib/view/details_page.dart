@@ -10,6 +10,9 @@ class Details extends StatefulWidget {
   final String? Phone;
   final String images;
   final bool? valide;
+  final String? email;
+  final String? adress;
+  final String? bio;
 
   const Details(
       {super.key,
@@ -18,7 +21,10 @@ class Details extends StatefulWidget {
       required this.Type,
       this.Phone,
       required this.images,
-      this.valide});
+      this.valide,
+      this.email,
+      this.adress,
+      this.bio});
 
   @override
   State<Details> createState() => _DetailsState();
@@ -38,8 +44,8 @@ class _DetailsState extends State<Details> {
               lastname: widget.Lastname,
               Bio: "open to work",
               phone: widget.Phone,
-              email: "dali@gmail.com",
-              adress: "30 Rue Jamaa Ezzitouna, Tunis",
+              email: widget.email,
+              adress: widget.adress,
               type: widget.Type,
               valide: widget.valide,
             ),
@@ -67,7 +73,7 @@ class _DetailsState extends State<Details> {
               ),
             ),
             Card4(
-              info_text: 'blabla blabla blabla blablablabla',
+              info_text: widget.bio,
             ),
             SizedBox(
               height: 13,

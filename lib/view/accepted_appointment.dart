@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
-import '../../controller/notification_controller.dart';
+import '../controller/notification_controller.dart';
 
-class Alerts extends StatefulWidget {
-  const Alerts({Key? key}) : super(key: key);
+class AcceptedApp extends StatefulWidget {
+  const AcceptedApp({Key? key}) : super(key: key);
 
   @override
-  State<Alerts> createState() => _AlertsState();
+  State<AcceptedApp> createState() => _AcceptedAppState();
 }
 
-class _AlertsState extends State<Alerts> {
+class _AcceptedAppState extends State<AcceptedApp> {
   final notificationController = Get.put(NotificationController());
 
   @override
@@ -28,7 +29,7 @@ class _AlertsState extends State<Alerts> {
             return Center(child: CircularProgressIndicator());
           } else {
             return FutureBuilder<List<dynamic>>(
-              future: controller.GetRequest(),
+              future: controller.GetAccept(),
               builder: ((context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
@@ -43,15 +44,32 @@ class _AlertsState extends State<Alerts> {
                           '${lawyer['firstName']} ${lawyer['lastName']}';
                       var lawyerEmail = lawyer['email'] ?? '';
                       var lawyerProfileImage = lawyer['profileImage'] ?? '';
+
+                      // Parse the datetime string into a DateTime object
+                      var startDateTime = DateTime.parse(snapshot.data![index]
+                              ['start'] ??
+                          '2024-04-12T14:00:00.000+00:00');
+
+                      // Format the datetime to display only day and month
+                      var formattedDate =
+                          DateFormat('dd MMM').format(startDateTime);
+
                       return ListTile(
                         leading: CircleAvatar(
                           backgroundImage: NetworkImage(lawyerProfileImage),
                         ),
                         title: Text(lawyerName),
                         subtitle: Text(lawyerEmail),
-                        trailing: Icon(
-                          Icons.alarm,
-                          color: Colors.purple[800],
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text("$formattedDate"),
+                            SizedBox(width: 8),
+                            Icon(
+                              Icons.done,
+                              color: Colors.green[400],
+                            ),
+                          ],
                         ),
                         onTap: () {
                           // Add any action you want to perform when ListTile is tapped

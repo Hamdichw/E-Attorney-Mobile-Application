@@ -7,6 +7,8 @@ import '/utils/const.dart';
 import '/utils/widgets/Cards.dart';
 import 'package:flutter/material.dart';
 
+import 'accepted_appointment.dart';
+
 class NotitcationTap extends StatefulWidget {
   NotitcationTap({Key? key}) : super(key: key);
 
@@ -31,7 +33,7 @@ class _NotitcationTapState extends State<NotitcationTap> {
           children: [
             Application_Name(),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.04,
+              height: 20,
             ),
             Row(
               children: [
@@ -67,7 +69,7 @@ class _NotitcationTapState extends State<NotitcationTap> {
                                 ? Colors.white.withOpacity(
                                     0.6) // White color with 14% opacity
                                 : Color.fromARGB(157, 0, 0, 0), // Default color
-                          )
+                          ),
                       ],
                     ),
                   ),
@@ -114,22 +116,7 @@ class _NotitcationTapState extends State<NotitcationTap> {
             if (click)
               Expanded(child: Alerts())
             else
-              Expanded(
-                child: Container(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.105,
-                      ),
-                      Image.asset("assets/images/nodata.png"),
-                      Text(
-                        "No Meets",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                ),
-              )
+              Expanded(child: AcceptedApp())
           ],
         ),
       ),

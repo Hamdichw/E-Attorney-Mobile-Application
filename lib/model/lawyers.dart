@@ -1,19 +1,17 @@
 class Lawyer {
-  int age;
-  String name;
+  String firstName;
   String lastName;
-  String? phone;
+  String? phoneNumber;
   String image;
   bool? valide;
-  String location;
-  String type;
+  String address;
+  String bio;
   Lawyer(
-      {required this.age,
-      required this.name,
+      {required this.firstName,
       required this.lastName,
-      this.phone,
+      this.phoneNumber,
       required this.image,
       this.valide,
-      required this.location,
-      required this.type});
+      required this.address,
+      required this.bio});
 }
