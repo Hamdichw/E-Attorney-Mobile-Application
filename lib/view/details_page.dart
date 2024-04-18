@@ -13,8 +13,10 @@ class Details extends StatefulWidget {
   final String? email;
   final String? adress;
   final String? bio;
+  final int id;
+  final int userid;
 
-  const Details(
+  Details(
       {super.key,
       required this.Name,
       required this.Lastname,
@@ -24,7 +26,9 @@ class Details extends StatefulWidget {
       this.valide,
       this.email,
       this.adress,
-      this.bio});
+      this.bio,
+      required this.id,
+      required this.userid});
 
   @override
   State<Details> createState() => _DetailsState();
@@ -59,6 +63,8 @@ class _DetailsState extends State<Details> {
                       FirstName: widget.Name,
                       LastName: widget.Lastname,
                       phone: widget.Phone,
+                      id: widget.id,
+                      userid: widget.userid,
                     ),
                   ),
                   Container(width: MediaQuery.of(context).size.width * 0.02),

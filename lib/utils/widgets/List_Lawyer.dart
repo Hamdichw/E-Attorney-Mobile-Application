@@ -10,95 +10,10 @@ import 'package:flutter/material.dart';
 import '../const.dart';
 import 'Cards.dart';
 
-/* class HomePage extends StatefulWidget {
-  const HomePage({
-    super.key,
-  });
-  @override
-  _HomePageState createState() => _HomePageState();
-}
+import 'package:g_skeleton/g_skeleton.dart';
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 10,
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: data.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet(
-                          barrierColor: Color.fromARGB(163, 0, 0, 0),
-                          backgroundColor: Theme.of(context).brightness ==
-                                  Brightness.dark
-                              ? theme.colorScheme
-                                  .background // White color with 14% opacity
-                              : Color.fromARGB(202, 255, 255, 255),
-                          scrollControlDisabledMaxHeightRatio: 0.75,
-                          transitionAnimationController: AnimationController(
-                            vsync: this,
-                            duration: Duration(milliseconds: 450),
-                          ),
-                          showDragHandle: true,
-                          isScrollControlled: false,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(20),
-                                  topLeft: Radius.circular(20))),
-                          context: context,
-                          builder: (context) {
-                            return Details(
-                              images: data[index].image,
-                              Name: data[index].firstName,
-                              Type: 'Lawyer',
-                              Lastname: data[index].lastName,
-                              Phone: data[index].phoneNumber,
-                              valide: data[index].valide,
-                            );
-                          });
-                    },
-                    child: Column(
-                      children: [
-                        card(
-                          valide: data[index].valide,
-                          name: data[index].firstName,
-                          Lastname: data[index].lastName,
-                          image: Image(
-                            image: AssetImage(data[index].image),
-                            height: 65,
-                            width: 65,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Divider(
-                          height: 1,
-                          color: theme.brightness == Brightness.dark
-                              ? Colors.white.withOpacity(
-                                  0.14) // White color with 14% opacity
-                              : Color.fromARGB(35, 0, 0, 0), // Default color
-                        )
-                      ],
-                    ),
-                  );
-                },
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
- */
+import 'Filter.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({
     Key? key,
@@ -110,7 +25,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final List_Lawyer_Controller controller = Get.put(List_Lawyer_Controller());
-
+  final controllr = SkeletonController();
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -127,7 +42,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 future: controller.GetAllLawyer(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return ReloadWidget();
                   } else if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   } else if (snapshot.data == null) {
@@ -163,6 +78,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               context: context,
                               builder: (context) {
                                 return Details(
+                                  id: data['userID'],
                                   images: data['profileImage'] ??
                                       'https://i.pinimg.com/564x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg',
                                   Name: data['firstName'] ?? '',
@@ -173,6 +89,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   email: data['email'] ?? '',
                                   bio: data['bio'] ?? '',
                                   adress: data['address'] ?? '',
+                                  userid: controller.userDataList![7],
                                 );
                               },
                             );

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'dart:convert';
@@ -13,8 +15,18 @@ import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../model/messages.dart';
+import '../../utils/function.dart';
+
 class Chat_Page extends StatefulWidget {
-  const Chat_Page({super.key});
+  final int chatid;
+  final String username;
+  final String image;
+  const Chat_Page(
+      {super.key,
+      required this.chatid,
+      required this.username,
+      required this.image});
 
   @override
   State<Chat_Page> createState() => _Chat_PageState();
@@ -25,11 +37,69 @@ class _Chat_PageState extends State<Chat_Page> {
   final _user = const types.User(
     id: '82091008-a484-4a89-ae75-a22bf8d6f3ac',
   );
-
+  late Timer _timer;
   @override
   void initState() {
     super.initState();
-    _loadMessages();
+    _fetchMessages();
+    _startPolling();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel(); // Cancel the timer in dispose
+    super.dispose();
+  }
+
+  void _startPolling() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      _fetchLastMessage();
+    });
+  }
+
+  void _fetchLastMessage() async {
+    // Fetch the last message from your API
+    String? token = await getToken();
+    var headers = {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer $token"
+    };
+    final response = await http.get(
+      Uri.parse(
+          'https://backendserver.cleverapps.io/chats/last/message/from/chat/${widget.chatid}'),
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      final dynamic jsonResponse = jsonDecode(response.body);
+      // Parse the message from the response
+      final chatMessage = jsonResponse;
+      //print(chatMessage);
+
+      // Create a types.Message from the last message
+      final author = chatMessage['senderName'] == widget.username
+          ? _user
+          : types.User(id: chatMessage['senderName']);
+      final newMessage = types.TextMessage(
+        author: author,
+        createdAt: DateTime.parse(chatMessage['time']).millisecondsSinceEpoch,
+        id: chatMessage['id'].toString(),
+        text: chatMessage['replymessage'],
+      );
+
+      // Check if the widget is still mounted before calling setState
+      if (mounted) {
+        // Check if the last message received is different from the last one displayed
+        if (_messages.last.id != newMessage.id) {
+          setState(() {
+            _messages.add(newMessage);
+          });
+          print(_messages.length);
+          // Force a rebuild of the chat interface
+        }
+      }
+    } else {
+      print("error fetching last message: ${response.statusCode}");
+    }
   }
 
   void _addMessage(types.Message message) {
@@ -38,155 +108,7 @@ class _Chat_PageState extends State<Chat_Page> {
     });
   }
 
-  void _handleAttachmentPressed() {
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (BuildContext context) => SafeArea(
-        child: SizedBox(
-          height: 144,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  _handleImageSelection();
-                },
-                child: const Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Text('Photo'),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  _handleFileSelection();
-                },
-                child: const Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Text('File'),
-                ),
-              ),
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Text('Cancel'),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _handleFileSelection() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.any,
-    );
-
-    if (result != null && result.files.single.path != null) {
-      final message = types.FileMessage(
-        author: _user,
-        createdAt: DateTime.now().millisecondsSinceEpoch,
-        id: const Uuid().v4(),
-        mimeType: lookupMimeType(result.files.single.path!),
-        name: result.files.single.name,
-        size: result.files.single.size,
-        uri: result.files.single.path!,
-      );
-
-      _addMessage(message);
-    }
-  }
-
-  void _handleImageSelection() async {
-    final result = await ImagePicker().pickImage(
-      imageQuality: 70,
-      maxWidth: 1440,
-      source: ImageSource.gallery,
-    );
-
-    if (result != null) {
-      final bytes = await result.readAsBytes();
-      final image = await decodeImageFromList(bytes);
-
-      final message = types.ImageMessage(
-        author: _user,
-        createdAt: DateTime.now().millisecondsSinceEpoch,
-        height: image.height.toDouble(),
-        id: Uuid().v4(),
-        name: result.name,
-        size: bytes.length,
-        uri: result.path,
-        width: image.width.toDouble(),
-      );
-
-      _addMessage(message);
-    }
-  }
-
-  void _handleMessageTap(BuildContext _, types.Message message) async {
-    if (message is types.FileMessage) {
-      var localPath = message.uri;
-
-      if (message.uri.startsWith('http')) {
-        try {
-          final index =
-              _messages.indexWhere((element) => element.id == message.id);
-          final updatedMessage =
-              (_messages[index] as types.FileMessage).copyWith(
-            isLoading: true,
-          );
-
-          setState(() {
-            _messages[index] = updatedMessage;
-          });
-
-          final client = http.Client();
-          final request = await client.get(Uri.parse(message.uri));
-          final bytes = request.bodyBytes;
-          final documentsDir = (await getApplicationDocumentsDirectory()).path;
-          localPath = '$documentsDir/${message.name}';
-
-          if (!File(localPath).existsSync()) {
-            final file = File(localPath);
-            await file.writeAsBytes(bytes);
-          }
-        } finally {
-          final index =
-              _messages.indexWhere((element) => element.id == message.id);
-          final updatedMessage =
-              (_messages[index] as types.FileMessage).copyWith(
-            isLoading: null,
-          );
-
-          setState(() {
-            _messages[index] = updatedMessage;
-          });
-        }
-      }
-
-      await OpenFilex.open(localPath);
-    }
-  }
-
-  void _handlePreviewDataFetched(
-    types.TextMessage message,
-    types.PreviewData previewData,
-  ) {
-    final index = _messages.indexWhere((element) => element.id == message.id);
-    final updatedMessage = (_messages[index] as types.TextMessage).copyWith(
-      previewData: previewData,
-    );
-
-    setState(() {
-      _messages[index] = updatedMessage;
-    });
-  }
-
-  void _handleSendPressed(types.PartialText message) {
+  void _handleSendPressed(types.PartialText message) async {
     final textMessage = types.TextMessage(
       author: _user,
       createdAt: DateTime.now().millisecondsSinceEpoch,
@@ -194,39 +116,84 @@ class _Chat_PageState extends State<Chat_Page> {
       text: message.text,
     );
 
-    _addMessage(textMessage);
+    //_addMessage(textMessage);
+    String? token = await getToken();
+    final Map<String, dynamic> requestBody = {
+      "senderName":
+          widget.username, // Assuming _user.id contains the sender's name
+      "replymessage": message.text,
+      "chat": {"chatId": widget.chatid} // Assuming chat ID is 1
+    };
+    // Send the message to your API
+    final response = await http.post(
+      Uri.parse(
+          'https://backendserver.cleverapps.io/chats/add/message${widget.chatid}'),
+      body: jsonEncode(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      },
+    );
+
+    if (response.statusCode != 200) {
+      // Handle error
+    }
   }
 
-  void _loadMessages() async {
-    final response = await rootBundle.loadString('messages.json');
-    final messages = (jsonDecode(response) as List)
-        .map((e) => types.Message.fromJson(e as Map<String, dynamic>))
-        .toList();
+  void _fetchMessages() async {
+    // Fetch messages from your API
+    String? token = await getToken();
+    var headers = {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer $token"
+    };
+    final response = await http.get(
+        Uri.parse(
+            'https://backendserver.cleverapps.io/chats/all/messages/from/chat/${widget.chatid}'),
+        headers: headers);
 
-    setState(() {
-      _messages = messages;
-    });
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonMessages = jsonDecode(response.body);
+      final List<types.Message> newMessages = jsonMessages.map((json) {
+        final chatMessage = ChatMessage.fromJson(json);
+        final author = chatMessage.senderName == widget.username
+            ? _user // If sender is current user, use _user as author
+            : types.User(
+                id: chatMessage.senderName); // Otherwise, use sender's name
+        return types.TextMessage(
+          author: author,
+          createdAt: DateTime.parse(chatMessage.time).millisecondsSinceEpoch,
+          id: chatMessage.id.toString(),
+          text: chatMessage.replyMessage,
+        );
+      }).toList();
+
+      setState(() {
+        _messages
+            .addAll(newMessages.toList()); // Reverse and append new messages
+      });
+    } else {
+      print("error dali ${response.statusCode}");
+    }
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: Chat(
-          messages: _messages,
-          onAttachmentPressed: _handleAttachmentPressed,
-          onMessageTap: _handleMessageTap,
-          onPreviewDataFetched: _handlePreviewDataFetched,
-          onSendPressed: _handleSendPressed,
-          showUserAvatars: true,
-          showUserNames: true,
-          user: _user,
-          theme: const DefaultChatTheme(
-            seenIcon: Text(
-              'read',
-              style: TextStyle(
-                fontSize: 10.0,
-              ),
-            ),
-          ),
+  Widget build(BuildContext context) => SafeArea(
+        child: Scaffold(
+          body: Chat(
+              messages: _messages.reversed.toList(),
+              onSendPressed: _handleSendPressed,
+              showUserAvatars: true,
+              showUserNames: true,
+              user: _user,
+              theme: const DefaultChatTheme(
+                seenIcon: Text(
+                  'read',
+                  style: TextStyle(
+                    fontSize: 10.0,
+                  ),
+                ),
+              )),
         ),
       );
 }

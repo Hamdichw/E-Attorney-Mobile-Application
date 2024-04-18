@@ -20,41 +20,40 @@ class _ChatState extends State<Chat> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Image(
-                      width: 70,
-                      height: 70,
-                      image: AssetImage("assets/images/logo.png")),
-                  Text(
-                    "Estishara.tn",
-                    style: GoogleFonts.electrolize(
-                        textStyle: TextStyle(
-                            color: btncolor,
-                            fontSize: 24,
-                            fontWeight: FontWeight.normal)),
-                  ),
-                  Spacer(),
-                  IconButton(
-                      onPressed: () {
-                        setState(() {
-                          show = !show;
-                        });
-                      },
-                      icon: Icon(
-                        Icons.search,
-                        size: 30,
-                      )),
-                ],
-              ),
-              //if (show) Searsh_Field(searchController: ,),
-              ActiveChat(),
-              RecentChat()
-            ],
-          ),
+        body: Column(
+          children: [
+            Row(
+              children: [
+                Image(
+                    width: 70,
+                    height: 70,
+                    image: AssetImage("assets/images/logo.png")),
+                Text(
+                  "Estishara.tn",
+                  style: GoogleFonts.electrolize(
+                      textStyle: TextStyle(
+                          color: btncolor,
+                          fontSize: 24,
+                          fontWeight: FontWeight.normal)),
+                ),
+                Spacer(),
+                IconButton(
+                    onPressed: () {
+                      setState(() {
+                        show = !show;
+                      });
+                    },
+                    icon: Icon(
+                      Icons.search,
+                      size: 30,
+                    )),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Expanded(child: RecentChat())
+          ],
         ),
       ),
     );

@@ -600,6 +600,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  g_skeleton:
+    dependency: "direct main"
+    description:
+      name: g_skeleton
+      sha256: b5158e6b54827f7d470be5c78ba1e52f95e85dc755a8f039ffccca9e93cd0d75
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0"
   get:
     dependency: "direct main"
     description:

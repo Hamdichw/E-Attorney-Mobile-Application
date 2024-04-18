@@ -92,7 +92,7 @@ class UpdateProfileScreen extends StatelessWidget {
                           children: [
                             Expanded(
                               child: InputField(
-                                hintText: "First Name",
+                                hintText: "${controller.userDataList![0]}",
                                 controller: controller.firstNameController,
                               ),
                             ),
@@ -101,7 +101,7 @@ class UpdateProfileScreen extends StatelessWidget {
                             ),
                             Expanded(
                               child: InputField(
-                                hintText: "Last Name",
+                                hintText: "${controller.userDataList![1]}",
                                 controller: controller.lastNameController,
                               ),
                             ),
@@ -112,7 +112,7 @@ class UpdateProfileScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(
                             left: 20, right: 20, bottom: 15),
                         child: InputField(
-                          hintText: "9".tr,
+                          hintText: "${controller.userDataList![2]}".tr,
                           controller: controller.name,
                           // Add validator if needed
                           prefixIcon: Icon(
@@ -124,7 +124,7 @@ class UpdateProfileScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(
                             left: 20, right: 20, bottom: 15),
                         child: InputField(
-                          hintText: "10".tr,
+                          hintText: "${controller.userDataList![3]}".tr,
                           controller: controller.email,
                           // Add validator if needed
                           prefixIcon: Icon(Icons.email),
@@ -134,21 +134,14 @@ class UpdateProfileScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(
                             left: 20, right: 20, bottom: 15),
                         child: InputField(
-                          hintText: "11".tr,
+                          hintText:
+                              "${controller.userDataList![4] ?? "phone"}".tr,
                           controller: controller.phone,
                           // Add validator if needed
                           prefixIcon: Icon(Icons.phone),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 20, right: 20, bottom: 15),
-                        child: InputField(
-                          hintText: "bio",
-                          controller: controller.bioController,
-                          prefixIcon: Icon(Icons.text_snippet),
-                        ),
-                      ),
+
                       Obx(() => Padding(
                             padding: const EdgeInsets.only(
                                 left: 20, right: 20, bottom: 15),

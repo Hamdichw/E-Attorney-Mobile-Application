@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../controller/notification_controller.dart';
+import '../utils/const.dart';
+import '../utils/widgets/Filter.dart';
 
 class AcceptedApp extends StatefulWidget {
   const AcceptedApp({Key? key}) : super(key: key);
@@ -32,7 +34,7 @@ class _AcceptedAppState extends State<AcceptedApp> {
               future: controller.GetAccept(),
               builder: ((context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return ReloadWidget();
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else {
@@ -46,13 +48,16 @@ class _AcceptedAppState extends State<AcceptedApp> {
                       var lawyerProfileImage = lawyer['profileImage'] ?? '';
 
                       // Parse the datetime string into a DateTime object
-                      var startDateTime = DateTime.parse(snapshot.data![index]
-                              ['start'] ??
-                          '2024-04-12T14:00:00.000+00:00');
+                      var date = snapshot.data![index]['start'] ?? '';
 
-                      // Format the datetime to display only day and month
+                      // Parse the date string into a DateTime object
+                      var dateTime = DateTime.parse(date as String);
+
+                      // Format the date as "yyyy-MM-dd"
                       var formattedDate =
-                          DateFormat('dd MMM').format(startDateTime);
+                          DateFormat('yyyy-MM-dd').format(dateTime);
+                      // Format the time as "HH:mm"
+                      var formattedTime = DateFormat('HH:mm').format(dateTime);
 
                       return ListTile(
                         leading: CircleAvatar(
@@ -63,11 +68,18 @@ class _AcceptedAppState extends State<AcceptedApp> {
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text("$formattedDate"),
+                            Text(
+                              '$formattedDate \n$formattedTime',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: btncolor,
+                                  fontWeight: FontWeight.bold),
+                            ),
                             SizedBox(width: 8),
                             Icon(
                               Icons.done,
                               color: Colors.green[400],
+                              size: 30,
                             ),
                           ],
                         ),

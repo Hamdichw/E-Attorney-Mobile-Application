@@ -69,6 +69,7 @@ dependencies:
   http: ^1.2.0
   connectivity_plus: ^6.0.1
   flutter_image_compress: ^2.2.0
+  g_skeleton: ^0.1.0
   
 
 

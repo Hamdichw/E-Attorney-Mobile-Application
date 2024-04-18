@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../../controller/list_lawyer_controller.dart';
 
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import '';
 import 'package:intl/intl.dart';
 
 import '../const.dart';
@@ -244,11 +246,15 @@ class Card2 extends StatefulWidget {
   final String FirstName;
   final String LastName;
   final String? phone;
+  final int id;
+  final int userid;
   Card2({
     Key? key,
     required this.FirstName,
     required this.LastName,
     this.phone,
+    required this.id,
+    required this.userid,
   }) : super(key: key);
 
   @override
@@ -256,18 +262,18 @@ class Card2 extends StatefulWidget {
 }
 
 class _Card2State extends State<Card2> {
-  late DateTime selectedDate;
+  late DateTime selectedDateTime;
 
   @override
   void initState() {
     super.initState();
-    selectedDate = DateTime.now();
+    selectedDateTime = DateTime.now();
   }
 
   @override
   Widget build(BuildContext context) {
-    final DateFormat formatter = DateFormat('MMM dd, yyyy');
-    final String formattedDate = formatter.format(selectedDate);
+    final DateFormat formatter = DateFormat('MMM dd, yyyy hh:mm a');
+    final String formattedDateTime = formatter.format(selectedDateTime);
     return Container(
       height: 180,
       decoration: BoxDecoration(
@@ -292,48 +298,54 @@ class _Card2State extends State<Card2> {
             thickness: 0.5,
             height: 0,
           ),
-          Row(
-            children: <Widget>[
-              Container(
-                width: 15,
-              ),
-              Text(
-                "$formattedDate",
-                style: TextStyle(color: Colors.white),
-              ),
-              Spacer(),
-              IconButton(
-                icon: Icon(Icons.event, color: Colors.white),
-                onPressed: () async {
-                  final DateTime? selectedDate1 = await showDatePickerDialog(
+          Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "$formattedDateTime",
+                  style: TextStyle(color: Colors.white, fontSize: 12),
+                  textAlign: TextAlign.center,
+                ),
+                Spacer(),
+                IconButton(
+                  icon: Icon(Icons.event, color: Colors.white),
+                  onPressed: () async {
+                    final DateTime? selectedDateTimeTemp =
+                        await showDateTimePicker(
                       context,
-                      selectedDate); // Use the showDatePickerDialog function
-                  if (selectedDate1 != null) {
-                    setState(() {
-                      selectedDate = selectedDate1;
-                    });
-                    _showPopup(context);
-                  }
-                },
-              ),
-              Container(
-                width: 4,
-              ),
-            ],
+                      selectedDateTime,
+                    );
+                    if (selectedDateTimeTemp != null) {
+                      setState(() {
+                        selectedDateTime = selectedDateTimeTemp;
+                      });
+                      _showPopup(context);
+                    }
+                  },
+                ),
+                Container(
+                  width: 4,
+                ),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 
-  void _showPopup(BuildContext context) {
+  Future<void> _showPopup(BuildContext context) async {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           scrollable: true,
           titleTextStyle: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 20, color: btncolor),
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            color: Colors.teal[800],
+          ),
           title: Text("Request for an Appointment"),
           content: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -370,18 +382,21 @@ class _Card2State extends State<Card2> {
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                   ),
                   Text(
-                    widget.FirstName,
+                    widget.phone ?? "N/A",
                     style: TextStyle(fontSize: 18),
                   )
                 ],
               ),
               Row(
                 children: [
-                  Text("Date selected :  ",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
-                  Text("${DateFormat('MMMM dd, yyyy').format(selectedDate)}",
-                      style: TextStyle(fontSize: 18))
+                  Text(
+                    "Date selected :  ",
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                  ),
+                  Text(
+                    "${DateFormat('MMMM dd, yyyy \nhh:mm a').format(selectedDateTime)}",
+                    style: TextStyle(fontSize: 18),
+                  )
                 ],
               ),
             ],
@@ -390,8 +405,10 @@ class _Card2State extends State<Card2> {
             TextButton(
               child: Text(
                 "Close",
-                style:
-                    TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -400,26 +417,49 @@ class _Card2State extends State<Card2> {
             TextButton(
               child: Text(
                 "Send",
-                style: TextStyle(color: btncolor, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.teal[800],
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              onPressed: () {
+              onPressed: () async {
+                await List_Lawyer_Controller.AddRequest(widget.userid,
+                    widget.id, selectedDateTime.toIso8601String());
                 Navigator.of(context).pop();
-                Get.snackbar("the Request Send succefuly ", "Thank you *_*",
-                    icon: Icon(
-                      Icons.done,
-                      color: Colors.teal[800],
-                    ),
-                    margin: EdgeInsets.only(top: 10),
-                    animationDuration: Duration(seconds: 2),
-                    colorText: Colors.teal[800],
-                    backgroundColor: Colors.white,
-                    duration: Duration(seconds: 8));
               },
             ),
           ],
         );
       },
     );
+  }
+
+  Future<DateTime?> showDateTimePicker(
+    BuildContext context,
+    DateTime initialDateTime,
+  ) async {
+    final DateTime? selectedDateTime = await showDatePicker(
+      context: context,
+      initialDate: initialDateTime,
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(Duration(days: 365)),
+    );
+    if (selectedDateTime != null) {
+      final TimeOfDay? selectedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.fromDateTime(initialDateTime),
+      );
+      if (selectedTime != null) {
+        return DateTime(
+          selectedDateTime.year,
+          selectedDateTime.month,
+          selectedDateTime.day,
+          selectedTime.hour,
+          selectedTime.minute,
+        );
+      }
+    }
+    return null;
   }
 }
 

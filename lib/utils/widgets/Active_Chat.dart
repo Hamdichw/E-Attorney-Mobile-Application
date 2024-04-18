@@ -57,9 +57,7 @@ class ActiveChat extends StatelessWidget {
                                   offset: Offset(0, 3))
                             ]),
                         child: GestureDetector(
-                          onTap: () {
-                            Get.to(Chat_Page());
-                          },
+                          onTap: () {},
                           child: Stack(
                             children: [
                               DecoratedBox(

@@ -101,6 +101,8 @@ class SearchData extends SearchDelegate {
                   email: lawyer['email'] ?? '',
                   bio: lawyer['bio'] ?? '',
                   adress: lawyer['address'] ?? '',
+                  id: lawyer['id'],
+                  userid: controller.userDataList![7],
                 );
               },
             );
