@@ -10,6 +10,9 @@ class Themes {
   final lightTheme = ThemeData.light().copyWith(
     backgroundColor: Colors.white,
     textTheme: TextTheme(
+        titleLarge: TextStyle(
+          color: Colors.black,
+        ),
         bodyLarge:
             TextStyle(color: btncolor), // Change text color for bodyText1
         bodyMedium: TextStyle(

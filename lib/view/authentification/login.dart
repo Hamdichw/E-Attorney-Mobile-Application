@@ -1,10 +1,10 @@
-import 'package:estichara/view/resetpassword.dart';
+import 'package:estichara/view/authentification/resetpassword.dart';
 import 'package:get/get.dart';
 
 import '/utils/const.dart';
 import '/utils/widgets/text_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../controller/sign_in_controller.dart';
+import '../../controller/authentification/sign_in_controller.dart';
 
 import '/view/nav_bar.dart';
 

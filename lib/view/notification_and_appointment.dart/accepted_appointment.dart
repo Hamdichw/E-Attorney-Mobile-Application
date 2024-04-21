@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../controller/notification_controller.dart';
-import '../utils/const.dart';
-import '../utils/widgets/Filter.dart';
+import '../../controller/notification_controller.dart';
+import '../../utils/const.dart';
+import '../../utils/widgets/Reload_page.dart';
 
 class AcceptedApp extends StatefulWidget {
   const AcceptedApp({Key? key}) : super(key: key);
@@ -37,6 +37,25 @@ class _AcceptedAppState extends State<AcceptedApp> {
                   return ReloadWidget();
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
+                } else if (snapshot.data!.length == 0) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Image(
+                        image: AssetImage("assets/images/nodata.png"),
+                        width: 200,
+                        height: 200,
+                      ),
+                      Center(
+                        child: Text(
+                          "No Appointement",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    ],
+                  );
                 } else {
                   return ListView.builder(
                     itemCount: snapshot.data!.length,
@@ -44,7 +63,7 @@ class _AcceptedAppState extends State<AcceptedApp> {
                       var lawyer = snapshot.data![index]['lawyer'];
                       var lawyerName =
                           '${lawyer['firstName']} ${lawyer['lastName']}';
-                      var lawyerEmail = lawyer['email'] ?? '';
+                      var lawyerEmail = lawyer['phoneNumber'] ?? '';
                       var lawyerProfileImage = lawyer['profileImage'] ?? '';
 
                       // Parse the datetime string into a DateTime object

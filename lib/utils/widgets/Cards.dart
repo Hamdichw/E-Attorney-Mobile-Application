@@ -275,7 +275,7 @@ class _Card2State extends State<Card2> {
     final DateFormat formatter = DateFormat('MMM dd, yyyy hh:mm a');
     final String formattedDateTime = formatter.format(selectedDateTime);
     return Container(
-      height: 180,
+      //height: 180,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Colors.teal[800],
@@ -307,7 +307,6 @@ class _Card2State extends State<Card2> {
                   style: TextStyle(color: Colors.white, fontSize: 12),
                   textAlign: TextAlign.center,
                 ),
-                Spacer(),
                 IconButton(
                   icon: Icon(Icons.event, color: Colors.white),
                   onPressed: () async {
@@ -586,7 +585,7 @@ class Card1 extends StatelessWidget {
                       Icon(Icons.mail),
                       SizedBox(width: 4),
                       Text(
-                        email!,
+                        truncateMot(email!),
                         style: TextStyle(fontSize: 17),
                       ),
                     ],

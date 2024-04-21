@@ -2,7 +2,7 @@ import 'package:estichara/view/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../utils/theme_service.dart';
+import '../../utils/theme_service.dart';
 
 class Mode extends StatefulWidget {
   const Mode({Key? key}) : super(key: key);
@@ -34,12 +34,14 @@ class _ModeState extends State<Mode> {
             title: Text('Light'),
             onTap: () {
               themes.changeTheme(false); // Change to light theme
+              setState(() {});
             },
           ),
           ListTile(
             title: Text('Dark'),
             onTap: () {
               themes.changeTheme(true); // Change to dark theme
+              setState(() {});
             },
           )
         ],

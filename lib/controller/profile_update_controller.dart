@@ -10,8 +10,8 @@ import 'package:path/path.dart' as path;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/function.dart';
-import '../view/profile_screen.dart';
-import '../view/profile_update_screen.dart';
+import '../view/profile_screen/profile_screen.dart';
+import '../view/profile_screen/profile_update_screen.dart';
 
 class UpdateProfileController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();

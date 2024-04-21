@@ -3,8 +3,7 @@ import 'package:estichara/utils/widgets/SearshField.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../utils/widgets/Active_Chat.dart';
-import '../../utils/widgets/Recent_chat.dart';
+import 'Recent_chat.dart';
 
 class Chat extends StatefulWidget {
   const Chat({super.key});

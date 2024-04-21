@@ -70,6 +70,9 @@ dependencies:
   connectivity_plus: ^6.0.1
   flutter_image_compress: ^2.2.0
   g_skeleton: ^0.1.0
+  fluttertoast: ^8.2.5
+  double_back_to_close_app: ^2.1.0
+  quickalert: ^1.1.0
   
 
 

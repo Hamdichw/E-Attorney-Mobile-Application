@@ -4,16 +4,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../controller/sign_in_with_facebook.dart';
-import '../controller/sign_in_with_google.dart';
-import '../utils/function.dart';
+import '../../controller/authentification/sign_in_with_facebook.dart';
+import '../../controller/authentification/sign_in_with_google.dart';
+import '../../utils/function.dart';
 import '/view/authentification/login.dart';
 import '/view/first_screens/screen4.dart';
 import 'package:flutter/material.dart';
 import '/utils/const.dart';
-import '../utils/widgets/Profile_menu_widget.dart';
+import '../../utils/widgets/Profile_menu_widget.dart';
 import 'Information_Page.dart';
 import 'language.dart';
 import 'profile_update_screen.dart';
@@ -136,13 +137,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ProfileMenuWidget(
                   title: "4".tr,
                   icon: Icons.language,
-                  onPress: () => Get.off(Language()),
+                  onPress: () => Get.to(Language()),
                   isswitch: true,
                 ),
                 ProfileMenuWidget(
                   title: "Dark Theme",
                   icon: Icons.dark_mode,
-                  onPress: () => Get.off(Mode()),
+                  onPress: () => Get.to(Mode()),
                   isswitch: true,
                 ),
                 Divider(color: theme.textTheme.displayLarge!.color),
@@ -159,43 +160,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   textColor: const Color.fromARGB(255, 255, 17, 0),
                   endIcon: false,
                   onPress: () async {
-                    showDialog(
+                    QuickAlert.show(
                       context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("Confirm Logout"),
-                          content: Text("Are you sure you want to logout?"),
-                          actions: <Widget>[
-                            TextButton(
-                              child: Text("Cancel"),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            TextButton(
-                              child: Text("Logout"),
-                              onPressed: () async {
-                                Navigator.of(context)
-                                    .pop(); // Close the AlertDialog
-                                Navigator.pushReplacement(
-                                  // Navigate to the login screen and remove the current route from the navigation stack
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        Screen4(),
-                                  ),
-                                );
-                                SharedPreferences prefs =
-                                    await SharedPreferences.getInstance();
-                                await prefs.remove('isLoggedIn');
-                                await prefs.remove('userData');
-                                await prefs.remove('userDataGoogle');
-                                await GoogleSignin.logout();
-                                // Handle logout from Google and Facebook
-                              },
-                            ),
-                          ],
+                      type: QuickAlertType.confirm,
+                      text: 'Do you want to logout',
+                      confirmBtnText: 'Yes',
+                      cancelBtnText: 'No',
+                      confirmBtnColor: Colors.green,
+                      onConfirmBtnTap: () async {
+                        Navigator.of(context).pop(); // Close the AlertDialog
+                        Navigator.pushReplacement(
+                          // Navigate to the login screen and remove the current route from the navigation stack
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => Screen4(),
+                          ),
                         );
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        await prefs.remove('isLoggedIn');
+                        await prefs.remove('userData');
+                        await prefs.remove('userDataGoogle');
+                        await GoogleSignin.logout();
+                      },
+                      onCancelBtnTap: () {
+                        Navigator.of(context).pop();
                       },
                     );
                   },

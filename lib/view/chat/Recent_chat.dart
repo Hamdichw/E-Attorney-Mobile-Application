@@ -5,10 +5,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../../controller/chat_controller.dart';
-import '../../view/chat/chat_page.dart';
-import '../../view/details_page.dart';
-import 'Cards.dart';
-import 'Filter.dart';
+import '../../utils/function.dart';
+import 'chat_page.dart';
+import '../home/details_page.dart';
+import '../../utils/widgets/Cards.dart';
+import '../../utils/widgets/Reload_page.dart';
 
 class RecentChat extends StatelessWidget {
   RecentChat({Key? key}) : super(key: key);
@@ -55,9 +56,39 @@ class RecentChat extends StatelessWidget {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return ReloadWidget();
                   } else if (snapshot.hasError) {
-                    return Center(child: Text('Error : ${snapshot.error}'));
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image(
+                          image: AssetImage("assets/images/nodata.png"),
+                          width: 200,
+                          height: 200,
+                        ),
+                        Text(
+                          "No Messages",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    );
                   } else if (snapshot.data == null) {
-                    return Center(child: Text('No data available'));
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image(
+                          image: AssetImage("assets/images/nodata.png"),
+                          width: 200,
+                          height: 200,
+                        ),
+                        Text(
+                          "No Messages",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    );
                   } else {
                     return ListView.builder(
                       itemCount: snapshot.data!.length,
@@ -71,10 +102,29 @@ class RecentChat extends StatelessWidget {
                             if (messageSnapshot.connectionState ==
                                 ConnectionState.waiting) {
                               // If message is still loading
-                              return CircularProgressIndicator();
+                              return CircularProgressIndicator(
+                                color: btncolor,
+                              );
                             } else if (messageSnapshot.hasError) {
                               // If there's an error fetching the message
-                              return Text('Error: ${messageSnapshot.error}');
+                              return Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Image(
+                                    image:
+                                        AssetImage("assets/images/nodata.png"),
+                                    width: 200,
+                                    height: 200,
+                                  ),
+                                  Text(
+                                    "No Messages",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                ],
+                              );
                             } else {
                               // If message fetched successfully
                               var lastMessage = messageSnapshot.data;
@@ -88,7 +138,11 @@ class RecentChat extends StatelessWidget {
                                           chatid: snapshot.data![index]
                                               ['chatId'],
                                           username: controller.userDataList![2],
-                                          image: data['profileImage'],
+                                          lawyername:
+                                              "${data['firstName']} ${data['lastName']}",
+                                          lawyeimage: data['profileImage'] ??
+                                              'https://i.pinimg.com/564x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg',
+                                          //image: data['profileImage'],
                                         ));
                                       },
                                       child: Padding(
@@ -154,8 +208,9 @@ class RecentChat extends StatelessWidget {
                                                         ),
                                                         Text(
                                                           lastMessage != null
-                                                              ? lastMessage[
-                                                                  'replymessage']
+                                                              ? truncateMot(
+                                                                  lastMessage[
+                                                                      'replymessage'])
                                                               : 'no message',
                                                           style: TextStyle(
                                                             fontSize: 16,
@@ -196,28 +251,6 @@ class RecentChat extends StatelessWidget {
                                                         SizedBox(
                                                           height: 10,
                                                         ),
-                                                        Container(
-                                                          height: 23,
-                                                          width: 23,
-                                                          alignment:
-                                                              Alignment.center,
-                                                          decoration: BoxDecoration(
-                                                              color: btncolor,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          25)),
-                                                          child: Text(
-                                                            "1",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          ),
-                                                        )
                                                       ],
                                                     ),
                                                   )

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-import '../utils/const.dart';
-import '../utils/widgets/text_field.dart';
+import '../../utils/const.dart';
+import '../../utils/widgets/text_field.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({super.key});

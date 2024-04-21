@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:quickalert/quickalert.dart';
 
 import '../utils/function.dart';
 
@@ -34,6 +35,7 @@ class List_Lawyer_Controller extends GetxController {
         );
         if (response.statusCode == 200) {
           List<dynamic> responseData = json.decode(response.body);
+          //print(responseData);
           return responseData;
         } else {
           throw Exception('Failed to fetch data');
@@ -67,16 +69,12 @@ class List_Lawyer_Controller extends GetxController {
           body: json.encode(body),
         );
         if (response.statusCode == 200) {
-          Get.snackbar("Succes", "Resquest added Succesefully",
-              isDismissible: false,
-              duration: Duration(seconds: 5),
-              backgroundColor: Colors.green[900],
-              icon: Icon(
-                Icons.done,
-                color: Colors.white,
-                size: 35,
-              ),
-              snackStyle: SnackStyle.FLOATING);
+          await QuickAlert.show(
+            autoCloseDuration: Duration(seconds: 4),
+            context: Get.context!,
+            type: QuickAlertType.success,
+            text: 'Resquest added Succesefully!',
+          );
         } else {
           throw Exception('Failed to send request');
         }

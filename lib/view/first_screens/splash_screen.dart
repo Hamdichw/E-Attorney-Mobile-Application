@@ -8,7 +8,7 @@ import '/view/first_screens/page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'nav_bar.dart';
+import '../nav_bar.dart';
 
 bool? loggedin;
 bool? FirstTime;

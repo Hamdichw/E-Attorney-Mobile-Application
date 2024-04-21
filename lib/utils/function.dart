@@ -12,8 +12,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../controller/sign_in_with_facebook.dart';
-import '../controller/sign_in_with_google.dart';
+import '../controller/authentification/sign_in_with_facebook.dart';
+import '../controller/authentification/sign_in_with_google.dart';
 import 'package:http/http.dart' as http;
 
 import '../view/authentification/login.dart';
@@ -303,4 +303,12 @@ Future<XFile> compressImage(XFile file) async {
   await File(compressedImagePath).writeAsBytes(result);
 
   return XFile(compressedImagePath);
+}
+
+String truncateMot(String email) {
+  if (email.length > 20) {
+    return '${email.substring(0, 20)}...';
+  } else {
+    return email;
+  }
 }

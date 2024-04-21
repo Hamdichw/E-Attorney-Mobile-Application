@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/list_lawyer_controller.dart';
-import '../../view/details_page.dart';
+import '../../view/home/details_page.dart';
 
 class SearchData extends SearchDelegate {
   final List_Lawyer_Controller controller = Get.find<List_Lawyer_Controller>();
@@ -79,8 +79,12 @@ class SearchData extends SearchDelegate {
           onTap: () {
             showModalBottomSheet(
               barrierColor: Color.fromARGB(163, 0, 0, 0),
-              backgroundColor: Color.fromARGB(202, 255, 255, 255),
               scrollControlDisabledMaxHeightRatio: 0.75,
+              backgroundColor: Theme.of(context).brightness == Brightness.dark
+                  ? Theme.of(context)
+                      .colorScheme
+                      .background // White color with 14% opacity
+                  : Color.fromARGB(202, 255, 255, 255),
               showDragHandle: true,
               isScrollControlled: false,
               shape: RoundedRectangleBorder(
@@ -101,7 +105,7 @@ class SearchData extends SearchDelegate {
                   email: lawyer['email'] ?? '',
                   bio: lawyer['bio'] ?? '',
                   adress: lawyer['address'] ?? '',
-                  id: lawyer['id'],
+                  id: lawyer['userID'],
                   userid: controller.userDataList![7],
                 );
               },

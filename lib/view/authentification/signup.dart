@@ -2,8 +2,8 @@ import 'package:estichara/view/authentification/login.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../controller/sign_up_controller.dart';
-import '../verification.dart';
+import '../../controller/authentification/sign_up_controller.dart';
+import 'verification.dart';
 import '/utils/widgets/text_field.dart';
 import '/view/nav_bar.dart';
 import '../../utils/const.dart';

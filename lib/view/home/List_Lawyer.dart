@@ -4,15 +4,15 @@ import 'package:get/get.dart';
 import '../../controller/list_lawyer_controller.dart';
 import '../../model/lawyers.dart';
 import '/utils/function.dart';
-import '/view/details_page.dart';
+import 'details_page.dart';
 import 'package:flutter/material.dart';
 
-import '../const.dart';
-import 'Cards.dart';
+import '../../utils/const.dart';
+import '../../utils/widgets/Cards.dart';
 
 import 'package:g_skeleton/g_skeleton.dart';
 
-import 'Filter.dart';
+import '../../utils/widgets/Reload_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../model/lawyers.dart';
-import '../utils/const.dart';
-import '../utils/widgets/List_Lawyer.dart';
-import '../utils/widgets/Search_bar.dart';
-import '../utils/widgets/SearshField.dart';
+import '../../model/lawyers.dart';
+import '../../utils/const.dart';
+import 'List_Lawyer.dart';
+import '../../utils/widgets/Search_bar.dart';
+import '../../utils/widgets/SearshField.dart';
 
 class FindPage extends StatefulWidget {
   const FindPage({Key? key}) : super(key: key);

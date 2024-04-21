@@ -1,5 +1,5 @@
 import 'package:estichara/utils/const.dart';
-import 'package:estichara/utils/widgets/Filter.dart';
+import 'package:estichara/utils/widgets/Reload_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -37,6 +37,25 @@ class _AlertsState extends State<Alerts> {
                   return ReloadWidget();
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
+                } else if (snapshot.data!.length == 0) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Image(
+                        image: AssetImage("assets/images/nodata.png"),
+                        width: 200,
+                        height: 200,
+                      ),
+                      Center(
+                        child: Text(
+                          "No Appointement",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    ],
+                  );
                 } else {
                   return ListView.builder(
                     itemCount: snapshot.data!.length,
@@ -44,7 +63,7 @@ class _AlertsState extends State<Alerts> {
                       var lawyer = snapshot.data![index]['lawyer'];
                       var lawyerName =
                           '${lawyer['firstName']} ${lawyer['lastName']}';
-                      var lawyerEmail = lawyer['email'] ?? '';
+                      var lawyerEmail = lawyer['phoneNumber'] ?? '22-222-222';
                       var lawyerProfileImage = lawyer['profileImage'] ?? '';
                       var date = snapshot.data![index]['start'] ?? '';
 

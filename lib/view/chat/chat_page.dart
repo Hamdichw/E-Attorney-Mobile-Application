@@ -21,12 +21,14 @@ import '../../utils/function.dart';
 class Chat_Page extends StatefulWidget {
   final int chatid;
   final String username;
-  final String image;
+  final String lawyername;
+  final String lawyeimage;
   const Chat_Page(
       {super.key,
       required this.chatid,
       required this.username,
-      required this.image});
+      required this.lawyername,
+      required this.lawyeimage});
 
   @override
   State<Chat_Page> createState() => _Chat_PageState();
@@ -126,8 +128,7 @@ class _Chat_PageState extends State<Chat_Page> {
     };
     // Send the message to your API
     final response = await http.post(
-      Uri.parse(
-          'https://backendserver.cleverapps.io/chats/add/message${widget.chatid}'),
+      Uri.parse('https://backendserver.cleverapps.io/chats/add/message1'),
       body: jsonEncode(requestBody),
       headers: {
         "Content-Type": "application/json",
@@ -152,6 +153,7 @@ class _Chat_PageState extends State<Chat_Page> {
             'https://backendserver.cleverapps.io/chats/all/messages/from/chat/${widget.chatid}'),
         headers: headers);
 
+    print(response.statusCode);
     if (response.statusCode == 200) {
       final List<dynamic> jsonMessages = jsonDecode(response.body);
       final List<types.Message> newMessages = jsonMessages.map((json) {
@@ -159,15 +161,35 @@ class _Chat_PageState extends State<Chat_Page> {
         final author = chatMessage.senderName == widget.username
             ? _user // If sender is current user, use _user as author
             : types.User(
-                id: chatMessage.senderName); // Otherwise, use sender's name
-        return types.TextMessage(
-          author: author,
-          createdAt: DateTime.parse(chatMessage.time).millisecondsSinceEpoch,
-          id: chatMessage.id.toString(),
-          text: chatMessage.replyMessage,
-        );
+                id: chatMessage.senderName,
+                imageUrl: widget.lawyeimage,
+              ); // Otherwise, use sender's name
+        // Check if the message contains a link to an image
+        if (chatMessage.replyMessage.contains('http') &&
+            (chatMessage.replyMessage.contains('.png') ||
+                chatMessage.replyMessage.contains('.jpg') ||
+                chatMessage.replyMessage.contains('.jpeg') ||
+                chatMessage.replyMessage.contains('.gif'))) {
+          // Create an ImageMessage if the message contains a link to an image
+          return types.ImageMessage(
+            author: author,
+            createdAt: DateTime.parse(chatMessage.time).millisecondsSinceEpoch,
+            id: chatMessage.id.toString(),
+            name: '', size: 1,
+            uri: chatMessage.replyMessage, // Corrected parameter name
+          );
+        } else {
+          // Create a TextMessage for other messages
+          // Check if replyMessage is null and replace it with an empty string
+          final replyMessage = chatMessage.replyMessage ?? '';
+          return types.TextMessage(
+            author: author,
+            createdAt: DateTime.parse(chatMessage.time).millisecondsSinceEpoch,
+            id: chatMessage.id.toString(),
+            text: replyMessage,
+          );
+        }
       }).toList();
-
       setState(() {
         _messages
             .addAll(newMessages.toList()); // Reverse and append new messages
@@ -178,22 +200,60 @@ class _Chat_PageState extends State<Chat_Page> {
   }
 
   @override
-  Widget build(BuildContext context) => SafeArea(
-        child: Scaffold(
-          body: Chat(
-              messages: _messages.reversed.toList(),
-              onSendPressed: _handleSendPressed,
-              showUserAvatars: true,
-              showUserNames: true,
-              user: _user,
-              theme: const DefaultChatTheme(
-                seenIcon: Text(
-                  'read',
-                  style: TextStyle(
-                    fontSize: 10.0,
+  Widget build(BuildContext context) {
+    final theMe = Theme.of(context);
+
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Row(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                      color: theMe.textTheme.bodyMedium!.color!, width: 2),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(35),
+                  child: Image.network(
+                    widget.lawyeimage,
+                    height: 40,
+                    width: 40,
+                    fit: BoxFit.cover,
                   ),
                 ),
-              )),
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              Text(
+                widget.lawyername,
+                style: TextStyle(fontSize: 17),
+              ),
+            ],
+          ),
+          backgroundColor: theMe.backgroundColor,
         ),
-      );
+        body: Chat(
+          messages: _messages.reversed.toList(),
+          onSendPressed: _handleSendPressed,
+          showUserAvatars: true,
+          showUserNames: true,
+          user: _user,
+          theme: DefaultChatTheme(
+              seenIcon: Text(
+                'read',
+                style: TextStyle(
+                  fontSize: 10.0,
+                ),
+              ),
+              inputMargin: EdgeInsets.only(left: 4, right: 4),
+              inputBorderRadius:
+                  BorderRadius.vertical(top: Radius.circular(20)),
+              backgroundColor: theMe.scaffoldBackgroundColor),
+        ),
+      ),
+    );
+  }
 }

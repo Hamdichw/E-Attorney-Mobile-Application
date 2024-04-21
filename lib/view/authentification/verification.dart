@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../utils/const.dart';
-import '../utils/widgets/text_field.dart';
+import '../../utils/const.dart';
+import '../../utils/widgets/text_field.dart';
 
 class Verification extends StatefulWidget {
   final Future<String> CodeVerif;

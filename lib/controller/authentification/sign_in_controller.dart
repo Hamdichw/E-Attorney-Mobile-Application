@@ -1,13 +1,11 @@
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import '../../utils/const.dart';
-import '../../utils/function.dart';
+import '../../../utils/const.dart';
+import '../../../utils/function.dart';
 import 'package:flutter/material.dart';
 import 'package:estichara/view/nav_bar.dart';
 import 'package:http/http.dart' as http;
-
-import '../utils/Api.dart';
 
 class LoginController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -52,7 +50,16 @@ class LoginController extends GetxController {
         // Navigate to next screen
         Get.offAll(NavBar());
       } else {
-        throw jsonDecode(response.body)["Message"] ?? "Unknown Error Occurred";
+        showDialog(
+          context: Get.context!,
+          builder: (context) {
+            return SimpleDialog(
+              title: Text('Login Failed'),
+              contentPadding: EdgeInsets.all(20),
+              children: [Text('check email and password')],
+            );
+          },
+        );
       }
     } catch (error) {
       // Handle errors
@@ -60,9 +67,9 @@ class LoginController extends GetxController {
         context: Get.context!,
         builder: (context) {
           return SimpleDialog(
-            title: Text('Error'),
+            title: Text('Login Failed'),
             contentPadding: EdgeInsets.all(20),
-            children: [Text(error.toString())],
+            children: [Text('check email and password')],
           );
         },
       );

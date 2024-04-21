@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../controller/profile_update_controller.dart';
-import '../utils/const.dart';
-import '../utils/theme_service.dart';
-import '../utils/widgets/text_field.dart';
-import 'nav_bar.dart';
+import '../../controller/profile_update_controller.dart';
+import '../../utils/const.dart';
+import '../../utils/theme_service.dart';
+import '../../utils/widgets/text_field.dart';
+import '../nav_bar.dart';
 
 class UpdateProfileScreen extends StatelessWidget {
   final UpdateProfileController updateProfileController =

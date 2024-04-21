@@ -1,7 +1,7 @@
 import '/utils/const.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/widgets/Cards.dart';
+import '../../utils/widgets/Cards.dart';
 
 class Details extends StatefulWidget {
   final String Name;
