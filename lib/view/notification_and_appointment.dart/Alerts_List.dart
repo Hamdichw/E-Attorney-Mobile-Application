@@ -64,7 +64,8 @@ class _AlertsState extends State<Alerts> {
                       var lawyerName =
                           '${lawyer['firstName']} ${lawyer['lastName']}';
                       var lawyerEmail = lawyer['phoneNumber'] ?? '22-222-222';
-                      var lawyerProfileImage = lawyer['profileImage'] ?? '';
+                      var lawyerProfileImage = lawyer['profileImage'] ??
+                          'https://i.pinimg.com/564x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg';
                       var date = snapshot.data![index]['start'] ?? '';
 
                       // Parse the date string into a DateTime object

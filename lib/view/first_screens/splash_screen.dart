@@ -23,7 +23,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   late final AnimationController _controller =
-      AnimationController(vsync: this, duration: Duration(seconds: 2))
+      AnimationController(vsync: this, duration: Duration(seconds: 1))
         ..repeat(reverse: true);
   late final Animation<double> _animation =
       CurvedAnimation(parent: _controller, curve: Curves.fastOutSlowIn);
@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen>
     // Add a delay and then navigate to the login page
     navigateToNextScreen().whenComplete(() async {
       Timer(
-          Duration(seconds: 6),
+          Duration(seconds: 3),
           () => {
                 if (FirstTime == false || FirstTime == null)
                   {Get.offAll(Controller())}

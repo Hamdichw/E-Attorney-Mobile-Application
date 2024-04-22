@@ -102,7 +102,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Column(
                   children: [
                     Text(
-                      "${userDataList![2]} ",
+                      "${userDataList![0]} ${userDataList![1]}",
+                      textDirection: TextDirection.rtl,
+                      textAlign: TextAlign.start,
                       style: GoogleFonts.electrolize(
                         textStyle: TextStyle(
                           color: theme.textTheme.bodyText1!.color,
@@ -161,6 +163,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   endIcon: false,
                   onPress: () async {
                     QuickAlert.show(
+                      backgroundColor: theme.scaffoldBackgroundColor,
                       context: context,
                       type: QuickAlertType.confirm,
                       text: 'Do you want to logout',

@@ -99,13 +99,7 @@ class RecentChat extends StatelessWidget {
                           future: controller.fetchLastMessage(
                               snapshot.data![index]['chatId']),
                           builder: (context, messageSnapshot) {
-                            if (messageSnapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              // If message is still loading
-                              return CircularProgressIndicator(
-                                color: btncolor,
-                              );
-                            } else if (messageSnapshot.hasError) {
+                            if (messageSnapshot.hasError) {
                               // If there's an error fetching the message
                               return Column(
                                 mainAxisAlignment: MainAxisAlignment.center,

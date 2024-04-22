@@ -31,8 +31,8 @@ class LoginController extends GetxController {
         headers: headers,
       );
       if (response.statusCode == 200) {
-        final jsonData = jsonDecode(response.body);
-        print(jsonData);
+        final jsonData = jsonDecode(utf8.decode(response.bodyBytes));
+
         var token = jsonData['token'];
 
         // Save token to SharedPreferences

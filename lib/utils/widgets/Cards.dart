@@ -275,7 +275,7 @@ class _Card2State extends State<Card2> {
     final DateFormat formatter = DateFormat('MMM dd, yyyy hh:mm a');
     final String formattedDateTime = formatter.format(selectedDateTime);
     return Container(
-      //height: 180,
+      height: 180,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Colors.teal[800],

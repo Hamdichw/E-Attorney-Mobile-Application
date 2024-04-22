@@ -90,6 +90,7 @@ class Signup extends StatelessWidget {
                         Expanded(
                           child: InputField(
                             hintText: 'Birthday',
+                            controller: controller.birthController,
                             readonly: true,
                             onPressed: () async {
                               // Provide the onPressed callback
@@ -102,6 +103,12 @@ class Signup extends StatelessWidget {
                               );
                               if (selectedDate1 != null) {
                                 controller.selectedDate = selectedDate1;
+                                controller.birthController.text =
+                                    selectedDate1.year.toString() +
+                                        "/" +
+                                        selectedDate1.month.toString() +
+                                        "/" +
+                                        selectedDate1.day.toString();
                               }
                             },
                           ),

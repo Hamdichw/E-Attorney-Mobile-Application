@@ -108,7 +108,7 @@ class UpdateProfileScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Padding(
+                      /* Padding(
                         padding: const EdgeInsets.only(
                             left: 20, right: 20, bottom: 15),
                         child: InputField(
@@ -119,7 +119,7 @@ class UpdateProfileScreen extends StatelessWidget {
                             Icons.account_circle_outlined,
                           ),
                         ),
-                      ),
+                      ), */
                       Padding(
                         padding: const EdgeInsets.only(
                             left: 20, right: 20, bottom: 15),
@@ -134,8 +134,7 @@ class UpdateProfileScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(
                             left: 20, right: 20, bottom: 15),
                         child: InputField(
-                          hintText:
-                              "${controller.userDataList![4] ?? "phone"}".tr,
+                          hintText: " phone".tr,
                           controller: controller.phone,
                           // Add validator if needed
                           prefixIcon: Icon(Icons.phone),

@@ -84,11 +84,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   Name: data['firstName'] ?? '',
                                   Type: 'Lawyer',
                                   Lastname: data['lastName'] ?? '',
-                                  Phone: data['phoneNumber'] ?? '',
+                                  Phone: data['phoneNumber'] ?? '    N/A',
                                   valide: data['valide'] ?? false,
                                   email: data['email'] ?? '',
-                                  bio: data['bio'] ?? '',
-                                  adress: data['address'] ?? '',
+                                  bio: data['bio'] ??
+                                      'There is no information about this lawyer',
+                                  adress: data['address'] ?? '    N/A',
                                   userid: controller.userDataList![7],
                                 );
                               },

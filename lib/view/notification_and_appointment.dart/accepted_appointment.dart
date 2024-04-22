@@ -64,7 +64,8 @@ class _AcceptedAppState extends State<AcceptedApp> {
                       var lawyerName =
                           '${lawyer['firstName']} ${lawyer['lastName']}';
                       var lawyerEmail = lawyer['phoneNumber'] ?? '';
-                      var lawyerProfileImage = lawyer['profileImage'] ?? '';
+                      var lawyerProfileImage = lawyer['profileImage'] ??
+                          'https://i.pinimg.com/564x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg';
 
                       // Parse the datetime string into a DateTime object
                       var date = snapshot.data![index]['start'] ?? '';

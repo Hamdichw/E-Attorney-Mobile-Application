@@ -11,6 +11,7 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:file_picker/file_picker.dart' as picker;
 import 'package:quickalert/quickalert.dart';
+import 'package:open_filex/open_filex.dart';
 
 import '../utils/function.dart';
 
@@ -133,21 +134,21 @@ class Document_Add extends GetxController {
 
       var headers = {"Authorization": "Bearer $token"};
       final response = await http.delete(
-          Uri.parse('https://backendserver.cleverapps.io/api/documents/$id'),
+          Uri.parse(
+              'https://backendserver.cleverapps.io/documents/${userDataList![7]}/delete/$id'),
           headers: headers);
       print(id);
       print(response);
       if (response.statusCode == 200) {
-        showDialog(
-          context: Get.context!,
-          builder: (context) {
-            return SimpleDialog(
-              title: Text('Deleted'),
-              contentPadding: EdgeInsets.all(20),
-              children: [Text('The document is deleted successfully')],
-            );
-          },
-        );
+        await QuickAlert.show(
+            context: Get.context!,
+            type: QuickAlertType.success,
+            text: 'The document is deleted successfully!',
+            autoCloseDuration: Duration(seconds: 3),
+            showConfirmBtn: false);
+        await Get.offAll(NavBar(
+          indx: 0,
+        ));
       } else {
         // Handle other status codes if needed
         print("Failed to delete document: ${response.statusCode}");
@@ -155,6 +156,117 @@ class Document_Add extends GetxController {
     } catch (e) {
       // Handle exceptions
       print("Error deleting document: $e");
+      throw e;
+    }
+  }
+
+  Future<void> VerifSign(int id) async {
+    try {
+      String? token = await getToken();
+
+      var headers = {"Authorization": "Bearer $token"};
+      final response = await http.get(
+          Uri.parse(
+              'https://backendserver.cleverapps.io/docs/Sign/verify?documentSignedId=$id&userName=${userDataList![2]}'),
+          headers: headers);
+
+      if (response.statusCode == 200) {
+        var message = jsonDecode(response.body);
+        print(message['message']);
+        if (message['message'] ==
+            'Signature is valid for the given DocumentSigned ID and User ID.') {
+          await QuickAlert.show(
+              context: Get.context!,
+              type: QuickAlertType.success,
+              text: 'Signature is valid for this Document!',
+              title: 'Valid !',
+              autoCloseDuration: Duration(seconds: 4),
+              showConfirmBtn: false);
+        } else {
+          await QuickAlert.show(
+              context: Get.context!,
+              type: QuickAlertType.warning,
+              title: 'not valid',
+              text: 'Signature is not valid for this Document!',
+              autoCloseDuration: Duration(seconds: 4),
+              showConfirmBtn: false);
+        }
+      } else {
+        // Handle other status codes if needed
+        print("Failed to delete document: ${response.statusCode}");
+      }
+    } catch (e) {
+      // Handle exceptions
+      print("Error deleting document: $e");
+      throw e;
+    }
+  }
+
+  Future<void> SignDoc(int id) async {
+    try {
+      String? token = await getToken();
+
+      var headers = {"Authorization": "Bearer $token"};
+      final response = await http.post(
+          Uri.parse(
+              'https://backendserver.cleverapps.io/docs/Sign/sign-document?documentId=$id&userId=${userDataList![7]}'),
+          headers: headers);
+      print(response.statusCode);
+
+      if (response.statusCode == 200) {
+        var message = jsonDecode(response.body);
+        if (message['message'] == 'Document signed successfully. Signature: ') {
+          await QuickAlert.show(
+              context: Get.context!,
+              type: QuickAlertType.success,
+              text: 'Document signed successfully!',
+              autoCloseDuration: Duration(seconds: 4),
+              showConfirmBtn: false);
+        } else {
+          await QuickAlert.show(
+              context: Get.context!,
+              type: QuickAlertType.error,
+              text: 'Failed to sign the document!',
+              autoCloseDuration: Duration(seconds: 4),
+              showConfirmBtn: false);
+        }
+      } else {
+        // Handle other status codes if needed
+        print("Failed to delete document: ${response.statusCode}");
+      }
+    } catch (e) {
+      // Handle exceptions
+      print("Error deleting document: $e");
+      throw e;
+    }
+  }
+
+  Future<void> DownloadDoc(int id, String name) async {
+    try {
+      String? token = await getToken();
+
+      var headers = {"Authorization": "Bearer $token"};
+      final response = await http.get(
+          Uri.parse(
+              'https://backendserver.cleverapps.io/documents/$id/download'),
+          headers: headers);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        // Save the downloaded file
+        final documentsDir = (await getApplicationDocumentsDirectory()).path;
+        var localPath = '$documentsDir/$name';
+
+        await File(localPath).writeAsBytes(response.bodyBytes);
+
+        // Open the downloaded file
+        await OpenFilex.open(localPath);
+      } else {
+        // Handle other status codes if needed
+        print("Failed to downlaod document: ${response.statusCode}");
+      }
+    } catch (e) {
+      // Handle exceptions
+      print("Error downlaod document: $e");
       throw e;
     }
   }

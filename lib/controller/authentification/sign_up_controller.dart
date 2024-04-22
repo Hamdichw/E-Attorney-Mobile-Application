@@ -15,6 +15,7 @@ class SignupController extends GetxController {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
+  late TextEditingController birthController = TextEditingController();
   final RxBool visible = true.obs;
   final RxBool remember = false.obs;
   late DateTime selectedDate;
@@ -49,7 +50,7 @@ class SignupController extends GetxController {
         headers: headers,
       );
       if (response.statusCode == 201) {
-        final json = jsonDecode(response.body);
+        final json = jsonDecode(utf8.decode(response.bodyBytes));
         var token = json['token'];
 
         // Save token to SharedPreferences

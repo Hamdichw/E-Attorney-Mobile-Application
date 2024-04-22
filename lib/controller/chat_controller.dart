@@ -32,7 +32,8 @@ class Chat_Controller extends GetxController {
           headers: headers,
         );
         if (response.statusCode == 200) {
-          List<dynamic> responseData = json.decode(response.body);
+          List<dynamic> responseData =
+              json.decode(utf8.decode(response.bodyBytes));
           return responseData;
         } else {
           throw Exception('Failed to fetch data');
@@ -65,7 +66,8 @@ class Chat_Controller extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        final dynamic jsonResponse = jsonDecode(response.body);
+        final dynamic jsonResponse =
+            jsonDecode(utf8.decode(response.bodyBytes));
         Map<String, dynamic> chatMessage = jsonResponse;
         return chatMessage;
       } else {

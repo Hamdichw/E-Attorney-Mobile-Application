@@ -35,12 +35,12 @@ class Application_Name extends StatelessWidget {
 List<String> introduction_title = [
   "Find The Best lawyer",
   "Easy To hire",
-  "Online Payments"
+  "Digital signature"
 ];
 List<String> introduction_text = [
   "Get started now and find the best lawyer to advocate for your rights and achieve the best possible outcome for your legal situation.",
   "User-Friendly Interface: Navigate through the hiring process with ease, even if you're new to legal services.",
-  "Effortless Transactions: Make payments for legal services quickly and conveniently from the comfort of your own home."
+  "Digital signatures provide unparalleled security for your app's documents by ensuring authenticity, integrity, and non-repudiation, safeguarding against tampering and unauthorized alterations."
 ];
 final List<Lawyer> data = [
   Lawyer(

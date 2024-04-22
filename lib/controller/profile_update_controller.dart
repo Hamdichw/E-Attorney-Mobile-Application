@@ -153,7 +153,7 @@ class UpdateProfileController extends GetxController {
           password.clear();
           // Handle successful update
           SharedPreferences prefs = await SharedPreferences.getInstance();
-          await prefs.setString('userData', response.body);
+          await prefs.setString('userData', utf8.decode(response.bodyBytes));
           print("Profile updated successfully!");
           Get.snackbar('updated', 'succed',
               icon: Icon(

@@ -29,9 +29,15 @@ class _Screen1State extends State<Screen1> {
               Align(
                 alignment: Alignment.topRight,
                 child: TextButton(
-                  child: Text(
-                    'Skip',
-                    style: TextStyle(fontSize: 18),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'Skip',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      Icon(Icons.arrow_forward)
+                    ],
                   ),
                   onPressed: () {
                     widget.onNext();
@@ -68,7 +74,7 @@ class _Screen1State extends State<Screen1> {
                   ),
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.08),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.06),
               DotsIndicator(
                 dotsCount: 4, // Corrected the count to match your txt list
                 position: x - 1,

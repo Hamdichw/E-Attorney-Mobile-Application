@@ -156,7 +156,7 @@ Future<void> loginwithgooglecustomize(
       headers: headers,
     );
     if (response.statusCode == 200) {
-      final json = jsonDecode(response.body);
+      final json = jsonDecode(utf8.decode(response.bodyBytes));
       var token = json['token'];
 
       // Save token to SharedPreferences

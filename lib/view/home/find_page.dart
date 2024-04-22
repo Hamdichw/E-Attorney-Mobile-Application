@@ -48,9 +48,6 @@ class _FindPageState extends State<FindPage> {
                 Spacer(),
                 IconButton(
                   onPressed: () {
-                    /*  setState(() {
-                      show = !show;
-                    }); */
                     showSearch(context: context, delegate: SearchData());
                   },
                   icon: Icon(
@@ -107,42 +104,6 @@ class _FindPageState extends State<FindPage> {
                             Padding(
                               padding: const EdgeInsets.only(left: 4),
                               child: Text("17".tr),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 12,
-                  ),
-                  Container(
-                    height: 35,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(35),
-                      color: const Color.fromARGB(139, 158, 158, 158),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 10),
-                      child: DropdownButton(
-                        items: items.map((String item) {
-                          return DropdownMenuItem(
-                            value: item,
-                            child: Text(item),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            dropdownValue = newValue!;
-                          });
-                        },
-                        borderRadius: BorderRadius.circular(35),
-                        hint: Row(
-                          children: [
-                            Icon(Icons.person_2_outlined),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 4),
-                              child: Text("18".tr),
                             ),
                           ],
                         ),

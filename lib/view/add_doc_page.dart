@@ -12,125 +12,6 @@ import '../controller/document_controller.dart';
 import '../utils/const.dart';
 import '../utils/widgets/GridView_Page.dart';
 
-/* 
-class AddDoc extends StatefulWidget {
-  final List<PlatformFile> files;
-
-  AddDoc({Key? key, required this.files}) : super(key: key);
-
-  @override
-  _AddDocState createState() => _AddDocState();
-}
-
-class _AddDocState extends State<AddDoc> {
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          children: [
-            Application_Name(),
-            SizedBox(
-              height: 30,
-            ),
-            if (widget.files.isEmpty)
-              Column(children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.25,
-                ),
-                Image(
-                  image: AssetImage("assets/images/nodata.png"),
-                  width: 200,
-                  height: 200,
-                ),
-                Text(
-                  "No Files",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                )
-              ]),
-            Expanded(
-              child: GridView.builder(
-                padding: EdgeInsets.all(16),
-                itemCount: widget.files.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 8,
-                  crossAxisSpacing: 8,
-                ),
-                itemBuilder: (context, index) {
-                  final file = widget.files[index];
-                  return buildFile(
-                      file,
-                      (int index) => setState(() =>
-                          widget.files.removeAt(index)), // onDelete function
-                      widget.files,
-                      theme);
-                },
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Container(
-                  width: 140,
-                  child: FloatingActionButton(
-                    backgroundColor: btncolor,
-                    elevation: 5,
-                    onPressed: () async {
-                      final result = await FilePicker.platform.pickFiles(
-                          allowMultiple: true,
-                          type: FileType.custom,
-                          allowedExtensions: ['pdf']);
-                      if (result == null) return;
-                      setState(() {
-                        widget.files.addAll(result.files);
-                      });
-                      for (PlatformFile file in widget.files) {
-                        saveFilePermanently(file);
-                      }
-                    },
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "21".tr,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Icon(
-                            Icons.add,
-                            color: Colors.white,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Future<File> saveFilePermanently(PlatformFile file) async {
-    final appStorage = await getApplicationDocumentsDirectory();
-    final newFile = File('${appStorage.path}/${file.name}');
-    return File(file.path!).copy(newFile.path);
-  }
-}
- */
-// Import your GetX controller
 class AddDoc extends StatelessWidget {
   final Document_Add controller = Get.put(Document_Add());
 
@@ -142,7 +23,7 @@ class AddDoc extends StatelessWidget {
         body: Column(
           children: [
             Application_Name(),
-            SizedBox(height: 30),
+            SizedBox(height: 10),
             Expanded(
               child: FutureBuilder<List<Map<String, dynamic>>>(
                 future: controller
@@ -177,21 +58,42 @@ class AddDoc extends StatelessWidget {
                       ],
                     );
                   } else {
-                    return GridView.builder(
-                      padding: EdgeInsets.all(16),
-                      itemCount: snapshot.data!.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 8,
-                        crossAxisSpacing: 8,
-                      ),
-                      itemBuilder: (context, index) {
-                        final file = snapshot.data![index];
-                        return buildFile(
-                          file,
-                          theme,
-                        );
-                      },
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16),
+                          child: Text(
+                            "All Documents :",
+                            style: GoogleFonts.electrolize(
+                              textStyle: TextStyle(
+                                color: theme.textTheme.displayLarge!.color,
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: GridView.builder(
+                            padding: EdgeInsets.all(16),
+                            itemCount: snapshot.data!.length,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 8,
+                              crossAxisSpacing: 8,
+                            ),
+                            itemBuilder: (context, index) {
+                              final file = snapshot.data![index];
+                              return buildFile(
+                                file,
+                                theme,
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     );
                   }
                 },
@@ -270,7 +172,9 @@ class AddDoc extends StatelessWidget {
     }
 
     return InkWell(
-      onTap: () async {},
+      onTap: () async {
+        await controller.DownloadDoc(files['documentID'], files['title']);
+      },
       child: Container(
         padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
@@ -328,15 +232,21 @@ class AddDoc extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: GestureDetector(
-                    onTap: () {},
-                    child: Icon(Icons.done_all, color: theme.iconTheme.color),
+                    onTap: () async {
+                      await controller.VerifSign(files['documentID']);
+                    },
+                    child:
+                        Icon(Icons.policy_outlined, color: Color(0xFF0096FF)),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: GestureDetector(
-                    onTap: () {},
-                    child: Icon(Icons.edit, color: theme.iconTheme.color),
+                    onTap: () async {
+                      await controller.SignDoc(files['documentID']);
+                    },
+                    child: Icon(Icons.workspace_premium_outlined,
+                        color: Color(0xFFBFA100)),
                   ),
                 ),
                 Spacer(),
