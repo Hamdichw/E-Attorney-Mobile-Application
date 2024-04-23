@@ -31,8 +31,23 @@ class AddDoc extends StatelessWidget {
                       ),
                     );
                   } else if (snapshot.hasError) {
-                    return Center(
-                      child: Text('Error: ${snapshot.error}'),
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Image(
+                          image: AssetImage("assets/images/error.png"),
+                          width: 300,
+                          height: 300,
+                        ),
+                        Center(
+                          child: Text(
+                            "Error",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ],
                     );
                   } else if (snapshot.hasData &&
                       (snapshot.data == null || snapshot.data!.isEmpty)) {

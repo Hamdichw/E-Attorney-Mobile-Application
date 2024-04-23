@@ -49,8 +49,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       children: [
                         Image(
                           image: AssetImage("assets/images/error.png"),
-                          width: 200,
-                          height: 200,
+                          width: 300,
+                          height: 300,
                         ),
                         Center(
                           child: Text(

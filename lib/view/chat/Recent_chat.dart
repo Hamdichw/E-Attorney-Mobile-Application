@@ -59,14 +59,16 @@ class RecentChat extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image(
-                          image: AssetImage("assets/images/nodata.png"),
-                          width: 200,
-                          height: 200,
+                          image: AssetImage("assets/images/error.png"),
+                          width: 300,
+                          height: 300,
                         ),
-                        Text(
-                          "No Messages",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                        Center(
+                          child: Text(
+                            "Error",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
                         )
                       ],
                     );

@@ -41,9 +41,9 @@ class _AcceptedAppState extends State<AcceptedApp> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Image(
-                        image: AssetImage("assets/images/nodata.png"),
-                        width: 200,
-                        height: 200,
+                        image: AssetImage("assets/images/error.png"),
+                        width: 300,
+                        height: 300,
                       ),
                       Center(
                         child: Text(
