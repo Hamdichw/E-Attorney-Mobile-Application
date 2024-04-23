@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import '../../../utils/const.dart';
-import '../../../utils/function.dart';
 import 'package:flutter/material.dart';
 import 'package:estichara/view/nav_bar.dart';
 import 'package:http/http.dart' as http;
@@ -41,7 +39,7 @@ class LoginController extends GetxController {
 
         // Save user data to SharedPreferences
         await prefs.setString('userData', jsonEncode(jsonData));
-
+        await prefs.setBool('firstLog', true);
         // Optionally, save login status if needed
         if (remember.isTrue) {
           await prefs.setBool('isLoggedIn', true);

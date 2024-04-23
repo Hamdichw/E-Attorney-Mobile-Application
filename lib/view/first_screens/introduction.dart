@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import '../../../utils/widgets/Button.dart';
 import '../../../utils/const.dart';
-import '/view/first_screens/screen4.dart';
 
 class Screen1 extends StatefulWidget {
   final VoidCallback onNext;

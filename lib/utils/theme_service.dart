@@ -1,16 +1,19 @@
 import 'package:estichara/utils/const.dart';
-import 'package:estichara/utils/const.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
-import 'const.dart';
 
 class Themes {
   final lightTheme = ThemeData.light().copyWith(
     backgroundColor: Colors.white,
     textTheme: TextTheme(
         titleLarge: TextStyle(
+          color: Colors.black,
+        ),
+        titleMedium: TextStyle(
+          color: Colors.black,
+        ),
+        titleSmall: TextStyle(
           color: Colors.black,
         ),
         bodyLarge:

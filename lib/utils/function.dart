@@ -1,14 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
-import 'dart:ui';
-import 'package:image/image.dart' as img;
+
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 import 'package:estichara/view/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -308,6 +305,14 @@ Future<XFile> compressImage(XFile file) async {
 String truncateMot(String email) {
   if (email.length > 20) {
     return '${email.substring(0, 20)}...';
+  } else {
+    return email;
+  }
+}
+
+String truncateMot1(String email) {
+  if (email.length > 8) {
+    return '${email.substring(0, 8)}...';
   } else {
     return email;
   }

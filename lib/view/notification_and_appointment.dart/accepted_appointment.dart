@@ -36,7 +36,24 @@ class _AcceptedAppState extends State<AcceptedApp> {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return ReloadWidget();
                 } else if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Image(
+                        image: AssetImage("assets/images/nodata.png"),
+                        width: 200,
+                        height: 200,
+                      ),
+                      Center(
+                        child: Text(
+                          "Error",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    ],
+                  );
                 } else if (snapshot.data!.length == 0) {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,

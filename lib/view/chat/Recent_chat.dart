@@ -1,4 +1,3 @@
-import 'package:estichara/utils/const.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,8 +6,7 @@ import 'package:intl/intl.dart';
 import '../../controller/chat_controller.dart';
 import '../../utils/function.dart';
 import 'chat_page.dart';
-import '../home/details_page.dart';
-import '../../utils/widgets/Cards.dart';
+
 import '../../utils/widgets/Reload_page.dart';
 
 class RecentChat extends StatelessWidget {

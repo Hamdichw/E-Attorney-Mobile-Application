@@ -1,11 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../controller/list_lawyer_controller.dart';
 
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '';
 import 'package:intl/intl.dart';
 
 import '../const.dart';
@@ -16,12 +13,14 @@ class card extends StatelessWidget {
   final String? Lastname;
   final Image? image;
   final bool? valide;
+  final String? adrees;
   const card({
     super.key,
     this.name,
     this.Lastname,
     this.image,
     this.valide,
+    this.adrees,
   });
   @override
   Widget build(BuildContext context) {
@@ -77,7 +76,7 @@ class card extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    "lawyer ",
+                    "$adrees ",
                     style: TextStyle(
                       fontSize: 14,
                       color: theme.textTheme.bodyMedium!.color,

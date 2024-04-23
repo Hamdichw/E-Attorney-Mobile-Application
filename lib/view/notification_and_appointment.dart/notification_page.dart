@@ -1,10 +1,7 @@
 import 'package:estichara/view/notification_and_appointment.dart/Alerts_List.dart';
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '/utils/const.dart';
-import '/utils/widgets/Cards.dart';
 import 'package:flutter/material.dart';
 
 import 'accepted_appointment.dart';

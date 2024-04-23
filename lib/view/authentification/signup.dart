@@ -1,11 +1,9 @@
 import 'package:estichara/view/authentification/login.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../controller/authentification/sign_up_controller.dart';
 import 'verification.dart';
 import '/utils/widgets/text_field.dart';
-import '/view/nav_bar.dart';
 import '../../utils/const.dart';
 import '../../utils/function.dart';
 import 'package:flutter/material.dart';
@@ -79,9 +77,10 @@ class Signup extends StatelessWidget {
                       children: [
                         Expanded(
                           child: InputField(
-                            hintText: "User Name",
-                            controller: controller.usernameController,
-                            validator: Validators.validateName,
+                            hintText: "phone",
+                            controller: controller.phoneController,
+                            validator: Validators.validatePhone,
+                            // Add validator if needed
                           ),
                         ),
                         SizedBox(
@@ -114,16 +113,6 @@ class Signup extends StatelessWidget {
                           ),
                         )
                       ],
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 20, right: 20, bottom: 15),
-                    child: InputField(
-                      hintText: "phone",
-                      controller: controller.phoneController,
-                      validator: Validators.validatePhone,
-                      // Add validator if needed
                     ),
                   ),
                   Padding(

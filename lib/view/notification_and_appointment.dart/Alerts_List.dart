@@ -3,6 +3,7 @@ import 'package:estichara/utils/widgets/Reload_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:quickalert/quickalert.dart';
 
 import '../../controller/notification_controller.dart';
 
@@ -36,7 +37,24 @@ class _AlertsState extends State<Alerts> {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return ReloadWidget();
                 } else if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Image(
+                        image: AssetImage("assets/images/nodata.png"),
+                        width: 200,
+                        height: 200,
+                      ),
+                      Center(
+                        child: Text(
+                          "Error",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    ],
+                  );
                 } else if (snapshot.data!.length == 0) {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -77,35 +95,62 @@ class _AlertsState extends State<Alerts> {
                       // Format the time as "HH:mm"
                       var formattedTime = DateFormat('HH:mm').format(dateTime);
 
-                      return ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(lawyerProfileImage),
+                      return Dismissible(
+                        key: Key(index.toString()),
+                        background: Container(
+                          color: Colors.red,
+                          alignment: Alignment.centerRight,
+                          padding: EdgeInsets.only(right: 20.0),
+                          child: Icon(Icons.delete, color: Colors.white),
                         ),
-                        title: Text(lawyerName),
-                        subtitle: Text(lawyerEmail),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              '$formattedDate \n$formattedTime',
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: btncolor,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 8),
-                              child: Icon(
-                                Icons.alarm,
-                                color: Colors.purple[700],
-                                size: 30,
-                              ),
-                            )
-                          ],
-                        ),
-                        onTap: () {
-                          // Add any action you want to perform when ListTile is tapped
+                        onDismissed: (direction) {
+                          QuickAlert.show(
+                              context: Get.context!,
+                              title: 'Delete the request',
+                              type: QuickAlertType.confirm,
+                              onCancelBtnTap: () {
+                                setState(() {});
+                                Navigator.of(context).pop();
+                              },
+                              onConfirmBtnTap: () async {
+                                await controller.Delete(
+                                    snapshot.data![index]['appointmentID']);
+                                setState(() {});
+                                //Navigator.of(context).pop();
+                              },
+                              showCancelBtn: true);
                         },
+                        direction: DismissDirection.endToStart,
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            backgroundImage: NetworkImage(lawyerProfileImage),
+                          ),
+                          title: Text(lawyerName),
+                          subtitle: Text(lawyerEmail),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                '$formattedDate \n$formattedTime',
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: btncolor,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 8),
+                                child: Icon(
+                                  Icons.alarm,
+                                  color: Colors.purple[700],
+                                  size: 30,
+                                ),
+                              )
+                            ],
+                          ),
+                          onTap: () {
+                            // Add any action you want to perform when ListTile is tapped
+                          },
+                        ),
                       );
                     },
                   );

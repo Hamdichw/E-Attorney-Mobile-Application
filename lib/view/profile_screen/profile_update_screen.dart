@@ -4,7 +4,6 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../controller/profile_update_controller.dart';
 import '../../utils/const.dart';
-import '../../utils/theme_service.dart';
 import '../../utils/widgets/text_field.dart';
 import '../nav_bar.dart';
 
@@ -108,18 +107,7 @@ class UpdateProfileScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      /* Padding(
-                        padding: const EdgeInsets.only(
-                            left: 20, right: 20, bottom: 15),
-                        child: InputField(
-                          hintText: "${controller.userDataList![2]}".tr,
-                          controller: controller.name,
-                          // Add validator if needed
-                          prefixIcon: Icon(
-                            Icons.account_circle_outlined,
-                          ),
-                        ),
-                      ), */
+
                       Padding(
                         padding: const EdgeInsets.only(
                             left: 20, right: 20, bottom: 15),

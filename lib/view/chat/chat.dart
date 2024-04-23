@@ -1,5 +1,4 @@
 import 'package:estichara/utils/const.dart';
-import 'package:estichara/utils/widgets/SearshField.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -35,17 +34,6 @@ class _ChatState extends State<Chat> {
                           fontSize: 24,
                           fontWeight: FontWeight.normal)),
                 ),
-                Spacer(),
-                IconButton(
-                    onPressed: () {
-                      setState(() {
-                        show = !show;
-                      });
-                    },
-                    icon: Icon(
-                      Icons.search,
-                      size: 30,
-                    )),
               ],
             ),
             SizedBox(

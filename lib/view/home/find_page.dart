@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../model/lawyers.dart';
 import '../../utils/const.dart';
 import 'List_Lawyer.dart';
 import '../../utils/widgets/Search_bar.dart';
-import '../../utils/widgets/SearshField.dart';
 
 class FindPage extends StatefulWidget {
   const FindPage({Key? key}) : super(key: key);
@@ -16,14 +14,12 @@ class FindPage extends StatefulWidget {
 }
 
 class _FindPageState extends State<FindPage> {
-  String dropdownValue = "Tunis";
-  var items = ["Tunis", "Ariana", "Nabel", "Sousse", "Medenine", "Gafsa"];
+  String dropdownValue = "All";
+
   bool show = false;
-  TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -103,7 +99,7 @@ class _FindPageState extends State<FindPage> {
                             Icon(Icons.location_on_outlined),
                             Padding(
                               padding: const EdgeInsets.only(left: 4),
-                              child: Text("17".tr),
+                              child: Text(dropdownValue),
                             ),
                           ],
                         ),
@@ -114,7 +110,9 @@ class _FindPageState extends State<FindPage> {
               ),
             ),
             Expanded(
-              child: HomePage(),
+              child: HomePage(
+                Ville: dropdownValue,
+              ),
             ),
           ],
         ),

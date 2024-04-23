@@ -6,14 +6,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
-import 'package:mime/mime.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:uuid/uuid.dart';
+import 'package:path/path.dart' as path;
 
 import '../../model/messages.dart';
 import '../../utils/function.dart';
@@ -118,20 +116,47 @@ class _Chat_PageState extends State<Chat_Page> {
     );
     if (response.statusCode == 200) {
       final dynamic jsonResponse = jsonDecode(utf8.decode(response.bodyBytes));
-      // Parse the message from the response
       final chatMessage = jsonResponse;
-      //print(chatMessage);
-
-      // Create a types.Message from the last message
+      types.Message newMessage;
       final author = chatMessage['senderName'] == widget.username
           ? _user
-          : types.User(id: chatMessage['senderName']);
-      final newMessage = types.TextMessage(
-        author: author,
-        createdAt: DateTime.parse(chatMessage['time']).millisecondsSinceEpoch,
-        id: chatMessage['id'].toString(),
-        text: chatMessage['replymessage'],
-      );
+          : types.User(
+              id: chatMessage['senderName'],
+              imageUrl: widget.lawyeimage,
+            );
+
+      String message = chatMessage['replymessage'] as String;
+      print(message);
+      if (message.contains('https') &&
+          (message.contains('.png') ||
+              message.contains('.jpg') ||
+              message.contains('.jpeg') ||
+              message.contains('.gif'))) {
+        newMessage = types.ImageMessage(
+          author: author,
+          createdAt: DateTime.parse(chatMessage['time']).millisecondsSinceEpoch,
+          id: chatMessage['id'].toString(),
+          name: '',
+          size: 1,
+          uri: message, // Corrected parameter name
+        );
+      } else if (message.contains('https') && (message.contains('.pdf'))) {
+        newMessage = types.FileMessage(
+          author: author,
+          createdAt: DateTime.parse(chatMessage['time']).millisecondsSinceEpoch,
+          id: chatMessage['id'].toString(),
+          name: 'document',
+          size: 3,
+          uri: message, // Corrected parameter name
+        );
+      } else {
+        newMessage = types.TextMessage(
+          author: author,
+          createdAt: DateTime.parse(chatMessage['time']).millisecondsSinceEpoch,
+          id: chatMessage['id'].toString(),
+          text: message,
+        );
+      }
 
       // Check if the widget is still mounted before calling setState
       if (mounted) {
@@ -149,20 +174,7 @@ class _Chat_PageState extends State<Chat_Page> {
     }
   }
 
-  void _addMessage(types.Message message) {
-    setState(() {
-      _messages.insert(0, message);
-    });
-  }
-
   void _handleSendPressed(types.PartialText message) async {
-    final textMessage = types.TextMessage(
-      author: _user,
-      createdAt: DateTime.now().millisecondsSinceEpoch,
-      id: Uuid().v4(),
-      text: message.text,
-    );
-
     //_addMessage(textMessage);
     String? token = await getToken();
     final Map<String, dynamic> requestBody = {
@@ -211,7 +223,7 @@ class _Chat_PageState extends State<Chat_Page> {
                 imageUrl: widget.lawyeimage,
               ); // Otherwise, use sender's name
         // Check if the message contains a link to an image
-        if (chatMessage.replyMessage.contains('http') &&
+        if (chatMessage.replyMessage.contains('https') &&
             (chatMessage.replyMessage.contains('.png') ||
                 chatMessage.replyMessage.contains('.jpg') ||
                 chatMessage.replyMessage.contains('.jpeg') ||
@@ -224,7 +236,7 @@ class _Chat_PageState extends State<Chat_Page> {
             name: '', size: 1,
             uri: chatMessage.replyMessage, // Corrected parameter name
           );
-        } else if (chatMessage.replyMessage.contains('http') &&
+        } else if (chatMessage.replyMessage.contains('https') &&
             (chatMessage.replyMessage.contains('.pdf'))) {
           // Create an ImageMessage if the message contains a link to an image
           return types.FileMessage(
@@ -237,7 +249,7 @@ class _Chat_PageState extends State<Chat_Page> {
         } else {
           // Create a TextMessage for other messages
           // Check if replyMessage is null and replace it with an empty string
-          final replyMessage = chatMessage.replyMessage ?? '';
+          final replyMessage = chatMessage.replyMessage;
           return types.TextMessage(
             author: author,
             createdAt: DateTime.parse(chatMessage.time).millisecondsSinceEpoch,
@@ -255,6 +267,129 @@ class _Chat_PageState extends State<Chat_Page> {
     }
   }
 
+  void _handleAttachmentPressed() {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) => SafeArea(
+        child: SizedBox(
+          height: 100,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Column(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          _handleImageSelection();
+                        },
+                        icon: Icon(
+                          Icons.add_photo_alternate_outlined,
+                          size: 40,
+                        )),
+                    Text("Photo")
+                  ],
+                ),
+                Column(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          _handleFileSelection();
+                        },
+                        icon: Icon(
+                          Icons.upload_file,
+                          size: 40,
+                        )),
+                    Text("File")
+                  ],
+                ),
+                Column(
+                  children: [
+                    IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: Icon(
+                          Icons.cancel_outlined,
+                          size: 40,
+                          color: Colors.red[700],
+                        )),
+                    Text("Cancel")
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _handleImageSelection() async {
+    final result = await ImagePicker().pickImage(
+      imageQuality: 70,
+      maxWidth: 1440,
+      source: ImageSource.gallery,
+    );
+
+    if (result != null) {
+      XFile img = await compressImage(result);
+      List<int> imageBytes = await File(img.path).readAsBytes();
+      var request = http.MultipartRequest('POST',
+          Uri.parse('https://api.cloudinary.com/v1_1/dli3d373m/upload'));
+      request.files.add(http.MultipartFile.fromBytes(
+        'file',
+        imageBytes,
+        filename: path.basename(result.path), // Extracting filename from path
+      ));
+      request.fields['upload_preset'] = 'clq99pfo';
+      var response = await request.send();
+      final responseBody = await response.stream.bytesToString();
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(responseBody);
+        final jsonResponse = jsonDecode(responseBody);
+        print(jsonResponse['secure_url']);
+
+        // Parse the message from the response
+        _handleSendPressed(types.PartialText(text: jsonResponse['secure_url']));
+      } else {
+        print("error fetching last message: ${response.statusCode}");
+      }
+    }
+  }
+
+  void _handleFileSelection() async {
+    final result = await FilePicker.platform
+        .pickFiles(type: FileType.custom, allowedExtensions: ['pdf']);
+
+    if (result != null && result.files.single.path != null) {
+      List<int> fileBytes = await File(result.files.single.path!).readAsBytes();
+      var request = http.MultipartRequest('POST',
+          Uri.parse('https://api.cloudinary.com/v1_1/dli3d373m/upload'));
+      request.files.add(http.MultipartFile.fromBytes(
+        'file',
+        fileBytes,
+        filename: path.basename(result.files.single.path!),
+      ));
+      request.fields['upload_preset'] = 'clq99pfo';
+      var response = await request.send();
+      final responseBody = await response.stream.bytesToString();
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(responseBody);
+        final jsonResponse = jsonDecode(responseBody);
+        print(jsonResponse['secure_url']);
+
+        // Parse the message from the response
+        _handleSendPressed(types.PartialText(text: jsonResponse['url']));
+      } else {
+        print("error fetching last message: ${response.statusCode}");
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theMe = Theme.of(context);
@@ -262,6 +397,11 @@ class _Chat_PageState extends State<Chat_Page> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          toolbarHeight: MediaQuery.of(context).size.height * 0.08,
+          //elevation: 15,
+          shape: Border(
+              bottom: BorderSide(
+                  width: 1, color: const Color.fromARGB(131, 0, 0, 0))),
           title: Row(
             children: [
               Container(
@@ -293,6 +433,7 @@ class _Chat_PageState extends State<Chat_Page> {
         ),
         body: Chat(
           messages: _messages.reversed.toList(),
+          onAttachmentPressed: _handleAttachmentPressed,
           onSendPressed: _handleSendPressed,
           onMessageTap: _handleMessageTap,
           showUserAvatars: true,
@@ -305,9 +446,10 @@ class _Chat_PageState extends State<Chat_Page> {
                   fontSize: 10.0,
                 ),
               ),
-              inputMargin: EdgeInsets.only(left: 4, right: 4),
-              inputBorderRadius:
-                  BorderRadius.vertical(top: Radius.circular(20)),
+              inputBackgroundColor: Colors.grey,
+              inputTextColor: Colors.black,
+              inputMargin: EdgeInsets.only(left: 0, right: 0),
+              inputBorderRadius: BorderRadius.vertical(top: Radius.circular(0)),
               backgroundColor: theMe.scaffoldBackgroundColor),
         ),
       ),

@@ -1,9 +1,7 @@
 import 'package:estichara/utils/function.dart';
-import 'package:estichara/view/authentification/login.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
 
 import '../../utils/const.dart';
 import '../../utils/widgets/text_field.dart';

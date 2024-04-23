@@ -11,9 +11,10 @@ import 'package:get_storage/get_storage.dart';
 import 'view/first_screens/splash_screen.dart';
 
 Future<void> main() async {
-  await GetStorage.init();
+  await GetStorage.init(); // Initialize GetStorage
+
+  DependencyInjection.init(); // Initialize your dependencies
   runApp(MyApp());
-  DependencyInjection.init();
 }
 
 class MyApp extends StatelessWidget {

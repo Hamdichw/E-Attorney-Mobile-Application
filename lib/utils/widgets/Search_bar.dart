@@ -1,5 +1,3 @@
-import 'package:estichara/model/lawyers.dart';
-import 'package:estichara/utils/const.dart';
 import 'package:estichara/utils/widgets/Cards.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

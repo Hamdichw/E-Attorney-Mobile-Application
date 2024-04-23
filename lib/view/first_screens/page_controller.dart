@@ -11,7 +11,6 @@ class Controller extends StatefulWidget {
 
 class _ControllerState extends State<Controller> {
   late PageController _pageController;
-  int _currentPageIndex = 0;
 
   @override
   void initState() {
@@ -30,9 +29,7 @@ class _ControllerState extends State<Controller> {
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
     );
-    setState(() {
-      _currentPageIndex++;
-    });
+    setState(() {});
   }
 
   @override
@@ -44,9 +41,7 @@ class _ControllerState extends State<Controller> {
           physics: NeverScrollableScrollPhysics(),
           controller: _pageController,
           onPageChanged: (int index) {
-            setState(() {
-              _currentPageIndex = index;
-            });
+            setState(() {});
           },
 
           ///**********les pages***************** */

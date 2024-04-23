@@ -1,16 +1,11 @@
-import 'package:animated_switch/animated_switch.dart';
-import 'package:estichara/utils/theme_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../controller/authentification/sign_in_with_facebook.dart';
 import '../../controller/authentification/sign_in_with_google.dart';
 import '../../utils/function.dart';
-import '/view/authentification/login.dart';
 import '/view/first_screens/screen4.dart';
 import 'package:flutter/material.dart';
 import '/utils/const.dart';
@@ -139,13 +134,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ProfileMenuWidget(
                   title: "4".tr,
                   icon: Icons.language,
-                  onPress: () => Get.to(Language()),
+                  onPress: () => Get.off(Language()),
                   isswitch: true,
                 ),
                 ProfileMenuWidget(
                   title: "Dark Theme",
                   icon: Icons.dark_mode,
-                  onPress: () => Get.to(Mode()),
+                  onPress: () => Get.off(Mode()),
                   isswitch: true,
                 ),
                 Divider(color: theme.textTheme.displayLarge!.color),

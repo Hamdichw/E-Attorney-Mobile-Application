@@ -3,13 +3,10 @@ import 'dart:io';
 
 import 'package:estichara/view/nav_bar.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
-import 'package:file_picker/file_picker.dart' as picker;
 import 'package:quickalert/quickalert.dart';
 import 'package:open_filex/open_filex.dart';
 
@@ -59,6 +56,7 @@ class Document_Add extends GetxController {
       if (response.statusCode == 200) {
         final List<dynamic> jsonResponse = jsonDecode(response.body);
         // Ensure that jsonResponse is indeed a List<dynamic>
+        // ignore: unnecessary_type_check
         if (jsonResponse is List<dynamic>) {
           // Convert each item in the list to a Map<String, dynamic>
           List<Map<String, dynamic>> documents =
@@ -160,14 +158,14 @@ class Document_Add extends GetxController {
     }
   }
 
-  Future<void> VerifSign(int id) async {
+  Future<void> VerifSign(int id, String user) async {
     try {
       String? token = await getToken();
 
       var headers = {"Authorization": "Bearer $token"};
       final response = await http.get(
           Uri.parse(
-              'https://backendserver.cleverapps.io/docs/Sign/verify?documentSignedId=$id&userName=${userDataList![2]}'),
+              'https://backendserver.cleverapps.io/docs/Sign/verify?documentSignedId=$id&userName=$user'),
           headers: headers);
 
       if (response.statusCode == 200) {
@@ -193,7 +191,7 @@ class Document_Add extends GetxController {
         }
       } else {
         // Handle other status codes if needed
-        print("Failed to delete document: ${response.statusCode}");
+        print("Failed to verif document: ${response.statusCode}");
       }
     } catch (e) {
       // Handle exceptions

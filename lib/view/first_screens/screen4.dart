@@ -1,7 +1,5 @@
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
-import 'package:estichara/view/nav_bar.dart';
 
-import '../../controller/authentification/sign_in_with_google.dart';
 import '../../utils/function.dart';
 import '../../utils/widgets/Button.dart';
 import '/utils/const.dart';

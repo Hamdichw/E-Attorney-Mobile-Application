@@ -3,10 +3,7 @@ import 'package:get/get.dart';
 
 import '/utils/const.dart';
 import '/utils/widgets/text_field.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../controller/authentification/sign_in_controller.dart';
-
-import '/view/nav_bar.dart';
 
 import '../../utils/function.dart';
 import 'signup.dart';

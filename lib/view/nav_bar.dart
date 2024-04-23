@@ -1,11 +1,9 @@
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:file_picker/file_picker.dart';
 
-import 'chat/chat_page.dart';
 import 'home/find_page.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import '/utils/const.dart';
 import 'add_doc_page.dart';
 import 'chat/chat.dart';
 import 'notification_and_appointment.dart/notification_page.dart';

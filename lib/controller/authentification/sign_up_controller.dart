@@ -39,7 +39,7 @@ class SignupController extends GetxController {
         "lastName": lastNameController.text,
         "email": emailController.text,
         "birthday": formatter.format(selectedDate),
-        "username": usernameController.text,
+        "username": firstNameController.text + lastNameController.text,
         "phoneNumber": phoneController.text,
         "password": passwordController.text
       };
@@ -57,6 +57,7 @@ class SignupController extends GetxController {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', token);
         await prefs.setString('userData', jsonEncode(json));
+        await prefs.setBool('firstLog', true);
         // Optionally, save login status if needed
         if (remember.isTrue) {
           await prefs.setBool('isLoggedIn', true);

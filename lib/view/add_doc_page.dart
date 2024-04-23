@@ -1,16 +1,11 @@
-import 'dart:io';
-
+import 'package:estichara/utils/function.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:open_filex/open_filex.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../controller/document_controller.dart';
 import '../utils/const.dart';
-import '../utils/widgets/GridView_Page.dart';
 
 class AddDoc extends StatelessWidget {
   final Document_Add controller = Get.put(Document_Add());
@@ -229,45 +224,101 @@ class AddDoc extends StatelessWidget {
             ),
             Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: GestureDetector(
-                    onTap: () async {
-                      await controller.VerifSign(files['documentID']);
-                    },
-                    child:
-                        Icon(Icons.policy_outlined, color: Color(0xFF0096FF)),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: GestureDetector(
-                    onTap: () async {
-                      await controller.SignDoc(files['documentID']);
-                    },
-                    child: Icon(Icons.workspace_premium_outlined,
-                        color: Color(0xFFBFA100)),
-                  ),
-                ),
-                Spacer(),
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: Icon(Icons.share, color: theme.iconTheme.color),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: GestureDetector(
-                    onTap: () async =>
-                        await controller.DeleteDoc(files['documentID']),
-                    child: Icon(
-                      Icons.delete,
-                      color: Colors.red,
+                if (files['uploadedBy']['username'] ==
+                    controller.userDataList![2]) ...[
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: GestureDetector(
+                      onTap: () async {
+                        await controller.VerifSign(files['documentID'],
+                            files['uploadedBy']['username']);
+                      },
+                      child:
+                          Icon(Icons.policy_outlined, color: Color(0xFF0096FF)),
                     ),
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: GestureDetector(
+                      onTap: () async {
+                        await controller.SignDoc(files['documentID']);
+                      },
+                      child: Icon(Icons.workspace_premium_outlined,
+                          color: Color(0xFFBFA100)),
+                    ),
+                  ),
+                  Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Icon(Icons.share, color: theme.iconTheme.color),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: GestureDetector(
+                      onTap: () async =>
+                          await controller.DeleteDoc(files['documentID']),
+                      child: Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ],
+                if (files['uploadedBy']['username'] !=
+                    controller.userDataList![2]) ...[
+                  Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                              color: theme.textTheme.bodyMedium!.color!,
+                              width: 2),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(35),
+                          child: Image.network(
+                            files['uploadedBy']['profileImage'] ??
+                                'https://i.pinimg.com/564x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg',
+                            height: 25,
+                            width: 25,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Text(truncateMot1("${files['uploadedByUserName']}")),
+                    ],
+                  ),
+                  Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: GestureDetector(
+                      onTap: () async {
+                        await controller.VerifSign(files['documentID'],
+                            files['uploadedBy']['username']);
+                      },
+                      child:
+                          Icon(Icons.policy_outlined, color: Color(0xFF0096FF)),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: GestureDetector(
+                      onTap: () async =>
+                          await controller.DeleteDoc(files['documentID']),
+                      child: Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ],
               ],
             )
           ],
