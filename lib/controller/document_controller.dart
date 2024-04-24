@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:estichara/view/nav_bar.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as path;
@@ -265,6 +266,43 @@ class Document_Add extends GetxController {
     } catch (e) {
       // Handle exceptions
       print("Error downlaod document: $e");
+      throw e;
+    }
+  }
+
+  Future<void> ShareDocument(int id, String Email) async {
+    try {
+      String? token = await getToken();
+      var headers = {"Authorization": "Bearer ${token}"};
+
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse(
+            'https://backendserver.cleverapps.io/documents/shareMyDocument'),
+      );
+
+      request.fields['docId'] = '$id';
+      request.fields['Email'] = Email;
+      request.headers.addAll(headers);
+      var response = await request.send();
+      String responseBody = await response.stream.bytesToString();
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print("Success: $responseBody");
+        await QuickAlert.show(
+            context: Get.context!,
+            type: QuickAlertType.success,
+            text: 'Document Shared successfully!',
+            autoCloseDuration: Duration(seconds: 3),
+            showConfirmBtn: false);
+        Navigator.of(Get.context!).pop();
+        // Handle success
+      } else {
+        print("Failed with status code: ${response.statusCode}");
+        // Handle failure
+      }
+    } catch (e) {
+      print("Error: $e");
       throw e;
     }
   }

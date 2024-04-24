@@ -34,6 +34,7 @@ class Chat_Controller extends GetxController {
         if (response.statusCode == 200) {
           List<dynamic> responseData =
               json.decode(utf8.decode(response.bodyBytes));
+
           return responseData;
         } else {
           throw Exception('Failed to fetch data');

@@ -136,7 +136,6 @@ class RecentChat extends StatelessWidget {
                                               "${data['firstName']} ${data['lastName']}",
                                           lawyeimage: data['profileImage'] ??
                                               'https://i.pinimg.com/564x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg',
-                                          //image: data['profileImage'],
                                         ));
                                       },
                                       child: Padding(

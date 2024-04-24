@@ -105,9 +105,11 @@ class _AlertsState extends State<Alerts> {
                         ),
                         onDismissed: (direction) {
                           QuickAlert.show(
+                              disableBackBtn: true,
+                              confirmBtnText: "Delete",
                               context: Get.context!,
-                              title: 'Delete the request',
-                              type: QuickAlertType.confirm,
+                              title: 'Delete the request?',
+                              type: QuickAlertType.warning,
                               onCancelBtnTap: () {
                                 setState(() {});
                                 Navigator.of(context).pop();
@@ -138,11 +140,11 @@ class _AlertsState extends State<Alerts> {
                                     fontWeight: FontWeight.bold),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(left: 8),
+                                padding: EdgeInsets.only(left: 10),
                                 child: Icon(
-                                  Icons.alarm,
-                                  color: Colors.purple[700],
-                                  size: 30,
+                                  Icons.delete_sweep_outlined,
+                                  color: Colors.redAccent[700],
+                                  size: 40,
                                 ),
                               )
                             ],

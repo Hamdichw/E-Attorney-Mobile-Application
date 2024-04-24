@@ -16,6 +16,27 @@ class Themes {
         titleSmall: TextStyle(
           color: Colors.black,
         ),
+        headlineLarge: TextStyle(
+          color: Colors.black,
+        ),
+        headlineMedium: TextStyle(
+          color: Colors.black,
+        ),
+        headlineSmall: TextStyle(
+          color: Colors.black,
+        ),
+        displayMedium: TextStyle(
+          color: Colors.black,
+        ),
+        labelMedium: TextStyle(
+          color: Colors.black,
+        ),
+        labelLarge: TextStyle(
+          color: Colors.black,
+        ),
+        labelSmall: TextStyle(
+          color: Colors.black,
+        ),
         bodyLarge:
             TextStyle(color: btncolor), // Change text color for bodyText1
         bodyMedium: TextStyle(

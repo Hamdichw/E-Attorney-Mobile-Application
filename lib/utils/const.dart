@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../model/lawyers.dart';
-
 //button color
 const btncolor = Color.fromARGB(255, 33, 52, 66);
 const Color Background_color = Color(0xffe3e3ef);
@@ -43,6 +41,7 @@ List<String> introduction_text = [
   "Digital signatures provide unparalleled security for your app's documents by ensuring authenticity, integrity, and non-repudiation, safeguarding against tampering and unauthorized alterations."
 ];
 var items = [
+  'All',
   "Ariana",
   "Beja",
   "Ben Arous",

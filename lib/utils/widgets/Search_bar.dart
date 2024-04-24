@@ -112,6 +112,7 @@ class SearchData extends SearchDelegate {
           child: Column(
             children: [
               card(
+                adrees: lawyer['address'] ?? 'no adress',
                 valide: lawyer['valide'] ?? false,
                 name: lawyer['firstName'] ?? '',
                 Lastname: lawyer['lastName'] ?? '',

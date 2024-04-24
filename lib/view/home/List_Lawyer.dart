@@ -88,14 +88,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         } else if (snapshot.data![index]['address'] ==
                             widget.Ville) {
                           data = snapshot.data![index];
-                        } else {
+                        }
+
+                        // If no lawyer data found for the selected location
+                        if (data == null &&
+                            index == snapshot.data!.length - 1) {
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.25),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.25,
+                              ),
                               Image(
                                 image: AssetImage("assets/images/nodata.png"),
                                 width: 200,
@@ -110,75 +115,78 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           );
                         }
 
-                        return GestureDetector(
-                          onTap: () {
-                            showModalBottomSheet(
-                              barrierColor: Color.fromARGB(163, 0, 0, 0),
-                              backgroundColor: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? theme.colorScheme
-                                      .background // White color with 14% opacity
-                                  : Color.fromARGB(202, 255, 255, 255),
-                              scrollControlDisabledMaxHeightRatio: 0.75,
-                              transitionAnimationController:
-                                  AnimationController(
-                                vsync: this,
-                                duration: Duration(milliseconds: 450),
-                              ),
-                              showDragHandle: true,
-                              isScrollControlled: false,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(20),
-                                  topLeft: Radius.circular(20),
+                        // If lawyer data found, display it
+                        if (data != null) {
+                          return GestureDetector(
+                            onTap: () {
+                              showModalBottomSheet(
+                                barrierColor: Color.fromARGB(163, 0, 0, 0),
+                                backgroundColor: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? theme.colorScheme.background
+                                    : Color.fromARGB(202, 255, 255, 255),
+                                scrollControlDisabledMaxHeightRatio: 0.75,
+                                transitionAnimationController:
+                                    AnimationController(
+                                  vsync: this,
+                                  duration: Duration(milliseconds: 450),
                                 ),
-                              ),
-                              context: context,
-                              builder: (context) {
-                                return Details(
-                                  id: data['userID'],
-                                  images: data['profileImage'] ??
-                                      'https://i.pinimg.com/564x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg',
-                                  Name: data['firstName'] ?? '',
-                                  Type: 'Lawyer',
+                                showDragHandle: true,
+                                isScrollControlled: false,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(20),
+                                    topLeft: Radius.circular(20),
+                                  ),
+                                ),
+                                context: context,
+                                builder: (context) {
+                                  return Details(
+                                    id: data['userID'],
+                                    images: data['profileImage'] ??
+                                        'https://i.pinimg.com/564x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg',
+                                    Name: data['firstName'] ?? '',
+                                    Type: 'Lawyer',
+                                    Lastname: data['lastName'] ?? '',
+                                    Phone: data['phoneNumber'] ?? '    N/A',
+                                    valide: data['valide'] ?? false,
+                                    email: data['email'] ?? '',
+                                    bio: data['bio'] ??
+                                        'There is no information about this lawyer',
+                                    adress: data['address'] ?? '    N/A',
+                                    userid: controller.userDataList![7],
+                                  );
+                                },
+                              );
+                            },
+                            child: Column(
+                              children: [
+                                card(
+                                  adrees: data['address'] ?? "no adress",
+                                  valide: data['valide'] ?? true,
+                                  name: data['firstName'] ?? '',
                                   Lastname: data['lastName'] ?? '',
-                                  Phone: data['phoneNumber'] ?? '    N/A',
-                                  valide: data['valide'] ?? false,
-                                  email: data['email'] ?? '',
-                                  bio: data['bio'] ??
-                                      'There is no information about this lawyer',
-                                  adress: data['address'] ?? '    N/A',
-                                  userid: controller.userDataList![7],
-                                );
-                              },
-                            );
-                          },
-                          child: Column(
-                            children: [
-                              card(
-                                adrees: data['address'] ?? "no adress",
-                                valide: data['valide'] ?? true,
-                                name: data['firstName'] ?? '',
-                                Lastname: data['lastName'] ?? '',
-                                image: Image.network(
-                                  data['profileImage'] ??
-                                      'https://i.pinimg.com/564x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg',
-                                  height: 65,
-                                  width: 65,
-                                  fit: BoxFit.cover,
+                                  image: Image.network(
+                                    data['profileImage'] ??
+                                        'https://i.pinimg.com/564x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg',
+                                    height: 65,
+                                    width: 65,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                              Divider(
-                                height: 1,
-                                color: theme.brightness == Brightness.dark
-                                    ? Colors.white.withOpacity(
-                                        0.14) // White color with 14% opacity
-                                    : Color.fromARGB(
-                                        35, 0, 0, 0), // Default color
-                              ),
-                            ],
-                          ),
-                        );
+                                Divider(
+                                  height: 1,
+                                  color: theme.brightness == Brightness.dark
+                                      ? Colors.white.withOpacity(0.14)
+                                      : Color.fromARGB(35, 0, 0, 0),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+
+                        // If no lawyer data found but it's not the last item, return an empty container
+                        return Container();
                       },
                     );
                   }

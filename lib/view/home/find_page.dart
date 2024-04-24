@@ -82,6 +82,7 @@ class _FindPageState extends State<FindPage> {
                     child: Padding(
                       padding: EdgeInsets.only(left: 10),
                       child: DropdownButton(
+                        menuMaxHeight: 300,
                         items: items.map((String item) {
                           return DropdownMenuItem(
                             value: item,
