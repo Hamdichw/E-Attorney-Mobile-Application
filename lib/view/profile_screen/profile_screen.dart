@@ -138,7 +138,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   isswitch: true,
                 ),
                 ProfileMenuWidget(
-                  title: "Dark Theme",
+                  title: "23".tr,
                   icon: Icons.dark_mode,
                   onPress: () => Get.off(Mode()),
                   isswitch: true,
@@ -152,7 +152,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   isswitch: false,
                 ),
                 ProfileMenuWidget(
-                  title: "Logout",
+                  title: "24".tr,
                   icon: Icons.logout,
                   textColor: const Color.fromARGB(255, 255, 17, 0),
                   endIcon: false,
@@ -167,19 +167,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       confirmBtnColor: Colors.green,
                       onConfirmBtnTap: () async {
                         Navigator.of(context).pop(); // Close the AlertDialog
-                        Navigator.pushReplacement(
-                          // Navigate to the login screen and remove the current route from the navigation stack
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => Screen4(),
-                          ),
-                        );
+
                         SharedPreferences prefs =
                             await SharedPreferences.getInstance();
                         await prefs.remove('isLoggedIn');
                         await prefs.remove('userData');
                         await prefs.remove('userDataGoogle');
-                        await GoogleSignin.logout();
+
+                        if (prefs.getBool('logwithgoogle') == true) {
+                          await prefs.remove('logwithgoogle');
+                          await GoogleSignin.logout();
+                        }
+
+                        Get.off(Screen4());
                       },
                       onCancelBtnTap: () {
                         Navigator.of(context).pop();

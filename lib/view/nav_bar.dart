@@ -77,7 +77,7 @@ class _NavBarState extends State<NavBar> {
                 color: theme.textTheme.bodyText1!.color,
               ),
               Icon(
-                Icons.notifications_outlined,
+                Icons.today_outlined,
                 size: 30,
                 color: theme.textTheme.bodyText1!.color,
               ),

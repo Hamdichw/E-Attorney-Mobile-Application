@@ -1,6 +1,8 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 import '../../controller/notification_controller.dart';
 import '../../utils/const.dart';
@@ -15,11 +17,26 @@ class AcceptedApp extends StatefulWidget {
 
 class _AcceptedAppState extends State<AcceptedApp> {
   final notificationController = Get.put(NotificationController());
+  Future<void> _handlerefresh() async {
+    await notificationController.GetAccept();
+    await Future.delayed(Duration(seconds: 2));
+    setState(() {});
+  }
 
   @override
   void initState() {
     super.initState();
     notificationController.fetchUserData();
+  }
+
+  triggerNotification(String lawyer) {
+    AwesomeNotifications().createNotification(
+        content: NotificationContent(
+      id: 10,
+      channelKey: 'basic_channel',
+      body: "don't forget for your appointement with your lawyer $lawyer",
+      title: 'daily remainder',
+    ));
   }
 
   @override
@@ -74,57 +91,69 @@ class _AcceptedAppState extends State<AcceptedApp> {
                     ],
                   );
                 } else {
-                  return ListView.builder(
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (context, index) {
-                      var lawyer = snapshot.data![index]['lawyer'];
-                      var lawyerName =
-                          '${lawyer['firstName']} ${lawyer['lastName']}';
-                      var lawyerEmail = lawyer['phoneNumber'] ?? '';
-                      var lawyerProfileImage = lawyer['profileImage'] ??
-                          'https://i.pinimg.com/564x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg';
+                  return LiquidPullToRefresh(
+                    borderWidth: 1,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : btncolor,
+                    height: 200,
+                    onRefresh: _handlerefresh,
+                    child: ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        var lawyer = snapshot.data![index]['lawyer'];
+                        var lawyerName =
+                            '${lawyer['firstName']} ${lawyer['lastName']}';
+                        var lawyerEmail = lawyer['phoneNumber'] ?? '';
+                        var lawyerProfileImage = lawyer['profileImage'] ??
+                            'https://i.pinimg.com/564x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg';
 
-                      // Parse the datetime string into a DateTime object
-                      var date = snapshot.data![index]['start'] ?? '';
+                        // Parse the datetime string into a DateTime object
+                        var date = snapshot.data![index]['start'] ?? '';
 
-                      // Parse the date string into a DateTime object
-                      var dateTime = DateTime.parse(date as String);
+                        // Parse the date string into a DateTime object
+                        var dateTime = DateTime.parse(date as String);
 
-                      // Format the date as "yyyy-MM-dd"
-                      var formattedDate =
-                          DateFormat('yyyy-MM-dd').format(dateTime);
-                      // Format the time as "HH:mm"
-                      var formattedTime = DateFormat('HH:mm').format(dateTime);
+                        // Format the date as "yyyy-MM-dd"
+                        var formattedDate =
+                            DateFormat('yyyy-MM-dd').format(dateTime);
+                        // Format the time as "HH:mm"
+                        var formattedTime =
+                            DateFormat('HH:mm').format(dateTime);
+                        var today = DateTime.now();
+                        print(today);
+                        if (formattedDate == today) {
+                          triggerNotification(lawyerName);
+                        }
 
-                      return ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(lawyerProfileImage),
-                        ),
-                        title: Text(lawyerName),
-                        subtitle: Text(lawyerEmail),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              '$formattedDate \n$formattedTime',
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: btncolor,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(width: 8),
-                            Icon(
-                              Icons.done,
-                              color: Colors.green[400],
-                              size: 30,
-                            ),
-                          ],
-                        ),
-                        onTap: () {
-                          // Add any action you want to perform when ListTile is tapped
-                        },
-                      );
-                    },
+                        return ListTile(
+                          leading: CircleAvatar(
+                            backgroundImage: NetworkImage(lawyerProfileImage),
+                          ),
+                          title: Text(lawyerName),
+                          subtitle: Text(lawyerEmail),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                '$formattedDate \n$formattedTime',
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(width: 8),
+                              Icon(
+                                Icons.done,
+                                color: Colors.green[400],
+                                size: 30,
+                              ),
+                            ],
+                          ),
+                          onTap: () {
+                            // Add any action you want to perform when ListTile is tapped
+                          },
+                        );
+                      },
+                    ),
                   );
                 }
               }),

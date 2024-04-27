@@ -62,12 +62,10 @@ class _FindPageState extends State<FindPage> {
                 children: [
                   Text(
                     "${"16".tr} :",
-                    style: GoogleFonts.electrolize(
-                      textStyle: TextStyle(
-                        color: btncolor,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    style: TextStyle(
+                      color: btncolor,
+                      fontSize: 21,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   SizedBox(

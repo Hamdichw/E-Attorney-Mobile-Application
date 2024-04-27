@@ -127,11 +127,12 @@ class _Chat_PageState extends State<Chat_Page> {
 
       String message = chatMessage['replymessage'] as String;
       print(message);
-      if (message.contains('https') &&
-          (message.contains('.png') ||
-              message.contains('.jpg') ||
-              message.contains('.jpeg') ||
-              message.contains('.gif'))) {
+      if (message.contains('https') ||
+          message.contains('http') &&
+              (message.contains('.png') ||
+                  message.contains('.jpg') ||
+                  message.contains('.jpeg') ||
+                  message.contains('.gif'))) {
         newMessage = types.ImageMessage(
           author: author,
           createdAt: DateTime.parse(chatMessage['time']).millisecondsSinceEpoch,
@@ -140,7 +141,8 @@ class _Chat_PageState extends State<Chat_Page> {
           size: 1,
           uri: message, // Corrected parameter name
         );
-      } else if (message.contains('https') && (message.contains('.pdf'))) {
+      } else if (message.contains('https') ||
+          message.contains('http') && (message.contains('.pdf'))) {
         newMessage = types.FileMessage(
           author: author,
           createdAt: DateTime.parse(chatMessage['time']).millisecondsSinceEpoch,
@@ -223,11 +225,12 @@ class _Chat_PageState extends State<Chat_Page> {
                 imageUrl: widget.lawyeimage,
               ); // Otherwise, use sender's name
         // Check if the message contains a link to an image
-        if (chatMessage.replyMessage.contains('https') &&
-            (chatMessage.replyMessage.contains('.png') ||
-                chatMessage.replyMessage.contains('.jpg') ||
-                chatMessage.replyMessage.contains('.jpeg') ||
-                chatMessage.replyMessage.contains('.gif'))) {
+        if (chatMessage.replyMessage.contains('https') ||
+            chatMessage.replyMessage.contains('http') &&
+                (chatMessage.replyMessage.contains('.png') ||
+                    chatMessage.replyMessage.contains('.jpg') ||
+                    chatMessage.replyMessage.contains('.jpeg') ||
+                    chatMessage.replyMessage.contains('.gif'))) {
           // Create an ImageMessage if the message contains a link to an image
           return types.ImageMessage(
             author: author,
@@ -236,8 +239,9 @@ class _Chat_PageState extends State<Chat_Page> {
             name: '', size: 1,
             uri: chatMessage.replyMessage, // Corrected parameter name
           );
-        } else if (chatMessage.replyMessage.contains('https') &&
-            (chatMessage.replyMessage.contains('.pdf'))) {
+        } else if (chatMessage.replyMessage.contains('https') ||
+            chatMessage.replyMessage.contains('http') &&
+                (chatMessage.replyMessage.contains('.pdf'))) {
           // Create an ImageMessage if the message contains a link to an image
           return types.FileMessage(
             author: author,
@@ -383,7 +387,7 @@ class _Chat_PageState extends State<Chat_Page> {
         print(jsonResponse['secure_url']);
 
         // Parse the message from the response
-        _handleSendPressed(types.PartialText(text: jsonResponse['url']));
+        _handleSendPressed(types.PartialText(text: jsonResponse['secure_url']));
       } else {
         print("error fetching last message: ${response.statusCode}");
       }

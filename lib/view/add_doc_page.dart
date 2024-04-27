@@ -3,14 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 import '../controller/chat_controller.dart';
 import '../controller/document_controller.dart';
 import '../utils/const.dart';
 
-class AddDoc extends StatelessWidget {
+class AddDoc extends StatefulWidget {
+  @override
+  State<AddDoc> createState() => _AddDocState();
+}
+
+class _AddDocState extends State<AddDoc> {
   final Document_Add controller = Get.put(Document_Add());
+
   final Chat_Controller controller1 = Get.put(Chat_Controller());
+
+  Future<void> _handlerefresh() async {
+    await controller.getDocument();
+    await Future.delayed(Duration(seconds: 2));
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -75,7 +89,7 @@ class AddDoc extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: 16),
                           child: Text(
-                            "All Documents :",
+                            "25".tr,
                             style: GoogleFonts.electrolize(
                               textStyle: TextStyle(
                                 color: theme.textTheme.displayLarge!.color,
@@ -86,22 +100,31 @@ class AddDoc extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          child: GridView.builder(
-                            padding: EdgeInsets.all(16),
-                            itemCount: snapshot.data!.length,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 8,
-                              crossAxisSpacing: 8,
+                          child: LiquidPullToRefresh(
+                            borderWidth: 1,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : btncolor,
+                            height: 200,
+                            onRefresh: _handlerefresh,
+                            child: GridView.builder(
+                              padding: EdgeInsets.all(16),
+                              itemCount: snapshot.data!.length,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 8,
+                                crossAxisSpacing: 8,
+                              ),
+                              itemBuilder: (context, index) {
+                                final file = snapshot.data![index];
+                                return buildFile(
+                                  file,
+                                  theme,
+                                );
+                              },
                             ),
-                            itemBuilder: (context, index) {
-                              final file = snapshot.data![index];
-                              return buildFile(
-                                file,
-                                theme,
-                              );
-                            },
                           ),
                         ),
                       ],

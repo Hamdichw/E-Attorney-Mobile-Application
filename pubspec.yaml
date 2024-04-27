@@ -73,6 +73,8 @@ dependencies:
   fluttertoast: ^8.2.5
   double_back_to_close_app: ^2.1.0
   quickalert: ^1.1.0
+  liquid_pull_to_refresh: ^3.0.1
+  awesome_notifications: ^0.9.3+1
   
 
 

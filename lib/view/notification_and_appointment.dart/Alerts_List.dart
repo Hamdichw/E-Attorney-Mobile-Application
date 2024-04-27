@@ -1,8 +1,10 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:estichara/utils/const.dart';
 import 'package:estichara/utils/widgets/Reload_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:quickalert/quickalert.dart';
 
 import '../../controller/notification_controller.dart';
@@ -16,11 +18,25 @@ class Alerts extends StatefulWidget {
 
 class _AlertsState extends State<Alerts> {
   final notificationController = Get.put(NotificationController());
+  Future<void> _handlerefresh() async {
+    await notificationController.GetRequest();
+    await Future.delayed(Duration(seconds: 2));
+    setState(() {});
+  }
 
   @override
   void initState() {
     super.initState();
     notificationController.fetchUserData();
+  }
+
+  triggerNotification(String lawyer) {
+    AwesomeNotifications().createNotification(
+        content: NotificationContent(
+            id: 10,
+            channelKey: 'basic_channel',
+            body: "don't forget for your appointement with your lawyer $lawyer",
+            title: 'daily remainder'));
   }
 
   @override
@@ -75,86 +91,99 @@ class _AlertsState extends State<Alerts> {
                     ],
                   );
                 } else {
-                  return ListView.builder(
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (context, index) {
-                      var lawyer = snapshot.data![index]['lawyer'];
-                      var lawyerName =
-                          '${lawyer['firstName']} ${lawyer['lastName']}';
-                      var lawyerEmail = lawyer['phoneNumber'] ?? '22-222-222';
-                      var lawyerProfileImage = lawyer['profileImage'] ??
-                          'https://i.pinimg.com/564x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg';
-                      var date = snapshot.data![index]['start'] ?? '';
+                  return LiquidPullToRefresh(
+                    borderWidth: 1,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : btncolor,
+                    height: 200,
+                    onRefresh: _handlerefresh,
+                    child: ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        var lawyer = snapshot.data![index]['lawyer'];
+                        var lawyerName =
+                            '${lawyer['firstName']} ${lawyer['lastName']}';
+                        var lawyerEmail = lawyer['phoneNumber'] ?? '22-222-222';
+                        var lawyerProfileImage = lawyer['profileImage'] ??
+                            'https://i.pinimg.com/564x/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg';
+                        var date = snapshot.data![index]['start'] ?? '';
 
-                      // Parse the date string into a DateTime object
-                      var dateTime = DateTime.parse(date);
+                        // Parse the date string into a DateTime object
+                        var dateTime = DateTime.parse(date);
 
-                      // Format the date as "yyyy-MM-dd"
-                      var formattedDate =
-                          DateFormat('yyyy-MM-dd').format(dateTime);
-                      // Format the time as "HH:mm"
-                      var formattedTime = DateFormat('HH:mm').format(dateTime);
-
-                      return Dismissible(
-                        key: Key(index.toString()),
-                        background: Container(
-                          color: Colors.red,
-                          alignment: Alignment.centerRight,
-                          padding: EdgeInsets.only(right: 20.0),
-                          child: Icon(Icons.delete, color: Colors.white),
-                        ),
-                        onDismissed: (direction) {
-                          QuickAlert.show(
-                              disableBackBtn: true,
-                              confirmBtnText: "Delete",
-                              context: Get.context!,
-                              title: 'Delete the request?',
-                              type: QuickAlertType.warning,
-                              onCancelBtnTap: () {
-                                setState(() {});
-                                Navigator.of(context).pop();
-                              },
-                              onConfirmBtnTap: () async {
-                                await controller.Delete(
-                                    snapshot.data![index]['appointmentID']);
-                                setState(() {});
-                                //Navigator.of(context).pop();
-                              },
-                              showCancelBtn: true);
-                        },
-                        direction: DismissDirection.endToStart,
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundImage: NetworkImage(lawyerProfileImage),
+                        // Format the date as "yyyy-MM-dd"
+                        var formattedDate =
+                            DateFormat('yyyy-MM-dd').format(dateTime);
+                        // Format the time as "HH:mm"
+                        var formattedTime =
+                            DateFormat('HH:mm').format(dateTime);
+                        var today =
+                            DateFormat('yyyy-MM-dd').format(DateTime.now());
+                        print(today);
+                        if (formattedDate == today) {
+                          triggerNotification(lawyerName);
+                        }
+                        return Dismissible(
+                          key: Key(index.toString()),
+                          background: Container(
+                            color: Colors.red,
+                            alignment: Alignment.centerRight,
+                            padding: EdgeInsets.only(right: 20.0),
+                            child: Icon(Icons.delete, color: Colors.white),
                           ),
-                          title: Text(lawyerName),
-                          subtitle: Text(lawyerEmail),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                '$formattedDate \n$formattedTime',
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: btncolor,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 10),
-                                child: Icon(
-                                  Icons.delete_sweep_outlined,
-                                  color: Colors.redAccent[700],
-                                  size: 40,
-                                ),
-                              )
-                            ],
-                          ),
-                          onTap: () {
-                            // Add any action you want to perform when ListTile is tapped
+                          onDismissed: (direction) {
+                            QuickAlert.show(
+                                disableBackBtn: true,
+                                confirmBtnText: "Delete",
+                                context: Get.context!,
+                                title: 'Delete the request?',
+                                type: QuickAlertType.warning,
+                                onCancelBtnTap: () {
+                                  setState(() {});
+                                  Navigator.of(context).pop();
+                                },
+                                onConfirmBtnTap: () async {
+                                  await controller.Delete(
+                                      snapshot.data![index]['appointmentID']);
+                                  setState(() {});
+                                  //Navigator.of(context).pop();
+                                },
+                                showCancelBtn: true);
                           },
-                        ),
-                      );
-                    },
+                          direction: DismissDirection.endToStart,
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundImage: NetworkImage(lawyerProfileImage),
+                            ),
+                            title: Text(lawyerName),
+                            subtitle: Text(lawyerEmail),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  '$formattedDate \n$formattedTime',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 10),
+                                  child: Icon(
+                                    Icons.delete_sweep_outlined,
+                                    color: Colors.redAccent[700],
+                                    size: 40,
+                                  ),
+                                )
+                              ],
+                            ),
+                            onTap: () {
+                              // Add any action you want to perform when ListTile is tapped
+                            },
+                          ),
+                        );
+                      },
+                    ),
                   );
                 }
               }),

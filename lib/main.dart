@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:estichara/locale/locale.dart';
 import 'package:estichara/locale/locale_controller.dart';
@@ -11,21 +12,46 @@ import 'package:get_storage/get_storage.dart';
 import 'view/first_screens/splash_screen.dart';
 
 Future<void> main() async {
+  AwesomeNotifications().initialize(
+      null,
+      [
+        NotificationChannel(
+          channelKey: 'basic_channel',
+          channelName: 'Basic notifications',
+          channelDescription: 'Notification channel for basic tests',
+          channelShowBadge: true,
+        )
+      ],
+      debug: true);
   await GetStorage.init(); // Initialize GetStorage
 
   DependencyInjection.init(); // Initialize your dependencies
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+      if (!isAllowed) {
+        AwesomeNotifications().requestPermissionToSendNotifications();
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    Get.put(MyLocaleController()); // Initialize MyLocaleController
+    Get.put(MyLocaleController());
     return GetMaterialApp(
-        translations: MyLocale(), // Your translations class
-        locale: Locale(Get.find<MyLocaleController>()
-            .selectedLanguage), // Set the initial locale
-        fallbackLocale: Locale('en'), // Fallback locale
+        translations: MyLocale(),
+        locale: Locale(Get.find<MyLocaleController>().selectedLanguage),
+        fallbackLocale: Locale('en'), //Fallback locale
         debugShowCheckedModeBanner: false,
         theme: Themes().lightTheme,
         darkTheme: Themes().darkTheme,

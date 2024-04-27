@@ -162,6 +162,7 @@ Future<void> loginwithgooglecustomize(
       await prefs.setString('userData', jsonEncode(json));
       await prefs.setBool('firstLog', true);
       await prefs.setBool('isLoggedIn', true);
+      await prefs.setBool('logwithgoogle', true);
       // Optionally, save login status if needed
 
       // Navigate to next screen
@@ -316,4 +317,8 @@ String truncateMot1(String email) {
   } else {
     return email;
   }
+}
+
+Future<void> handlerefresh() async {
+  return await Future.delayed(Duration(seconds: 3));
 }

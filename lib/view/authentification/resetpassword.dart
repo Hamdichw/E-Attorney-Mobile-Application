@@ -1,7 +1,9 @@
 import 'package:estichara/utils/function.dart';
+import 'package:estichara/view/authentification/login.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
 import '../../utils/const.dart';
 import '../../utils/widgets/text_field.dart';
@@ -19,10 +21,19 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          leading: IconButton(
+        icon: Icon(Icons.arrow_back_rounded),
+        onPressed: () {
+          Get.off(Login());
+        },
+      )),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.25,
+          ),
           Padding(
             padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
             child: Text(

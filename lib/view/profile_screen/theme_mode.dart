@@ -29,7 +29,8 @@ class _ModeState extends State<Mode> {
     MyLocaleController controllerlang = Get.find();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Theme Mode'),
+        title: Text('23'.tr),
+        centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {

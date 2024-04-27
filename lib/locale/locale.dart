@@ -20,13 +20,16 @@ class MyLocale implements Translations {
           "13": "حفظ",
           "14": "طلبات",
           "15": "المواعيد",
-          "16": "الاقسام",
+          "16": " الاقسام",
           "17": "الموقع",
           "18": "الاختصاص",
           "19": "متصل",
           "20": "الرسائل الأخيرة",
           "21": "إضافة المستندات",
-          "22": "البحث"
+          "22": "البحث",
+          "23": "الوضع الليلي",
+          "24": "تسجيل خروج",
+          "25": " جميع المستندات :"
         },
         "en": {
           "1": "Arabic",
@@ -44,13 +47,16 @@ class MyLocale implements Translations {
           "13": "Save",
           "14": "requests",
           "15": "accepted",
-          "16": "Find by",
+          "16": "Find a Lawyer in",
           "17": "location",
           "18": "type",
           "19": "online",
           "20": "Recent Messages",
           "21": "Add Docs",
-          "22": "search"
+          "22": "search",
+          "23": "Dark Theme",
+          "24": "logout",
+          "25": "All Documents :"
         },
         "fr": {
           "1": "Arabe",
@@ -68,13 +74,16 @@ class MyLocale implements Translations {
           "13": "Enregistrer",
           "14": "demandes",
           "15": "accepter",
-          "16": "Find by",
+          "16": "Trouver un avocat à",
           "17": "lieux",
           "18": "type",
           "19": "en ligne",
           "20": "Messages récents",
           "21": "ajouter des documents",
-          "22": "recherche"
+          "22": "recherche",
+          "23": "Theme Sombre",
+          "24": "déconnecter",
+          "25": "Tous les documents :"
         }
       };
 }

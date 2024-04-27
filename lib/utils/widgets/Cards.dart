@@ -59,11 +59,10 @@ class card extends StatelessWidget {
                     children: [
                       Text(
                         '$Lastname  $name ',
-                        style: GoogleFonts.electrolize(
-                            textStyle: TextStyle(
-                                color: theme.textTheme.bodyLarge!.color,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold)),
+                        style: TextStyle(
+                            color: theme.textTheme.bodyLarge!.color,
+                            fontSize: 19,
+                            fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
                         width: 5,
