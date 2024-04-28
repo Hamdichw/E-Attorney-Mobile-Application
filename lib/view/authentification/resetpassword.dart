@@ -16,6 +16,7 @@ class ResetPassword extends StatefulWidget {
 }
 
 TextEditingController email = TextEditingController();
+final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
 class _ResetPasswordState extends State<ResetPassword> {
   @override
@@ -28,57 +29,69 @@ class _ResetPasswordState extends State<ResetPassword> {
           Get.off(Login());
         },
       )),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.25,
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-            child: Text(
-              'Reset your Password.',
-              style: TextStyle(
-                color: btncolor,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
-            child: InputField(
-              hintText: 'enter your email',
-              controller: email,
-              validator: Validators.validateEmail,
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Center(
-            child: ElevatedButton(
-              onPressed: () async {
-                print(email.text);
-                ResetPasswordFunction(email.text);
-              },
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(150, 50),
-                backgroundColor: btncolor,
-              ),
-              child: Text(
-                'Send',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+      body: Align(
+        alignment: Alignment.topCenter,
+        child: SingleChildScrollView(
+          reverse: true,
+          child: Form(
+            key: formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.25,
                 ),
-              ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                  child: Text(
+                    'Reset your Password.',
+                    style: TextStyle(
+                      color: btncolor,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 20, right: 20, bottom: 15),
+                  child: InputField(
+                    hintText: 'enter your email',
+                    controller: email,
+                    validator: Validators.validateEmail,
+                  ),
+                ),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        ResetPasswordFunction(email.text);
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(150, 50),
+                      backgroundColor: btncolor,
+                    ),
+                    child: Text(
+                      'Send',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                )
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

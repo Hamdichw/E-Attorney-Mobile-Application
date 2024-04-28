@@ -165,7 +165,9 @@ class Login extends StatelessWidget {
               child: Text(
                 "Signup Now",
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
                   fontWeight: FontWeight.normal,
                   fontSize: 16,
                 ),

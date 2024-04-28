@@ -64,13 +64,13 @@ class _InformationState extends State<Information> {
               ),
             ),
             Text(
-              '- Real-time chat and consultation with lawyers.',
+              '- Real-time chat with lawyers.',
               style: TextStyle(
                 fontSize: 18,
               ),
             ),
             Text(
-              '- Secure payment integration for consultations.',
+              '- Secure share of document.',
               style: TextStyle(
                 fontSize: 18,
               ),

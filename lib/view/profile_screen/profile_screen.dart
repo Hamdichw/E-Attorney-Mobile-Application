@@ -158,7 +158,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   endIcon: false,
                   onPress: () async {
                     QuickAlert.show(
-                      backgroundColor: theme.scaffoldBackgroundColor,
                       context: context,
                       type: QuickAlertType.confirm,
                       text: 'Do you want to logout',

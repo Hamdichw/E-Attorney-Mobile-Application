@@ -88,6 +88,11 @@ class Signup extends StatelessWidget {
                         ),
                         Expanded(
                           child: InputField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter your birthday';
+                              }
+                            },
                             hintText: 'Birthday',
                             controller: controller.birthController,
                             readonly: true,
@@ -226,7 +231,10 @@ class Signup extends StatelessWidget {
                         child: Text(
                           "Login now",
                           style: TextStyle(
-                              color: Colors.black,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
                               fontWeight: FontWeight.normal,
                               fontSize: 16),
                         ),
