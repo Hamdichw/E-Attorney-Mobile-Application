@@ -96,7 +96,7 @@ class _AcceptedAppState extends State<AcceptedApp> {
                     color: Theme.of(context).brightness == Brightness.dark
                         ? Colors.white
                         : btncolor,
-                    height: 200,
+                    height: 150,
                     onRefresh: _handlerefresh,
                     child: ListView.builder(
                       itemCount: snapshot.data!.length,

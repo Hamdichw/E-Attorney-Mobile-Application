@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../controller/list_lawyer_controller.dart';
 
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../const.dart';

@@ -2,7 +2,6 @@ import 'package:estichara/utils/function.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 import '../controller/chat_controller.dart';
@@ -21,7 +20,7 @@ class _AddDocState extends State<AddDoc> {
 
   Future<void> _handlerefresh() async {
     await controller.getDocument();
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 1));
     setState(() {});
   }
 
@@ -210,7 +209,7 @@ class _AddDocState extends State<AddDoc> {
                                 Theme.of(context).brightness == Brightness.dark
                                     ? Colors.white
                                     : btncolor,
-                            height: 200,
+                            height: 150,
                             onRefresh: _handlerefresh,
                             child: GridView.builder(
                               padding: EdgeInsets.all(16),

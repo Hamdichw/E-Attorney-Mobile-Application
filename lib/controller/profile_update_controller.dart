@@ -22,11 +22,15 @@ class UpdateProfileController extends GetxController {
   final TextEditingController bioController = TextEditingController();
   final RxBool visible = true.obs;
   final RxBool visible1 = true.obs;
+  bool read = false;
   List<dynamic>? userDataList;
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
     fetchUserData();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    read = prefs.getBool('logwithgoogle')!;
   }
 
   Future<void> fetchUserData() async {

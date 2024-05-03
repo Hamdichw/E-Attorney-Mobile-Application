@@ -1,6 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
 import '../../utils/const.dart';
 import '../../utils/widgets/text_field.dart';
@@ -58,9 +57,20 @@ class _VerificationState extends State<Verification> {
                 // Compare the verification code
                 if (verification.text == code) {
                   print("Verification successful");
-
                   widget.onSuccess();
                 } else {
+                  showDialog(
+                    context: Get.context!,
+                    builder: (context) {
+                      return SimpleDialog(
+                        title: Text('Signup Failed'),
+                        contentPadding: EdgeInsets.all(20),
+                        children: [
+                          Text('check the correct verification in your email')
+                        ],
+                      );
+                    },
+                  );
                   print("Verification failed");
                 }
               },

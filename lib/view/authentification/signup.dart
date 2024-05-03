@@ -92,6 +92,7 @@ class Signup extends StatelessWidget {
                               if (value!.isEmpty) {
                                 return 'Please enter your birthday';
                               }
+                              return null;
                             },
                             hintText: 'Birthday',
                             controller: controller.birthController,

@@ -178,7 +178,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           await GoogleSignin.logout();
                         }
 
-                        Get.off(Screen4());
+                        Get.offAll(Screen4());
                       },
                       onCancelBtnTap: () {
                         Navigator.of(context).pop();

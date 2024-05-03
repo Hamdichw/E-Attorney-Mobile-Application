@@ -5,7 +5,7 @@ xmlns:tools="http://schemas.android.com/tools">
     
         
     <application
-        android:label="e_attorney_hub"
+        android:label="estichara"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

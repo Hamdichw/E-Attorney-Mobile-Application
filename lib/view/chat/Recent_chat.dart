@@ -36,7 +36,7 @@ class _RecentChatState extends State<RecentChat> {
         color: Theme.of(context).brightness == Brightness.dark
             ? Colors.white
             : btncolor,
-        height: 200,
+        height: 150,
         onRefresh: _handlerefresh,
         child: Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),
