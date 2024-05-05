@@ -61,7 +61,7 @@ class _Chat_PageState extends State<Chat_Page> {
     if (message is types.FileMessage) {
       var localPath = message.uri;
 
-      if (message.uri.startsWith('http')) {
+      if (message.uri.startsWith('http') || message.uri.startsWith('https')) {
         try {
           final index =
               _messages.indexWhere((element) => element.id == message.id);
@@ -127,7 +127,11 @@ class _Chat_PageState extends State<Chat_Page> {
 
       String message = chatMessage['replymessage'] as String;
       print(message);
-      if (message.contains('https') ||
+      if (message.contains('https') &&
+              (message.contains('.png') ||
+                  message.contains('.jpg') ||
+                  message.contains('.jpeg') ||
+                  message.contains('.gif')) ||
           message.contains('http') &&
               (message.contains('.png') ||
                   message.contains('.jpg') ||
@@ -141,7 +145,7 @@ class _Chat_PageState extends State<Chat_Page> {
           size: 1,
           uri: message, // Corrected parameter name
         );
-      } else if (message.contains('https') ||
+      } else if (message.contains('https') && (message.contains('.pdf')) ||
           message.contains('http') && (message.contains('.pdf'))) {
         newMessage = types.FileMessage(
           author: author,
@@ -197,6 +201,7 @@ class _Chat_PageState extends State<Chat_Page> {
 
     if (response.statusCode != 200) {
       // Handle error
+      print(response.body);
     }
   }
 
@@ -225,7 +230,11 @@ class _Chat_PageState extends State<Chat_Page> {
                 imageUrl: widget.lawyeimage,
               ); // Otherwise, use sender's name
         // Check if the message contains a link to an image
-        if (chatMessage.replyMessage.contains('https') ||
+        if (chatMessage.replyMessage.contains('https') &&
+                (chatMessage.replyMessage.contains('.png') ||
+                    chatMessage.replyMessage.contains('.jpg') ||
+                    chatMessage.replyMessage.contains('.jpeg') ||
+                    chatMessage.replyMessage.contains('.gif')) ||
             chatMessage.replyMessage.contains('http') &&
                 (chatMessage.replyMessage.contains('.png') ||
                     chatMessage.replyMessage.contains('.jpg') ||
@@ -239,7 +248,8 @@ class _Chat_PageState extends State<Chat_Page> {
             name: '', size: 1,
             uri: chatMessage.replyMessage, // Corrected parameter name
           );
-        } else if (chatMessage.replyMessage.contains('https') ||
+        } else if (chatMessage.replyMessage.contains('https') &&
+                (chatMessage.replyMessage.contains('.pdf')) ||
             chatMessage.replyMessage.contains('http') &&
                 (chatMessage.replyMessage.contains('.pdf'))) {
           // Create an ImageMessage if the message contains a link to an image
@@ -266,6 +276,7 @@ class _Chat_PageState extends State<Chat_Page> {
         _messages
             .addAll(newMessages.toList()); // Reverse and append new messages
       });
+      print(_messages);
     } else {
       print("error dali ${response.statusCode}");
     }
