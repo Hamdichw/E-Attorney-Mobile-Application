@@ -20,22 +20,7 @@ class _ChatState extends State<Chat> {
       child: Scaffold(
         body: Column(
           children: [
-            Row(
-              children: [
-                Image(
-                    width: 70,
-                    height: 70,
-                    image: AssetImage("assets/images/logo.png")),
-                Text(
-                  "Estishara.tn",
-                  style: GoogleFonts.electrolize(
-                      textStyle: TextStyle(
-                          color: btncolor,
-                          fontSize: 24,
-                          fontWeight: FontWeight.normal)),
-                ),
-              ],
-            ),
+            Application_Name(),
             SizedBox(
               height: 10,
             ),

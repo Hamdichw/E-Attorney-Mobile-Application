@@ -32,10 +32,13 @@ class _FindPageState extends State<FindPage> {
                   image: AssetImage("assets/images/logo.png"),
                 ),
                 Text(
-                  "Estishara.tn",
+                  "Estishara",
                   style: GoogleFonts.electrolize(
                     textStyle: TextStyle(
-                      color: btncolor,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                              .withOpacity(0.6) // White color with 14% opacity
+                          : btncolor,
                       fontSize: 24,
                       fontWeight: FontWeight.normal,
                     ),

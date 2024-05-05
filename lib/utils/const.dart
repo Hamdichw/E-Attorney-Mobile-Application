@@ -18,10 +18,13 @@ class Application_Name extends StatelessWidget {
         Image(
             width: 70, height: 70, image: AssetImage("assets/images/logo.png")),
         Text(
-          "Estishara.tn",
+          "Estishara",
           style: GoogleFonts.electrolize(
               textStyle: TextStyle(
-                  color: btncolor,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                          .withOpacity(0.6) // White color with 14% opacity
+                      : btncolor,
                   fontSize: 24,
                   fontWeight: FontWeight.normal)),
         ),
