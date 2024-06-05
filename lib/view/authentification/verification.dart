@@ -79,7 +79,7 @@ class _VerificationState extends State<Verification> {
                 backgroundColor: btncolor,
               ),
               child: Text(
-                'verif',
+                'verify',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

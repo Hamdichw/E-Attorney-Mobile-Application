@@ -12,6 +12,7 @@ import 'package:get_storage/get_storage.dart';
 import 'view/first_screens/splash_screen.dart';
 
 Future<void> main() async {
+  //initialiser notification
   AwesomeNotifications().initialize(
       null,
       [
@@ -25,7 +26,8 @@ Future<void> main() async {
       debug: true);
   await GetStorage.init(); // Initialize GetStorage
 
-  DependencyInjection.init(); // Initialize your dependencies
+  DependencyInjection
+      .init(); // Initialize your dependencies inject dependicie test internet
   runApp(MyApp());
 }
 
@@ -49,10 +51,12 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     Get.put(MyLocaleController());
     return GetMaterialApp(
+        //language param
         translations: MyLocale(),
         locale: Locale(Get.find<MyLocaleController>().selectedLanguage),
         fallbackLocale: Locale('en'), //Fallback locale
         debugShowCheckedModeBanner: false,
+        //theme param
         theme: Themes().lightTheme,
         darkTheme: Themes().darkTheme,
         themeMode: Themes().getThemeMode(),

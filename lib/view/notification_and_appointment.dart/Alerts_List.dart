@@ -1,4 +1,3 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:estichara/utils/const.dart';
 import 'package:estichara/utils/widgets/Reload_page.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,7 @@ import 'package:quickalert/quickalert.dart';
 
 import '../../controller/notification_controller.dart';
 
+/***************UI page demande rendez-vous **************************************** */
 class Alerts extends StatefulWidget {
   const Alerts({Key? key}) : super(key: key);
 
@@ -24,19 +24,11 @@ class _AlertsState extends State<Alerts> {
     setState(() {});
   }
 
+/*************get  données utilisateur *********************/
   @override
   void initState() {
     super.initState();
     notificationController.fetchUserData();
-  }
-
-  triggerNotification(String lawyer) {
-    AwesomeNotifications().createNotification(
-        content: NotificationContent(
-            id: 10,
-            channelKey: 'basic_channel',
-            body: "don't forget for your appointement with your lawyer $lawyer",
-            title: 'daily remainder'));
   }
 
   @override
@@ -47,6 +39,7 @@ class _AlertsState extends State<Alerts> {
           if (controller.userDataList == null) {
             return Center(child: CircularProgressIndicator());
           } else {
+            /*********get list demande  rendez-vous  ************************/
             return FutureBuilder<List<dynamic>>(
               future: controller.GetRequest(),
               builder: ((context, snapshot) {
@@ -73,6 +66,7 @@ class _AlertsState extends State<Alerts> {
                   );
                 } else if (snapshot.data!.length == 0) {
                   return Column(
+                    /*******s'il n'y a pas des demande ********************* */
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -111,20 +105,14 @@ class _AlertsState extends State<Alerts> {
 
                         // Parse the date string into a DateTime object
                         var dateTime = DateTime.parse(date);
-
                         // Format the date as "yyyy-MM-dd"
                         var formattedDate =
                             DateFormat('yyyy-MM-dd').format(dateTime);
                         // Format the time as "HH:mm"
                         var formattedTime =
                             DateFormat('HH:mm').format(dateTime);
-                        var today =
-                            DateFormat('yyyy-MM-dd').format(DateTime.now());
-                        print(today);
-                        if (formattedDate == today) {
-                          triggerNotification(lawyerName);
-                        }
                         return Dismissible(
+                          //swipe pour supprimer le rendez-vous
                           key: Key(index.toString()),
                           background: Container(
                             color: Colors.red,
@@ -147,7 +135,6 @@ class _AlertsState extends State<Alerts> {
                                   await controller.Delete(
                                       snapshot.data![index]['appointmentID']);
                                   setState(() {});
-                                  //Navigator.of(context).pop();
                                 },
                                 showCancelBtn: true);
                           },
@@ -177,9 +164,7 @@ class _AlertsState extends State<Alerts> {
                                 )
                               ],
                             ),
-                            onTap: () {
-                              // Add any action you want to perform when ListTile is tapped
-                            },
+                            onTap: () {},
                           ),
                         );
                       },

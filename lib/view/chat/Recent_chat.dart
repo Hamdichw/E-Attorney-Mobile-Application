@@ -20,7 +20,7 @@ class RecentChat extends StatefulWidget {
 
 class _RecentChatState extends State<RecentChat> {
   final Chat_Controller controller = Get.put(Chat_Controller());
-
+/*******fonction pour LiquidPullToRefresh */
   Future<void> _handlerefresh() async {
     await controller.GetAllChat();
     await Future.delayed(Duration(seconds: 2));
@@ -69,6 +69,7 @@ class _RecentChatState extends State<RecentChat> {
               ),
               Flexible(
                 fit: FlexFit.loose,
+                /****************fetch the list of conversation************************* */
                 child: FutureBuilder<List<dynamic>>(
                   future: controller.GetAllChat(),
                   builder: (context, snapshot) {
@@ -115,7 +116,7 @@ class _RecentChatState extends State<RecentChat> {
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
                           var data = snapshot.data![index]['firstUser'];
-                          // Fetch last message
+                          //***************************  Fetch last message  **************************/
                           return FutureBuilder<Map<String, dynamic>?>(
                             future: controller.fetchLastMessage(
                                 snapshot.data![index]['chatId']),

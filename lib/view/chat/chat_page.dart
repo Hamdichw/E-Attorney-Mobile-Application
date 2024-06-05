@@ -45,18 +45,21 @@ class _Chat_PageState extends State<Chat_Page> {
     _startPolling();
   }
 
+/********************to close the flux when exit the page*************** */
   @override
   void dispose() {
     _timer.cancel(); // Cancel the timer in dispose
     super.dispose();
   }
 
+/********************to open the flux when exit the page*************** */
   void _startPolling() {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       _fetchLastMessage();
     });
   }
 
+/*********************function to handle open file************** */
   void _handleMessageTap(BuildContext _, types.Message message) async {
     if (message is types.FileMessage) {
       var localPath = message.uri;
@@ -102,6 +105,7 @@ class _Chat_PageState extends State<Chat_Page> {
     }
   }
 
+/******************function to fetch the last message every second******** */
   void _fetchLastMessage() async {
     // Fetch the last message from your API
     String? token = await getToken();
@@ -180,6 +184,7 @@ class _Chat_PageState extends State<Chat_Page> {
     }
   }
 
+/***************function to handle send message****************** */
   void _handleSendPressed(types.PartialText message) async {
     //_addMessage(textMessage);
     String? token = await getToken();
@@ -205,6 +210,7 @@ class _Chat_PageState extends State<Chat_Page> {
     }
   }
 
+/***************function to fetch all message **************************** */
   void _fetchMessages() async {
     // Fetch messages from your API
     String? token = await getToken();
@@ -282,6 +288,7 @@ class _Chat_PageState extends State<Chat_Page> {
     }
   }
 
+/***************function to handle add file******************** */
   void _handleAttachmentPressed() {
     showModalBottomSheet<void>(
       context: context,
@@ -341,6 +348,7 @@ class _Chat_PageState extends State<Chat_Page> {
     );
   }
 
+/***************function to handle image selection******************** */
   void _handleImageSelection() async {
     final result = await ImagePicker().pickImage(
       imageQuality: 70,
@@ -375,6 +383,7 @@ class _Chat_PageState extends State<Chat_Page> {
     }
   }
 
+/***************function to handle file selection******************** */
   void _handleFileSelection() async {
     final result = await FilePicker.platform
         .pickFiles(type: FileType.custom, allowedExtensions: ['pdf']);
@@ -405,6 +414,7 @@ class _Chat_PageState extends State<Chat_Page> {
     }
   }
 
+/**********ui conversation******************** */
   @override
   Widget build(BuildContext context) {
     final theMe = Theme.of(context);

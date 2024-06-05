@@ -36,8 +36,7 @@ class _FindPageState extends State<FindPage> {
                   style: GoogleFonts.electrolize(
                     textStyle: TextStyle(
                       color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                              .withOpacity(0.6) // White color with 14% opacity
+                          ? Colors.white.withOpacity(0.6)
                           : btncolor,
                       fontSize: 24,
                       fontWeight: FontWeight.normal,

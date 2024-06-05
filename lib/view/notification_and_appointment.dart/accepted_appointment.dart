@@ -7,6 +7,7 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import '../../controller/notification_controller.dart';
 import '../../utils/const.dart';
 import '../../utils/widgets/Reload_page.dart';
+/***************UI page  rendez-vous accepter **************************************** */
 
 class AcceptedApp extends StatefulWidget {
   const AcceptedApp({Key? key}) : super(key: key);
@@ -22,6 +23,7 @@ class _AcceptedAppState extends State<AcceptedApp> {
     await Future.delayed(Duration(seconds: 2));
     setState(() {});
   }
+/*************get  données utilisateur *********************/
 
   @override
   void initState() {
@@ -29,6 +31,7 @@ class _AcceptedAppState extends State<AcceptedApp> {
     notificationController.fetchUserData();
   }
 
+/**********add notification listner sur la page accepter pour rappler s'il y a un rendez-vous Aujourd'hui */
   triggerNotification(String lawyer) {
     AwesomeNotifications().createNotification(
         content: NotificationContent(
@@ -46,7 +49,7 @@ class _AcceptedAppState extends State<AcceptedApp> {
         builder: (controller) {
           if (controller.userDataList == null) {
             return Center(child: CircularProgressIndicator());
-          } else {
+          } else {/*******get accepted rendez-vous************************** */
             return FutureBuilder<List<dynamic>>(
               future: controller.GetAccept(),
               builder: ((context, snapshot) {
@@ -110,7 +113,6 @@ class _AcceptedAppState extends State<AcceptedApp> {
 
                         // Parse the datetime string into a DateTime object
                         var date = snapshot.data![index]['start'] ?? '';
-
                         // Parse the date string into a DateTime object
                         var dateTime = DateTime.parse(date as String);
 

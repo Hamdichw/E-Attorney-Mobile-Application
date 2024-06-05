@@ -1,5 +1,4 @@
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
-import 'package:file_picker/file_picker.dart';
 
 import 'home/find_page.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +20,6 @@ class NavBar extends StatefulWidget {
 class _NavBarState extends State<NavBar> {
   int _pageIndex = 2;
   late PageController _pageController;
-  List<PlatformFile> files = [];
   @override
   void initState() {
     super.initState();
@@ -60,6 +58,7 @@ class _NavBarState extends State<NavBar> {
             backgroundColor: const Color.fromARGB(0, 255, 255, 255),
             index: _pageIndex,
             height: 50.0,
+            //**************icon navbar************** */
             items: <Widget>[
               Icon(
                 Icons.note_add_outlined,

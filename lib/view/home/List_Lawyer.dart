@@ -53,6 +53,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 height: 10,
               ),
               Expanded(
+                /*****************fetch list laywer**************** */
                 child: FutureBuilder<List<dynamic>>(
                   future: controller.GetAllLawyer(),
                   builder: (context, snapshot) {

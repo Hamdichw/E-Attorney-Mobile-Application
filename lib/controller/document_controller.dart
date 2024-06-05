@@ -217,9 +217,11 @@ class Document_Add extends GetxController {
         if (message['message'] == 'Document signed successfully. Signature: ') {
           await QuickAlert.show(
               context: Get.context!,
-              type: QuickAlertType.success,
-              text: 'Document signed successfully!',
-              autoCloseDuration: Duration(seconds: 4),
+              type: QuickAlertType.info,
+              title: 'check your email',
+              text:
+                  'An email has been sent to your Gmail account to complete the sign-up process.',
+              autoCloseDuration: Duration(seconds: 3),
               showConfirmBtn: false);
         } else {
           await QuickAlert.show(

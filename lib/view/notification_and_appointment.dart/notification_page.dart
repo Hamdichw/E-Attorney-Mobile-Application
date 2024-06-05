@@ -14,10 +14,7 @@ class NotitcationTap extends StatefulWidget {
 }
 
 class _NotitcationTapState extends State<NotitcationTap> {
-  List<String> newItem = List.generate(20, (index) => "follow");
-
   bool click = true;
-
   bool click1 = false;
 
   @override
@@ -32,6 +29,7 @@ class _NotitcationTapState extends State<NotitcationTap> {
             SizedBox(
               height: 20,
             ),
+            /*********choisir l'une de deux page demande et accept**************  */
             Row(
               children: [
                 GestureDetector(
@@ -110,6 +108,7 @@ class _NotitcationTapState extends State<NotitcationTap> {
                 )
               ],
             ),
+            /*****changer le page en cliquant *********************************** */
             if (click)
               Expanded(child: Alerts())
             else
